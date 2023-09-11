@@ -1,4 +1,4 @@
-package com.nhom3.zoomanagement.entities;
+package com.nhom3.zoomanagement.tests;
 
 import jakarta.persistence.*;
 

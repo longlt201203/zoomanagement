@@ -1,11 +1,6 @@
-package com.nhom3.zoomanagement.impl.tests;
+package com.nhom3.zoomanagement.tests;
 
-import com.nhom3.zoomanagement.controllers.ITestController;
-import com.nhom3.zoomanagement.dto.tests.CreateTestDTO;
-import com.nhom3.zoomanagement.dto.tests.TestDTO;
-import com.nhom3.zoomanagement.entities.Test;
 import com.nhom3.zoomanagement.errors.AppServiceException;
-import com.nhom3.zoomanagement.services.ITestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

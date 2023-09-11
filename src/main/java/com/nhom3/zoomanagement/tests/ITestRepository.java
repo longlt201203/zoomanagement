@@ -1,6 +1,5 @@
-package com.nhom3.zoomanagement.repositories;
+package com.nhom3.zoomanagement.tests;
 
-import com.nhom3.zoomanagement.entities.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // JPA Repository
