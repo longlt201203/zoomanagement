@@ -6,19 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestDTO {
-    public static TestDTO fromTest(Test test) {
+    public static TestDTO fromTest(Test test, boolean hasTestNYList) {
         TestDTO testDTO = new TestDTO();
         testDTO.setId(test.getId());
         testDTO.setNullableField(test.getNullableField());
         testDTO.setTestNotNullField(test.getTestNotNullField());
         testDTO.setUniqueField(test.getUniqueField());
+        if (hasTestNYList) {
+            testDTO.setTestNYDTOList(TestNYDTO.fromTestNYList(test.getTestNYList(), false));
+        }
         return testDTO;
     }
 
-    public static List<TestDTO> fromTestList(List<Test> testList) {
+    public static List<TestDTO> fromTestList(List<Test> testList, boolean hasTestNYList) {
         List<TestDTO> testDTOList = new ArrayList<>();
         for (Test test : testList) {
-            TestDTO testDTO = fromTest(test);
+            TestDTO testDTO = fromTest(test, hasTestNYList);
             testDTOList.add(testDTO);
         }
         return testDTOList;
@@ -28,6 +31,15 @@ public class TestDTO {
     private String testNotNullField;
     private String nullableField;
     private String uniqueField;
+    private List<TestNYDTO> testNYDTOList;
+
+    public List<TestNYDTO> getTestNYDTOList() {
+        return testNYDTOList;
+    }
+
+    public void setTestNYDTOList(List<TestNYDTO> testNYDTOList) {
+        this.testNYDTOList = testNYDTOList;
+    }
 
     public String getUniqueField() {
         return uniqueField;

@@ -19,12 +19,12 @@ public class TestController implements ITestController {
     @Override
     public List<TestDTO> getTests() {
         List<Test> tests = testService.getTests();
-        return TestDTO.fromTestList(tests);
+        return TestDTO.fromTestList(tests, true);
     }
 
     @Override
     public TestDTO createTest(CreateTestDTO dto) throws AppServiceException {
         Test test = testService.createTest(dto);
-        return TestDTO.fromTest(test);
+        return TestDTO.fromTest(test, true);
     }
 }

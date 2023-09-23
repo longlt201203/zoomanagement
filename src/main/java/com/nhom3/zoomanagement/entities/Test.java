@@ -2,6 +2,8 @@ package com.nhom3.zoomanagement.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Test {
     @Id
@@ -16,6 +18,17 @@ public class Test {
 
     @Column(unique = true)
     private String uniqueField;
+
+    @OneToMany
+    private List<TestNY> testNYList;
+
+    public List<TestNY> getTestNYList() {
+        return testNYList;
+    }
+
+    public void setTestNYList(List<TestNY> testNYList) {
+        this.testNYList = testNYList;
+    }
 
     public String getUniqueField() {
         return uniqueField;
@@ -48,4 +61,6 @@ public class Test {
     public void setNullableField(String nullableField) {
         this.nullableField = nullableField;
     }
+
+
 }
