@@ -1,6 +1,4 @@
-package com.nhom3.zoomanagement.dto.tests;
-
-import com.nhom3.zoomanagement.entities.Test;
+package com.nhom3.zoomanagement.tests;
 
 import java.util.ArrayList;
 import java.util.List;

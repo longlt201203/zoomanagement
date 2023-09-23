@@ -1,4 +1,4 @@
-package com.nhom3.zoomanagement.dto.tests;
+package com.nhom3.zoomanagement.tests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

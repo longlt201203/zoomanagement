@@ -1,5 +1,6 @@
-package com.nhom3.zoomanagement.entities;
+package com.nhom3.zoomanagement.tests;
 
+import com.nhom3.zoomanagement.tests.Test;
 import jakarta.persistence.*;
 
 import java.util.List;

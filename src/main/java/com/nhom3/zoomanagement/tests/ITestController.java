@@ -1,7 +1,7 @@
-package com.nhom3.zoomanagement.controllers;
+package com.nhom3.zoomanagement.tests;
 
-import com.nhom3.zoomanagement.dto.tests.CreateTestDTO;
-import com.nhom3.zoomanagement.dto.tests.TestDTO;
+import com.nhom3.zoomanagement.tests.CreateTestDTO;
+import com.nhom3.zoomanagement.tests.TestDTO;
 import com.nhom3.zoomanagement.errors.AppServiceException;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;

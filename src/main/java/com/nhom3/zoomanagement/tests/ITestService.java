@@ -1,7 +1,5 @@
-package com.nhom3.zoomanagement.services;
+package com.nhom3.zoomanagement.tests;
 
-import com.nhom3.zoomanagement.dto.tests.CreateTestDTO;
-import com.nhom3.zoomanagement.entities.Test;
 import com.nhom3.zoomanagement.errors.AppServiceException;
 
 import java.util.List;
