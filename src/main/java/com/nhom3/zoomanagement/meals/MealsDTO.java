@@ -1,24 +1,19 @@
 package com.nhom3.zoomanagement.meals;
 
-import com.nhom3.zoomanagement.areas.Area;
-import com.nhom3.zoomanagement.areas.AreaDTO;
-import com.nhom3.zoomanagement.cages.Cage;
-import com.nhom3.zoomanagement.cages.CageDTO;
+import com.nhom3.zoomanagement.cages.CagesDTO;
 import com.nhom3.zoomanagement.utils.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MealDTO {
-    public static MealDTO fromMeal(Meal meal, boolean hasCage) {
-        MealDTO mealDTO = new MealDTO();
+public class MealsDTO {
+    public static MealsDTO fromMeal(Meal meal, boolean hasCage) {
+        MealsDTO mealDTO = new MealsDTO();
         mealDTO.setId(meal.getId());
         mealDTO.setFood(meal.getFood());
         mealDTO.setTime(meal.getTime());
@@ -26,7 +21,7 @@ public class MealDTO {
         mealDTO.setStatus(meal.getStatus());
         mealDTO.setNote(meal.getNote());
         if (hasCage) {
-            mealDTO.setCage(CageDTO.fromCage(meal.getCage(), false, false, false));
+            mealDTO.setCage(CagesDTO.fromCage(meal.getCage(), false, false, false));
         }
         return mealDTO;
     }
@@ -37,5 +32,5 @@ public class MealDTO {
     private String quantity;
     private Enums.MealStatusEnum status;
     private String note;
-    private CageDTO cage;
+    private CagesDTO cage;
 }

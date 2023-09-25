@@ -1,7 +1,7 @@
 package com.nhom3.zoomanagement.animals;
 
-import com.nhom3.zoomanagement.animalimages.AnimalImage;
-import com.nhom3.zoomanagement.animalspecies.AnimalSpecie;
+import com.nhom3.zoomanagement.animal_images.AnimalImage;
+import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
 import com.nhom3.zoomanagement.utils.Enums;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class Animal {
     private String note;
 
     @ManyToOne()
-    private AnimalSpecie specie;
+    private AnimalSpecies species;
 
     @OneToMany(mappedBy = "animal")
     private List<AnimalImage> imageList;

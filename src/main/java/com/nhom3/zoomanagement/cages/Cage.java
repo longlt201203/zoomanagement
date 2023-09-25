@@ -1,6 +1,6 @@
 package com.nhom3.zoomanagement.cages;
 
-import com.nhom3.zoomanagement.animalspecies.AnimalSpecie;
+import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
 import com.nhom3.zoomanagement.areas.Area;
 import com.nhom3.zoomanagement.meals.Meal;
 import jakarta.persistence.*;
@@ -27,7 +27,7 @@ public class Cage {
     private Area area;
 
     @ManyToOne()
-    private AnimalSpecie animalSpecie;
+    private AnimalSpecies animalSpecies;
 
     @OneToOne()
     private Meal meal;

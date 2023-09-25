@@ -1,8 +1,6 @@
 package com.nhom3.zoomanagement.areas;
 
-import com.nhom3.zoomanagement.animalspecies.AnimalSpecieDTO;
-import com.nhom3.zoomanagement.cages.Cage;
-import com.nhom3.zoomanagement.cages.CageDTO;
+import com.nhom3.zoomanagement.cages.CagesDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,23 +10,23 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AreaDTO {
-    public static AreaDTO fromArea(Area area, boolean hasCage) {
-        AreaDTO areaDTO = new AreaDTO();
+public class AreasDTO {
+    public static AreasDTO fromArea(Area area, boolean hasCage) {
+        AreasDTO areaDTO = new AreasDTO();
         areaDTO.setId(area.getId());
         areaDTO.setCode(area.getCode());
         areaDTO.setName(area.getName());
         areaDTO.setLocation(area.getLocation());
         if (hasCage) {
-            areaDTO.setCageList(CageDTO.fromCageList(area.getCageList(), false, false, false));
+            areaDTO.setCageList(CagesDTO.fromCageList(area.getCageList(), false, false, false));
         }
         return areaDTO;
     }
 
-    public static List<AreaDTO> fromAreaList(List<Area> areaList, boolean hasCage) {
-        List<AreaDTO> areaDTOList = new ArrayList<>();
+    public static List<AreasDTO> fromAreaList(List<Area> areaList, boolean hasCage) {
+        List<AreasDTO> areaDTOList = new ArrayList<>();
         for (Area area : areaList) {
-            AreaDTO areaDTO = fromArea(area, hasCage);
+            AreasDTO areaDTO = fromArea(area, hasCage);
             areaDTOList.add(areaDTO);
         }
         return areaDTOList;
@@ -37,6 +35,6 @@ public class AreaDTO {
     private String code;
     private String name;
     private String location;
-    private List<CageDTO> cageList;
+    private List<CagesDTO> cageList;
 
 }

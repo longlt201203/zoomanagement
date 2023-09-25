@@ -1,4 +1,4 @@
-package com.nhom3.zoomanagement.animalimages;
+package com.nhom3.zoomanagement.animal_images;
 
 import com.nhom3.zoomanagement.animals.Animal;
 import jakarta.persistence.*;

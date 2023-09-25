@@ -1,4 +1,4 @@
-package com.nhom3.zoomanagement.animalspecies;
+package com.nhom3.zoomanagement.animal_species;
 
 import com.nhom3.zoomanagement.animals.Animal;
 import com.nhom3.zoomanagement.cages.Cage;
@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalSpecie {
+public class AnimalSpecies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -27,9 +27,9 @@ public class AnimalSpecie {
     @Column()
     private String image;
 
-    @OneToMany(mappedBy = "animalSpecie")
+    @OneToMany(mappedBy = "animalSpecies")
     private List<Cage> cageList;
 
-    @OneToMany(mappedBy = "specie")
+    @OneToMany(mappedBy = "species")
     private List<Animal> animalList;
 }
