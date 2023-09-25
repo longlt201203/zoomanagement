@@ -1,7 +1,5 @@
 package com.nhom3.zoomanagement.orders;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nhom3.zoomanagement.order_details.OrderDetail;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +27,9 @@ public class MyOrder {
 
     @Column
     private String name;
+
+    @Column
+    private Float totalPrice;
     
     @Column
     @Temporal(TemporalType.DATE)
@@ -38,29 +39,6 @@ public class MyOrder {
     @CreationTimestamp
     private Date createdAt;
 
-    @Column
-    private Float totalPrice;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("order")
-    private List<OrderDetail> details = new ArrayList<>();
-    
-    public MyOrder(String email, String name, Date dateToGo, Float totalPrice) {
-        this.email = email;
-        this.name = name;
-        this.dateToGo = dateToGo;
-        this.totalPrice = totalPrice;
-    }
-
-    public MyOrder(String email, String name, Date dateToGo, Float totalPrice, List<OrderDetail> details) {
-        this.email = email;
-        this.name = name;
-        this.dateToGo = dateToGo;
-        this.totalPrice = totalPrice;
-        this.details = details;
-    }
-    
-    public void addDetail(OrderDetail detail) {
-        details.add(detail);
-    }
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetail> details;
 }

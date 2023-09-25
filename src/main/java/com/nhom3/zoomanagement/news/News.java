@@ -16,11 +16,14 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
+    @Column
     private String content;
-    
+
+    @Column
     private String title;
-    
+
+    @Column
     private Date createdAt;
     
     @ManyToOne

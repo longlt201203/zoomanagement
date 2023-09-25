@@ -1,6 +1,5 @@
 package com.nhom3.zoomanagement.order_details;
 
-import com.nhom3.zoomanagement.orders.DTO.CreateOrderDetailDto;
 import com.nhom3.zoomanagement.orders.MyOrder;
 import com.nhom3.zoomanagement.tickets.Ticket;
 import com.nhom3.zoomanagement.utils.Enums;
@@ -18,22 +17,19 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column
     private Integer quantity;
 
+    @Column
     private Float price;
 
+    @Column
+    @Enumerated(EnumType.STRING)
     private Enums.TicketTypeEnum type;
     
     @ManyToOne
     private Ticket ticket;
     
     @ManyToOne(optional = false)
-    @JoinColumn(referencedColumnName = "id")
     private MyOrder order;
-    
-    public void TakeCreateOrderDetailDto(CreateOrderDetailDto createOrderDetailDto) {
-        setQuantity(createOrderDetailDto.getQuantity());
-        setPrice(createOrderDetailDto.getPrice());
-        setType(createOrderDetailDto.getType());
-    }
 }

@@ -1,6 +1,7 @@
 package com.nhom3.zoomanagement.tickets;
 
 import com.nhom3.zoomanagement.order_details.OrderDetail;
+import com.nhom3.zoomanagement.utils.Enums;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,9 +17,12 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    private String type;
-    
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Enums.TicketTypeEnum type;
+
+    @Column
     private Float price;
     
     @OneToMany(mappedBy = "ticket")

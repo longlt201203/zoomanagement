@@ -18,21 +18,31 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column
     private String name;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Enums.RoleEnum role;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Enums.HumanGenderEnum gender;
-    
+
+    @Column
     private String email;
-    
+
+    @Column
     private String phoneNumber;
-    
+
+    @Column
     private String avatar;
     
     @OneToMany(mappedBy = "creator")
     private List<News> newsList;
     
+    
+    public void ahihi(){
+        
+    }
 }

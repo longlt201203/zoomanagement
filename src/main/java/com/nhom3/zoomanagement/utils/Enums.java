@@ -1,7 +1,5 @@
 package com.nhom3.zoomanagement.utils;
 
-import lombok.Data;
-
 public class Enums {
     public enum HumanGenderEnum {
         MALE,
