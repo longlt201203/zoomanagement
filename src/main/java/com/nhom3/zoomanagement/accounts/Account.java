@@ -19,9 +19,11 @@ public class Account {
     private String id;
 
     private String name;
-    
+
+    @Enumerated(EnumType.STRING)
     private Enums.RoleEnum role;
 
+    @Enumerated(EnumType.STRING)
     private Enums.HumanGenderEnum gender;
     
     private String email;
