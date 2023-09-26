@@ -37,7 +37,7 @@ public class Account {
 
     @Column
     private String avatar;
-    
+
     @OneToMany(mappedBy = "creator")
     private List<News> newsList;
 }

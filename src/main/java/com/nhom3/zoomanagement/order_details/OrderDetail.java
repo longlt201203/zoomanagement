@@ -27,9 +27,6 @@ public class OrderDetail {
     @Enumerated(EnumType.STRING)
     private Enums.TicketTypeEnum type;
     
-    @ManyToOne
-    private Ticket ticket;
-    
     @ManyToOne(optional = false)
     private MyOrder order;
 }

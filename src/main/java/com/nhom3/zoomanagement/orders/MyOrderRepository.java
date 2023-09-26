@@ -4,6 +4,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Transactional
-public interface IMyOrderRepository extends JpaRepository<MyOrder, Integer> {
+public interface MyOrderRepository extends JpaRepository<MyOrder, Integer> {
     
 }
