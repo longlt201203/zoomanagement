@@ -40,9 +40,4 @@ public class Account {
     
     @OneToMany(mappedBy = "creator")
     private List<News> newsList;
-    
-    
-    public void ahihi(){
-        
-    }
 }
