@@ -1,7 +1,7 @@
 package com.nhom3.zoomanagement.animal_species;
 
-import com.nhom3.zoomanagement.animals.AnimalsDTO;
-import com.nhom3.zoomanagement.cages.CagesDTO;
+import com.nhom3.zoomanagement.animals.AnimalDTO;
+import com.nhom3.zoomanagement.cages.CageDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +20,10 @@ public class AnimalSpeciesDTO {
         animalSpeciesDTO.setDescription(animalSpecies.getDescription());
         animalSpeciesDTO.setImage(animalSpecies.getImage());
         if (hasAnimal) {
-            animalSpeciesDTO.setAnimalList(AnimalsDTO.fromAnimalList(animalSpecies.getAnimalList(), false, false));
+            animalSpeciesDTO.setAnimalList(AnimalDTO.fromAnimalList(animalSpecies.getAnimalList(), false, false));
         }
         if(hasCage){
-            animalSpeciesDTO.setCageList(CagesDTO.fromCageList(animalSpecies.getCageList(), false, false,false));
+            animalSpeciesDTO.setCageList(CageDTO.fromCageList(animalSpecies.getCageList(), false, false,false));
         }
         return animalSpeciesDTO;
     }
@@ -40,6 +40,6 @@ public class AnimalSpeciesDTO {
     private String name;
     private String description;
     private String image;
-    private List<CagesDTO> cageList;
-    private List<AnimalsDTO> animalList;
+    private List<CageDTO> cageList;
+    private List<AnimalDTO> animalList;
 }

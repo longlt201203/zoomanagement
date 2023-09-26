@@ -1,6 +1,6 @@
 package com.nhom3.zoomanagement.animals;
 
-import com.nhom3.zoomanagement.animal_images.AnimalImagesDTO;
+import com.nhom3.zoomanagement.animal_images.AnimalImageDTO;
 import com.nhom3.zoomanagement.animal_species.AnimalSpeciesDTO;
 import com.nhom3.zoomanagement.utils.Enums;
 import lombok.AllArgsConstructor;
@@ -14,9 +14,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalsDTO {
-    public static AnimalsDTO fromAnimal(Animal animal, boolean hasAnimalImage, boolean hasSpecies) {
-        AnimalsDTO animalDTO = new AnimalsDTO();
+public class AnimalDTO {
+    public static AnimalDTO fromAnimal(Animal animal, boolean hasAnimalImage, boolean hasSpecies) {
+        AnimalDTO animalDTO = new AnimalDTO();
         animalDTO.setId(animal.getId());
         animalDTO.setName(animal.getName());
         animalDTO.setNation(animal.getNation());
@@ -26,7 +26,7 @@ public class AnimalsDTO {
         animalDTO.setDescription(animal.getDescription());
         animalDTO.setNote(animal.getNote());
         if (hasAnimalImage) {
-            animalDTO.setImageList(AnimalImagesDTO.fromAnimalImageList(animal.getImageList(), false));
+            animalDTO.setImageList(AnimalImageDTO.fromAnimalImageList(animal.getImageList(), false));
         }
         if(hasSpecies){
             animalDTO.setSpecies(AnimalSpeciesDTO.fromAnimalSpecie(animal.getSpecies(), false, false));
@@ -34,10 +34,10 @@ public class AnimalsDTO {
         return animalDTO;
     }
 
-    public static List<AnimalsDTO> fromAnimalList(List<Animal> animalList, boolean hasAnimalImage, boolean hasSpecies) {
-        List<AnimalsDTO> animalDTOList = new ArrayList<>();
+    public static List<AnimalDTO> fromAnimalList(List<Animal> animalList, boolean hasAnimalImage, boolean hasSpecies) {
+        List<AnimalDTO> animalDTOList = new ArrayList<>();
         for (Animal animal : animalList) {
-            AnimalsDTO animalDTO = fromAnimal(animal, hasAnimalImage, hasSpecies);
+            AnimalDTO animalDTO = fromAnimal(animal, hasAnimalImage, hasSpecies);
             animalDTOList.add(animalDTO);
         }
         return animalDTOList;
@@ -51,5 +51,5 @@ public class AnimalsDTO {
     private String description;
     private String note;
     private AnimalSpeciesDTO species;
-    private List<AnimalImagesDTO> imageList;
+    private List<AnimalImageDTO> imageList;
 }

@@ -1,6 +1,6 @@
 package com.nhom3.zoomanagement.meals;
 
-import com.nhom3.zoomanagement.cages.CagesDTO;
+import com.nhom3.zoomanagement.cages.CageDTO;
 import com.nhom3.zoomanagement.utils.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +11,9 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MealsDTO {
-    public static MealsDTO fromMeal(Meal meal, boolean hasCage) {
-        MealsDTO mealDTO = new MealsDTO();
+public class MealDTO {
+    public static MealDTO fromMeal(Meal meal, boolean hasCage) {
+        MealDTO mealDTO = new MealDTO();
         mealDTO.setId(meal.getId());
         mealDTO.setFood(meal.getFood());
         mealDTO.setTime(meal.getTime());
@@ -21,7 +21,7 @@ public class MealsDTO {
         mealDTO.setStatus(meal.getStatus());
         mealDTO.setNote(meal.getNote());
         if (hasCage) {
-            mealDTO.setCage(CagesDTO.fromCage(meal.getCage(), false, false, false));
+            mealDTO.setCage(CageDTO.fromCage(meal.getCage(), false, false, false));
         }
         return mealDTO;
     }
@@ -32,5 +32,5 @@ public class MealsDTO {
     private String quantity;
     private Enums.MealStatusEnum status;
     private String note;
-    private CagesDTO cage;
+    private CageDTO cage;
 }
