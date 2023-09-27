@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Google</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <div id="g_id_onload"
+         data-client_id="934045492148-r2m81eqq4724ukrj1bs8jlp5gn585pc8.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="testGoogleLogin"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin"
+         data-type="standard"
+         data-shape="rectangular"
+         data-theme="filled_blue"
+         data-text="signin_with"
+         data-size="large"
+         data-logo_alignment="left">
+    </div>
+
+    <div>
+        <h3>User Info from Google:</h3>
+        <p>Email: <span id="email"></span></p>
+        <p>Email Verified: <span id="emailVerified"></span></p>
+        <p>Family Name: <span id="familyName"></span></p>
+        <p>Given Name: <span id="givenName"></span></p>
+        <p>Avatar: <img alt="" id="avt"></p>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script>
+        function testGoogleLogin(data) {
+            console.log(data);
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:8080/test-login-google', true);
+            xhr.onload = () => {
+                console.log('DONE!');
+                console.log(xhr.response);
+                if (xhr.status == 200) {
+                    const res = JSON.parse(xhr.responseText);
+                    document.getElementById('email').innerText = res.email;
+                    document.getElementById('emailVerified').innerText = res.emailVerified;
+                    document.getElementById('familyName').innerText = res.familyName;
+                    document.getElementById('givenName').innerText = res.givenName;
+                    document.getElementById('avt').src = res.avatar;
+                }
+            }
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({ credential: data.credential }));
+        }
+    </script>
+</body>
+</html>
