@@ -26,7 +26,7 @@ public class CageDTO {
             cageDTO.setArea(AreaDTO.fromArea(cage.getArea(), false));
         }
         if(hasMeal){
-            cageDTO.setMeal(MealDTO.fromMeal(cage.getMeal(), false));
+            cageDTO.setMealList(MealDTO.fromMealList(cage.getMealList(), false));
         }
         return cageDTO;
     }
@@ -44,6 +44,6 @@ public class CageDTO {
     private String description;
     private AreaDTO area;
     private AnimalSpeciesDTO animalSpecies;
-    private MealDTO meal;
+    private List<MealDTO> mealList;
 
 }
