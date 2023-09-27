@@ -27,12 +27,13 @@ public class Meal {
     @Column()
     private String quantity;
 
-    @Column()
-    private Enums.MealStatusEnum status;
+    @Column(columnDefinition = "varchar(32) default 'NOT_FEEDED'")
+    @Enumerated(EnumType.STRING)
+    private Enums.MealStatusEnum status = Enums.MealStatusEnum.NOT_FEEDED;
 
     @Column()
     private String note;
 
-    @OneToOne()
+    @ManyToOne()
     private Cage cage;
 }

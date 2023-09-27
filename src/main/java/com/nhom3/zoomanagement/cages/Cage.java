@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -29,7 +31,7 @@ public class Cage {
     @ManyToOne()
     private AnimalSpecies animalSpecies;
 
-    @OneToOne()
-    private Meal meal;
+    @OneToMany(mappedBy = "cage")
+    private List<Meal> mealList;
 
 }

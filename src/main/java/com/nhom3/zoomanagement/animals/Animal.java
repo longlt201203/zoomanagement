@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 import java.util.List;
@@ -30,10 +31,12 @@ public class Animal {
     private Date dob;
 
     @Column()
+    @Enumerated(EnumType.STRING)
     private Enums.AnimalGenderEnum gender;
 
-    @Column()
-    private Enums.AnimalStatusEnum status;
+    @Column(columnDefinition = "varchar(32) default 'HEALTHY'")
+    @Enumerated(EnumType.STRING)
+    private Enums.AnimalStatusEnum status = Enums.AnimalStatusEnum.HEALTHY;
 
     @Column()
     private String description;
