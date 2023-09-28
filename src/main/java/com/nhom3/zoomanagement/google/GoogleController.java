@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class GoogleController {
     @Autowired
     private IGoogleService googleService;
@@ -31,10 +32,13 @@ public class GoogleController {
     protected String testGooglePage() {
         return "google.html";
     }
+//    @CrossOrigin(maxAge = 3600, allowCredentials = "true")
 
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = {"Requestor-Type", "Authorization"}, exposedHeaders = "X-Get-Header")
     @PostMapping("/test-login-google")
     @ResponseBody
     protected GoogleUserInfo testLoginGoogle(@RequestBody Map<String, String> params) throws GeneralSecurityException, IOException {
+        System.out.println("credential: "+ params.get("credential"));
         GoogleUserInfo info = googleService.fromCredential(params.get("credential"));
         return info;
     }
