@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateAnimalSpeciesDTO {
+public class UpdateAnimalSpeciesDTO {
     @NotBlank(message = "Name field cannot be blank")
     @Size(max = 50, message = "Name cannot be more than 50 characters!")
     private String name;

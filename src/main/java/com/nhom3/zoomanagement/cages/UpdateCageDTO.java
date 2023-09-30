@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCageDTO {
+public class UpdateCageDTO {
     @NotBlank(message = "code field cannot be blank")
     @Size(max = 10, message = "code cannot be more than 10 characters!")
     private String code;

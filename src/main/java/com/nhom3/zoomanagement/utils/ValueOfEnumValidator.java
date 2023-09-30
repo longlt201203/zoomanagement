@@ -2,6 +2,7 @@ package com.nhom3.zoomanagement.utils;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ public class ValueOfEnumValidator implements ConstraintValidator<ValueOfEnum, Ch
 
     @Override
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
-        if (value == null) {
+        if (value == null || value.isEmpty()) {
             return true;
         }
 

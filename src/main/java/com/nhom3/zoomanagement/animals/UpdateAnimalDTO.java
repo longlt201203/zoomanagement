@@ -2,7 +2,6 @@ package com.nhom3.zoomanagement.animals;
 
 import com.nhom3.zoomanagement.utils.Enums;
 import com.nhom3.zoomanagement.utils.ValueOfEnum;
-import io.opencensus.internal.DefaultVisibilityForTesting;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
@@ -13,12 +12,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateAnimalDTO {
+public class UpdateAnimalDTO {
     @NotBlank(message = "Name field cannot be blank")
     @Size(max = 100, message = "Name cannot be more than 100 characters!")
     private String name;
@@ -41,5 +39,3 @@ public class CreateAnimalDTO {
     private String species;
     private List<@NotBlank(message = "can not have blank field") String> imageList;
 }
-
-
