@@ -2,12 +2,12 @@ package com.nhom3.zoomanagement.animals;
 
 import com.nhom3.zoomanagement.animal_images.AnimalImage;
 import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
+import com.nhom3.zoomanagement.cages.Cage;
 import com.nhom3.zoomanagement.utils.Enums;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 import java.util.List;
@@ -46,6 +46,9 @@ public class Animal {
 
     @ManyToOne()
     private AnimalSpecies species;
+
+    @ManyToOne()
+    private Cage cage;
 
     @OneToMany(mappedBy = "animal")
     private List<AnimalImage> imageList;

@@ -37,5 +37,7 @@ public class UpdateAnimalDTO {
     private String note;
     @NotBlank(message = "species field cannot be blank")
     private String species;
+    @NotBlank(message = "cage field cannot be blank")
+    private String cage;
     private List<@NotBlank(message = "can not have blank field") String> imageList;
 }

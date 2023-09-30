@@ -17,7 +17,7 @@ public class AnimalImageDTO {
         animalImageDTO.setId(animalImage.getId());
         animalImageDTO.setUrl(animalImageDTO.getUrl());
         if (hasAnimal) {
-            animalImageDTO.setAnimal(AnimalDTO.fromAnimal(animalImage.getAnimal(), false, false));
+            animalImageDTO.setAnimal(AnimalDTO.fromAnimal(animalImage.getAnimal(),false,false, false));
         }
         return animalImageDTO;
     }
