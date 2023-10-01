@@ -4,7 +4,6 @@ import com.nhom3.zoomanagement.errors.BadRequestException;
 import com.nhom3.zoomanagement.errors.ErrorReport;
 import com.nhom3.zoomanagement.errors.ValidationErrorReport;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
