@@ -16,7 +16,7 @@ public class UpdateTicketDTO {
     @NotBlank(message = "Id must be not blank")
     @Pattern(regexp = "^\\d+$", message = "Id must be an integer")
     private String id;
-    
+
     @NotBlank(message = "Type must be not blank")
     @ValueOfEnum(enumClass = Enums.TicketTypeEnum.class, message = "Type is invalid")
     private String type;
@@ -25,15 +25,15 @@ public class UpdateTicketDTO {
     @Min(value = 0, message = "The smallest price is 0")
     private String price;
 
-    public Enums.TicketTypeEnum getType() {
+    public Enums.TicketTypeEnum parseType() {
         return Enums.TicketTypeEnum.valueOf(type);
     }
 
-    public Float getPrice() {
+    public Float parsePrice() {
         return Float.parseFloat(price);
     }
 
-    public Integer getId() {
+    public Integer parseId() {
         return Integer.parseInt(id);
     }
 }

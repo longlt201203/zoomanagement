@@ -21,11 +21,11 @@ public class CreateTicketDTO {
     @Pattern(regexp = "[+-]?([0-9]*[.])?[0-9]+", message = "Price must be a number")
     private String price;
 
-    public Enums.TicketTypeEnum getType() {
+    public Enums.TicketTypeEnum parseType() {
         return Enums.TicketTypeEnum.valueOf(type);
     }
 
-    public Float getPrice() {
+    public Float parsePrice() {
         return Float.parseFloat(price);
     }
 }

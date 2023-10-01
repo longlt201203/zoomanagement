@@ -13,11 +13,11 @@ public class UpdateLocalFileDTO {
     @NotBlank(message = "Id must be not blank")
     @Pattern(regexp = "^\\d+$", message = "Id must be an integer")
     private String id;
-    
+
     @NotBlank(message = "Path must be not blank")
     private String path;
 
-    public Integer getId() {
+    public Integer parseId() {
         return Integer.parseInt(id);
     }
 }

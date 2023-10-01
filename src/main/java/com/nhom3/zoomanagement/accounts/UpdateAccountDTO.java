@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class UpdateAccountDTO {
     @NotBlank(message = "Id must be not blank")
     private String id;
-    
+
     @NotBlank(message = "Name must be not blank")
     private String name;
 
@@ -28,7 +28,7 @@ public class UpdateAccountDTO {
 
     private String avatar;
 
-    public Enums.HumanGenderEnum getGender() {
+    public Enums.HumanGenderEnum parseGender() {
         return Enums.HumanGenderEnum.valueOf(gender);
     }
 }
