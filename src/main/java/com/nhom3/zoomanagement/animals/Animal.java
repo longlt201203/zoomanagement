@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,8 @@ public class Animal {
     @Enumerated(EnumType.STRING)
     private Enums.AnimalGenderEnum gender;
 
-    @Column(columnDefinition = "varchar(32) default 'HEALTHY'")
+    @Column()
+    @ColumnDefault("HEALTHY")
     @Enumerated(EnumType.STRING)
     private Enums.AnimalStatusEnum status = Enums.AnimalStatusEnum.HEALTHY;
 
