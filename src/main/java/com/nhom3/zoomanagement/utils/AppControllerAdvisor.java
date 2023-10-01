@@ -31,4 +31,9 @@ public class AppControllerAdvisor {
         }
         return handleBadRequest(new BadRequestException(new ValidationErrorReport(errMsgs)), req);
     }
+    
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorReport> handleDeserializationError(HttpMessageNotReadableException e, HttpServletRequest req) {
+        return handleBadRequest(new BadRequestException(new ErrorReport("Error while Deserializing")), req);
+    } 
 }

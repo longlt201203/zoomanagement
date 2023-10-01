@@ -1,4 +1,4 @@
-package com.nhom3.zoomanagement.utils;
+package com.nhom3.zoomanagement.utils.validate_enum;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

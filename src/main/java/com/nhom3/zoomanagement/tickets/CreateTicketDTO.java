@@ -1,7 +1,7 @@
 package com.nhom3.zoomanagement.tickets;
 
 import com.nhom3.zoomanagement.utils.Enums;
-import com.nhom3.zoomanagement.utils.ValueOfEnum;
+import com.nhom3.zoomanagement.utils.validate_enum.ValueOfEnum;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -17,7 +17,6 @@ public class CreateTicketDTO {
     @ValueOfEnum(enumClass = Enums.TicketTypeEnum.class, message = "Type is invalid")
     private String type;
 
-    @NotBlank(message = "Price must be not blank")
     @Min(value = 0, message = "The smallest price is 0")
     @Pattern(regexp = "[+-]?([0-9]*[.])?[0-9]+", message = "Price must be a number")
     private String price;

@@ -1,5 +1,6 @@
-package com.nhom3.zoomanagement.utils;
+package com.nhom3.zoomanagement.utils.validate_enum;
 
+import com.nhom3.zoomanagement.utils.validate_enum.ValueOfEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

@@ -1,7 +1,7 @@
 package com.nhom3.zoomanagement.accounts;
 
 import com.nhom3.zoomanagement.utils.Enums;
-import com.nhom3.zoomanagement.utils.ValueOfEnum;
+import com.nhom3.zoomanagement.utils.validate_enum.ValueOfEnum;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
