@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ public class NewsDTO {
     private Integer id;
     private String content;
     private String title;
-    private Date createdAt;
+    private LocalDateTime createdAt;
     private AccountDTO creator;
 
     public static NewsDTO fromNews(News news, boolean hasCreator) {
