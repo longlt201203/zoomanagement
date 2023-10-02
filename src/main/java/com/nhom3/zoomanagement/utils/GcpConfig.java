@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 
+import javax.crypto.SecretKey;
 import java.io.Serializable;
 import java.security.Key;
 import java.util.Date;
@@ -40,9 +41,9 @@ public class GcpConfig implements Serializable {
     public String getUserEmailFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
-
-    private Key key() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+//    SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
+    private SecretKey key() {
+        return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     public String getUserNameFromJwtToken(String token) {
@@ -51,6 +52,7 @@ public class GcpConfig implements Serializable {
     }
     //for retrieveing any information from token we will need the secret key
     public Claims getAllClaimsFromToken(String token) {
+        logger.info("toke: " + token);
         return Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token).getBody();
     }
     public Date getExpirationDateFromToken(String token) {
