@@ -20,10 +20,10 @@ public class AnimalSpeciesDTO {
         animalSpeciesDTO.setDescription(animalSpecies.getDescription());
         animalSpeciesDTO.setImage(animalSpecies.getImage());
         if (hasAnimal) {
-            animalSpeciesDTO.setAnimalList(AnimalDTO.fromAnimalList(animalSpecies.getAnimalList(), false, false));
+            animalSpeciesDTO.setAnimalList(AnimalDTO.fromAnimalList(animalSpecies.getAnimalList(), false, false, false));
         }
         if(hasCage){
-            animalSpeciesDTO.setCageList(CageDTO.fromCageList(animalSpecies.getCageList(), false, false,false));
+            animalSpeciesDTO.setCageList(CageDTO.fromCageList(animalSpecies.getCageList(), false,false, false,false));
         }
         return animalSpeciesDTO;
     }
