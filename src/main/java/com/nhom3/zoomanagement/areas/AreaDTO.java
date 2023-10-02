@@ -18,7 +18,7 @@ public class AreaDTO {
         areaDTO.setName(area.getName());
         areaDTO.setLocation(area.getLocation());
         if (hasCage) {
-            areaDTO.setCageList(CageDTO.fromCageList(area.getCageList(), false, false, false));
+            areaDTO.setCageList(CageDTO.fromCageList(area.getCageList(), false, false, false, false));
         }
         return areaDTO;
     }
