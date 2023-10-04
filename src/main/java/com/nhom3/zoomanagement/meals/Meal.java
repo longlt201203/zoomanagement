@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 
@@ -27,8 +28,9 @@ public class Meal {
     @Column()
     private String quantity;
 
-    @Column(columnDefinition = "varchar(32) default 'NOT_FEEDED'")
+    @Column()
     @Enumerated(EnumType.STRING)
+    @ColumnDefault("NOT_FEEDED")
     private Enums.MealStatusEnum status = Enums.MealStatusEnum.NOT_FEEDED;
 
     @Column()

@@ -24,7 +24,7 @@ public class MealDTO {
         mealDTO.setStatus(meal.getStatus());
         mealDTO.setNote(meal.getNote());
         if (hasCage) {
-            mealDTO.setCage(CageDTO.fromCage(meal.getCage(), false, false, false));
+            mealDTO.setCage(CageDTO.fromCage(meal.getCage(), false, false, false, false));
         }
         return mealDTO;
     }
