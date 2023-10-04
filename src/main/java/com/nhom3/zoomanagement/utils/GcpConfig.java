@@ -13,7 +13,12 @@ import org.springframework.security.core.Authentication;
 
 import javax.crypto.SecretKey;
 import java.io.Serializable;
-import java.security.Key;
+import java.security.*;
+import java.security.interfaces.RSAKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,14 +43,25 @@ public class GcpConfig implements Serializable {
     @Value("${jwt.secret}")
     private String secret;
 
+
+
+
     public String getUserEmailFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
-//    SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
-    private SecretKey key() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
-    }
 
+    private Key key() {
+
+        return Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
+    }
+//    public Jws<Claims> parseToken(String token) {
+//        return Jwts.parserBuilder()
+//                .setSigningKeyResolver(new GcpSigningKeyResolver())
+//                .requireIssuer(issuer)
+//                .requireAudience(audience)
+//                .build()
+//                .parseClaimsJws(token);
+//    }
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key()).build()
                 .parseClaimsJws(token).getBody().getSubject();
@@ -53,7 +69,7 @@ public class GcpConfig implements Serializable {
     //for retrieveing any information from token we will need the secret key
     public Claims getAllClaimsFromToken(String token) {
         logger.info("toke: " + token);
-        return Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJwt(token).getBody();
     }
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
@@ -79,7 +95,7 @@ public class GcpConfig implements Serializable {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1800000))
-                .signWith(key(),SignatureAlgorithm.HS512).compact();
+                .signWith(key(),SignatureAlgorithm.HS256).compact();
     }
 
     //validate token

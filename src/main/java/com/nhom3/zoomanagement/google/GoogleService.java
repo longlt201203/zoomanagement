@@ -23,19 +23,21 @@ public class GoogleService implements IGoogleService {
     @Override
     public GoogleUserInfo fromCredential(String credential) throws GeneralSecurityException, IOException {
         GoogleUserInfo info = new GoogleUserInfo();
-//        HttpTransport transport = new NetHttpTransport();
-//        JsonFactory jsonFactory = new GsonFactory();
-//        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-//                .setAudience(Collections.singletonList(gcpConfig.getClientId()))
-//                .build();
+        HttpTransport transport = new NetHttpTransport();
+        JsonFactory jsonFactory = new GsonFactory();
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+                .setAudience(Collections.singletonList(gcpConfig.getClientId()))
+                .build();
 
-        String userEmail = gcpConfig.getUserEmailFromToken(credential);
-        System.out.println(userEmail);
-        if (userEmail != null) {
-            Claims payload = gcpConfig.getAllClaimsFromToken(credential);
+//        String userEmail = gcpConfig.getUserEmailFromToken(credential);
+        GoogleIdToken idToken = verifier.verify(credential);
 
+//        System.out.println(userEmail);
+        if (idToken  != null) {
+//            Claims payload = gcpConfig.getAllClaimsFromToken(credential);
+            GoogleIdToken.Payload payload = idToken.getPayload();
             info.setEmail((String)  payload.get("email"));
-            info.setEmailVerified((Boolean)  payload.get("isEmailVerified"));
+//            info.setEmailVerified((Boolean)  payload.get("isEmailVerified"));
             info.setFamilyName((String) payload.get("family_name"));
             info.setGivenName((String) payload.get("given_name"));
             info.setAvatar((String) payload.get("picture"));
