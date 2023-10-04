@@ -1,8 +1,8 @@
-package com.nhom3.zoomanagement.utils;
+package com.nhom3.zoomanagement.utils.validate_enum;
 
+import com.nhom3.zoomanagement.utils.validate_enum.ValueOfEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +23,6 @@ public class ValueOfEnumValidator implements ConstraintValidator<ValueOfEnum, Ch
         if (value == null || value.isEmpty()) {
             return true;
         }
-
         return acceptedValues.contains(value.toString());
     }
 }
