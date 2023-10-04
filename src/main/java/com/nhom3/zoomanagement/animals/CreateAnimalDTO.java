@@ -1,8 +1,7 @@
 package com.nhom3.zoomanagement.animals;
 
 import com.nhom3.zoomanagement.utils.Enums;
-import com.nhom3.zoomanagement.utils.ValueOfEnum;
-import io.opencensus.internal.DefaultVisibilityForTesting;
+import com.nhom3.zoomanagement.utils.validate_enum.ValueOfEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
@@ -13,7 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -28,10 +26,10 @@ public class CreateAnimalDTO {
     @PastOrPresent(message = "Date of Birth should be a valid date")
     private Date dob;
     @NotBlank(message = "Gender field cannot be blank")
-    @ValueOfEnum(enumClass = Enums.AnimalGenderEnum.class, message = "gender must be any of emum list")
+    @ValueOfEnum(enumClass = Enums.AnimalGenderEnum.class, message = "gender must be any of enum list")
     private String gender;
     @NotBlank(message = "status field cannot be blank")
-    @ValueOfEnum(enumClass = Enums.AnimalStatusEnum.class, message = "status must be any of emum list")
+    @ValueOfEnum(enumClass = Enums.AnimalStatusEnum.class, message = "status must be any of enum list")
     private String status;
     @Size(max = 255, message = "Description cannot be more than 255 characters!")
     private String description;
