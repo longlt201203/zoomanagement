@@ -36,4 +36,12 @@ public class UpdateTicketDTO {
     public Integer parseId() {
         return Integer.parseInt(id);
     }
+
+    public Ticket toTicket() {
+        Ticket ticket = new Ticket();
+        ticket.setId(this.parseId());
+        ticket.setType(this.parseType());
+        ticket.setPrice(this.parsePrice());
+        return ticket;
+    }
 }

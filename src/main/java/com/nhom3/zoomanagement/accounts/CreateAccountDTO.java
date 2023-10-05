@@ -43,4 +43,15 @@ public class CreateAccountDTO {
     public Enums.HumanGenderEnum parseGender() {
         return Enums.HumanGenderEnum.valueOf(gender);
     }
+    
+    public Account toAccount() {
+        Account account = new Account();
+        account.setName(this.getName());
+        account.setRole(this.parseRole());
+        account.setGender(this.parseGender());
+        account.setEmail(this.getEmail());
+        account.setPhoneNumber(this.getPhoneNumber());
+        account.setAvatar(this.getAvatar());
+        return account;
+    }
 }

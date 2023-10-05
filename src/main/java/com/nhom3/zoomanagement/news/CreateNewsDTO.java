@@ -19,4 +19,11 @@ public class CreateNewsDTO {
     
     @NotBlank(message = "CreatorId must be not blank")
     private String creatorId;
+    
+    public News toNews() {
+        News news = new News();
+        news.setContent(this.getContent());
+        news.setTitle(this.getTitle());
+        return news;
+    }
 }

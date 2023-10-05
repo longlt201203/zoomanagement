@@ -1,6 +1,8 @@
 package com.nhom3.zoomanagement.orders;
 
 import com.nhom3.zoomanagement.order_details.CreateOrderDetailDTO;
+import com.nhom3.zoomanagement.order_details.OrderDetail;
+import com.nhom3.zoomanagement.order_details.OrderDetailDTO;
 import com.nhom3.zoomanagement.utils.validate_date_string.future_or_present.FutureOrPresentDate;
 import com.nhom3.zoomanagement.utils.validate_date_string.valid_date.ValueOfDate;
 import jakarta.validation.Valid;
@@ -14,6 +16,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -39,5 +42,20 @@ public class CreateMyOrderDTO {
     public LocalDate parseDateToGo() {
         DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(dateToGo, DATE_FORMAT);
+    }
+    
+    public MyOrder toMyOrder() {
+        MyOrder myOrder = new MyOrder();
+        myOrder.setEmail(this.getEmail());
+        myOrder.setName(this.getName());
+        myOrder.setDateToGo(this.parseDateToGo());
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        for( CreateOrderDetailDTO createOrderDetailDTO: this.getDetails()) {
+            OrderDetail detail = createOrderDetailDTO.toOrderDetail();
+            detail.setOrder(myOrder);
+            orderDetails.add(detail);
+        }
+        myOrder.setDetails(orderDetails);
+        return myOrder;
     }
 }

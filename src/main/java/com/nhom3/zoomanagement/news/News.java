@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -25,6 +26,7 @@ public class News {
     private String title;
 
     @Column
+    @CreationTimestamp
     private LocalDateTime createdAt;
     
     @ManyToOne

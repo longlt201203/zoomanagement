@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/accounts")
 public interface IAccountsController extends ICrudController<AccountDTO, String, CreateAccountDTO, UpdateAccountDTO> {
-
+    
 }
