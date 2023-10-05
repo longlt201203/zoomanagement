@@ -2,11 +2,11 @@ package com.nhom3.zoomanagement.utils;
 
 import java.util.List;
 
-public interface ICrudService<EntityType, IdType, CreateDtoType, UpdateDtoType> {
+public interface ICrudService<DtoType, IdType, CreateDtoType, UpdateDtoType> {
 
-    List<EntityType> get();
-    EntityType get(IdType id);
-    EntityType create(CreateDtoType dto);
-    EntityType update(IdType id, UpdateDtoType dto);
-    EntityType delete(IdType id);
+    List<DtoType> get();
+    DtoType get(IdType id);
+    DtoType create(CreateDtoType dto);
+    DtoType update(IdType id, UpdateDtoType dto);
+    DtoType delete(IdType id);
 }

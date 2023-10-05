@@ -4,6 +4,6 @@ import com.nhom3.zoomanagement.utils.ICrudService;
 
 import java.util.List;
 
-public interface IAnimalSpeciesService extends ICrudService<AnimalSpecies, Integer, CreateAnimalSpeciesDTO, UpdateAnimalSpeciesDTO> {
+public interface IAnimalSpeciesService extends ICrudService<AnimalSpeciesDTO, Integer, CreateAnimalSpeciesDTO, UpdateAnimalSpeciesDTO> {
 
 }

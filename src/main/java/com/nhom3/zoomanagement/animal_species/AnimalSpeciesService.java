@@ -10,39 +10,39 @@ public class AnimalSpeciesService implements IAnimalSpeciesService {
     @Autowired
     AnimalSpeciesRepository animalSpeciesRepository;
     @Override
-    public AnimalSpecies create(CreateAnimalSpeciesDTO dto) {
+    public AnimalSpeciesDTO create(CreateAnimalSpeciesDTO dto) {
         AnimalSpecies animalSpecies = new AnimalSpecies();
         animalSpecies.setName(dto.getName());
         animalSpecies.setImage(dto.getImage());
         animalSpecies.setDescription(dto.getDescription());
         animalSpecies = animalSpeciesRepository.save(animalSpecies);
-        return animalSpecies;
+        return AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
     }
 
     @Override
-    public List<AnimalSpecies> get() {
+    public List<AnimalSpeciesDTO> get() {
         List<AnimalSpecies> animalSpeciesList = animalSpeciesRepository.findAll();
-        return animalSpeciesList;
+        return AnimalSpeciesDTO.fromAnimaSpecielList(animalSpeciesList, false, false);
     }
 
     @Override
-    public AnimalSpecies get(Integer id) {
+    public AnimalSpeciesDTO get(Integer id) {
         AnimalSpecies animalSpecies = animalSpeciesRepository.findById(id).orElseThrow(() -> new RuntimeException("Animal Species not found"));
-        return  animalSpecies;
+        return  AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
     }
 
     @Override
-    public AnimalSpecies update(Integer id, UpdateAnimalSpeciesDTO dto) {
+    public AnimalSpeciesDTO update(Integer id, UpdateAnimalSpeciesDTO dto) {
         AnimalSpecies animalSpecies = animalSpeciesRepository.findById(id).orElseThrow(() -> new RuntimeException("Animal Species not found"));
         animalSpecies.setName(dto.getName());
         animalSpecies.setImage(dto.getImage());
         animalSpecies.setDescription(dto.getDescription());
         animalSpecies = animalSpeciesRepository.save(animalSpecies);
-        return animalSpecies;
+        return AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
     }
 
     @Override
-    public AnimalSpecies delete(Integer id) {
+    public AnimalSpeciesDTO delete(Integer id) {
         return null;
     }
 }

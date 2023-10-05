@@ -12,29 +12,29 @@ public class AnimalSpeciesController implements IAnimalSpeciesController{
     @GetMapping("/animal-species")
     @Override
     public List<AnimalSpeciesDTO> get() {
-        List<AnimalSpecies> animalSpeciesList = animalSpeciesService.get();
-        return AnimalSpeciesDTO.fromAnimaSpecielList(animalSpeciesList, false, false);
+        List<AnimalSpeciesDTO> animalSpeciesList = animalSpeciesService.get();
+        return animalSpeciesList;
     }
 
     @GetMapping("/animal-species/{id}")
     @Override
     public AnimalSpeciesDTO get(@PathVariable Integer id) {
-        AnimalSpecies animalSpecies = animalSpeciesService.get(id);
-        return  AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
+        AnimalSpeciesDTO animalSpecies = animalSpeciesService.get(id);
+        return  animalSpecies;
     }
 
     @PostMapping("/create-animal-species")
     @Override
     public AnimalSpeciesDTO create(@RequestBody @Valid CreateAnimalSpeciesDTO dto) {
-        AnimalSpecies animalSpecies = animalSpeciesService.create(dto);
-        return AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
+        AnimalSpeciesDTO animalSpecies = animalSpeciesService.create(dto);
+        return animalSpecies;
     }
 
     @Override
     @PostMapping("/update-animal-species/{id}")
     public AnimalSpeciesDTO update(@PathVariable Integer id, UpdateAnimalSpeciesDTO dto) {
-        AnimalSpecies animalSpecies = animalSpeciesService.update(id, dto);
-        return AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
+        AnimalSpeciesDTO animalSpecies = animalSpeciesService.update(id, dto);
+        return animalSpecies;
     }
 
     @Override
