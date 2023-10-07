@@ -20,7 +20,6 @@ public class LocalFilesController implements ILocalFilesController {
     }
 
     @Override
-    @PostMapping("/")
     @GetMapping("/{id}")
     public LocalFileDTO get(@PathVariable("id") Integer id) throws BadRequestException {
         return localFilesService.get(id);
