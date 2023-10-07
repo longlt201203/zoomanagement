@@ -1,38 +1,39 @@
 package com.nhom3.zoomanagement.animal_species;
 
+import com.nhom3.zoomanagement.errors.AppServiceException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
+@RequestMapping("/animal-species")
 public class AnimalSpeciesController implements IAnimalSpeciesController{
     @Autowired
     AnimalSpeciesService animalSpeciesService;
-    @GetMapping("/animal-species")
+
     @Override
     public List<AnimalSpeciesDTO> get() {
         List<AnimalSpeciesDTO> animalSpeciesList = animalSpeciesService.get();
         return animalSpeciesList;
     }
 
-    @GetMapping("/animal-species/{id}")
+
     @Override
-    public AnimalSpeciesDTO get(@PathVariable Integer id) {
+    public AnimalSpeciesDTO get(@PathVariable Integer id) throws AppServiceException {
         AnimalSpeciesDTO animalSpecies = animalSpeciesService.get(id);
         return  animalSpecies;
     }
 
-    @PostMapping("/create-animal-species")
+
     @Override
-    public AnimalSpeciesDTO create(@RequestBody @Valid CreateAnimalSpeciesDTO dto) {
+    public AnimalSpeciesDTO create(@RequestBody @Valid CreateAnimalSpeciesDTO dto) throws AppServiceException {
         AnimalSpeciesDTO animalSpecies = animalSpeciesService.create(dto);
         return animalSpecies;
     }
 
     @Override
-    @PostMapping("/update-animal-species/{id}")
-    public AnimalSpeciesDTO update(@PathVariable Integer id, UpdateAnimalSpeciesDTO dto) {
+    public AnimalSpeciesDTO update(@PathVariable Integer id, UpdateAnimalSpeciesDTO dto) throws AppServiceException {
         AnimalSpeciesDTO animalSpecies = animalSpeciesService.update(id, dto);
         return animalSpecies;
     }

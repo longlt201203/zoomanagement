@@ -1,5 +1,7 @@
 package com.nhom3.zoomanagement.animal_species;
 
+import com.nhom3.zoomanagement.errors.AppServiceException;
+import com.nhom3.zoomanagement.errors.ErrorReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,10 @@ public class AnimalSpeciesService implements IAnimalSpeciesService {
     @Autowired
     AnimalSpeciesRepository animalSpeciesRepository;
     @Override
-    public AnimalSpeciesDTO create(CreateAnimalSpeciesDTO dto) {
+    public AnimalSpeciesDTO create(CreateAnimalSpeciesDTO dto) throws AppServiceException {
+        if (animalSpeciesRepository.existsByName(dto.getName())) {
+            throw new AppServiceException(new ErrorReport("Species name already existed"));
+        }
         AnimalSpecies animalSpecies = new AnimalSpecies();
         animalSpecies.setName(dto.getName());
         animalSpecies.setImage(dto.getImage());
@@ -26,14 +31,17 @@ public class AnimalSpeciesService implements IAnimalSpeciesService {
     }
 
     @Override
-    public AnimalSpeciesDTO get(Integer id) {
-        AnimalSpecies animalSpecies = animalSpeciesRepository.findById(id).orElseThrow(() -> new RuntimeException("Animal Species not found"));
+    public AnimalSpeciesDTO get(Integer id) throws AppServiceException {
+        AnimalSpecies animalSpecies = animalSpeciesRepository.findById(id).orElseThrow(() -> new AppServiceException(new ErrorReport("Animal Species not found")));
         return  AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
     }
 
     @Override
-    public AnimalSpeciesDTO update(Integer id, UpdateAnimalSpeciesDTO dto) {
-        AnimalSpecies animalSpecies = animalSpeciesRepository.findById(id).orElseThrow(() -> new RuntimeException("Animal Species not found"));
+    public AnimalSpeciesDTO update(Integer id, UpdateAnimalSpeciesDTO dto) throws AppServiceException {
+        AnimalSpecies animalSpecies = animalSpeciesRepository.findById(id).orElseThrow(() -> new AppServiceException(new ErrorReport("Animal Species not found")));
+        if (animalSpeciesRepository.existsByName(dto.getName()) && !dto.getName().matches(animalSpecies.getName())) {
+            throw new AppServiceException(new ErrorReport("Species name already existed"));
+        }
         animalSpecies.setName(dto.getName());
         animalSpecies.setImage(dto.getImage());
         animalSpecies.setDescription(dto.getDescription());
