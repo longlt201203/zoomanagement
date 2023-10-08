@@ -15,6 +15,7 @@ public class Enums {
 
     public enum RoleEnum {
         STAFF,
+
         ZOO_TRAINER,
         ADMIN
     }

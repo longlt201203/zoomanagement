@@ -47,11 +47,16 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
         authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
 
 
         return authProvider;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
     @Bean
@@ -74,12 +79,12 @@ public class WebSecurityConfig {
         }));
 
         http.csrf(csrf -> csrf.disable())
-//                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/**").permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
-//                                .anyRequest().authenticated()
+                                .anyRequest().authenticated()
                 );
 
         http.authenticationProvider(authenticationProvider());

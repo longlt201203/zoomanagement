@@ -24,6 +24,8 @@ public class AccountDTO implements UserDetails {
     private String phoneNumber;
     private String avatar;
     private List<NewsDTO> newsList;
+    private String password;
+
 //    private Set<Enums.RoleEnum> roles = new HashSet<>();
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -33,16 +35,19 @@ public class AccountDTO implements UserDetails {
 
         List<GrantedAuthority> authorities =  new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(account.getRole().toString()));
+
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setId(account.getId());
         accountDTO.setName(account.getName());
         accountDTO.setRole(account.getRole());
         accountDTO.setGender(account.getGender());
         accountDTO.setEmail(account.getEmail());
-        accountDTO.setEmail(account.getEmail());
+
+
         accountDTO.setPhoneNumber(account.getPhoneNumber());
         accountDTO.setAvatar(account.getAvatar());
         accountDTO.setAuthorities(authorities);
+        accountDTO.setPassword(account.getPassword());
         if (hasNewsList) {
             accountDTO.setNewsList(NewsDTO.fromNewsList(account.getNewsList(), false));
         }
@@ -77,7 +82,7 @@ public class AccountDTO implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
@@ -87,22 +92,22 @@ public class AccountDTO implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,8 @@ public class TestController {
     AuthenticationManager authenticationManager;
     @Autowired
     JwtProvider jwtUtils;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @GetMapping("/login")
     public String viewLoginPage() {
         return "login";
@@ -36,10 +39,13 @@ public class TestController {
 
     @PostMapping("/signin")
     public AccountDTO authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        System.out.println(loginRequest.getUsername());
+
+//        String encodedPassword = passwordEncoder.encode(loginRequest.getId());
+//        System.out.println(encodedPassword);
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), null));
-        System.out.println(loginRequest.getId());
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getId()));
+        System.out.println("sigin auth: " + authentication.getAuthorities());
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken2(authentication);
         System.out.println("sign in: "+jwt);

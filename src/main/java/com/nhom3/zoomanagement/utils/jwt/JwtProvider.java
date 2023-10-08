@@ -44,14 +44,14 @@ public class JwtProvider {
 //                .compact();
     }
     public String generateJwtToken2(Authentication authentication) {
-
+        System.out.println("generate jwt: " + authentication.getPrincipal());
         AccountDTO userPrincipal = (AccountDTO) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + tokenExpireTime))
-                .signWith(key(), SignatureAlgorithm.HS512)
+                .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
     }
     private Key key() {

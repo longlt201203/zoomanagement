@@ -34,6 +34,9 @@ public class Account {
     private String email;
 
     @Column
+    private String password;
+
+    @Column
     private String phoneNumber;
 
     @Column
