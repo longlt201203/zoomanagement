@@ -7,6 +7,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.nhom3.zoomanagement.utils.GcpConfig;
+import com.nhom3.zoomanagement.utils.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -27,7 +28,8 @@ import java.util.Map;
 public class GoogleController {
     @Autowired
     private IGoogleService googleService;
-
+    @Autowired
+    JwtProvider jwtUtils;
     @GetMapping("/google")
     protected String testGooglePage() {
         return "google.html";
@@ -40,6 +42,10 @@ public class GoogleController {
     protected GoogleUserInfo testLoginGoogle(@RequestBody Map<String, String> params) throws GeneralSecurityException, IOException {
         System.out.println("credential: "+ params.get("credential"));
         GoogleUserInfo info = googleService.fromCredential(params.get("credential"));
+        String jwt = jwtUtils.generateJwtToken(info.getEmail());
+        System.out.println("new Jwt "+ jwt);
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        System.out.println("username: "+ username);
         return info;
     }
 }

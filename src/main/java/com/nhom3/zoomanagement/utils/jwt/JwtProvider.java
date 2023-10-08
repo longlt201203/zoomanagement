@@ -1,5 +1,7 @@
 package com.nhom3.zoomanagement.utils.jwt;
 
+import com.nhom3.zoomanagement.accounts.AccountDTO;
+import com.nhom3.zoomanagement.google.GoogleUserInfo;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 @Component
@@ -24,18 +28,32 @@ public class JwtProvider {
     @Value("${jwt.secret}")
     private String secret;
 
-    public String generateJwtToken(Authentication authentication) {
+    public String generateJwtToken(String userEmail) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email",userEmail);
+        claims.put("username",userEmail);
 
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        return doGenerateToken(claims, userEmail);
+//        GoogleUserInfo googleUserInfo = (GoogleUserInfo) authentication.getPrincipal();
+//
+//        return Jwts.builder()
+//                .setSubject((googleUserInfo.getEmail()))
+//                .setIssuedAt(new Date())
+//                .setExpiration(new Date((new Date()).getTime() + tokenExpireTime))
+//                .signWith(key(), SignatureAlgorithm.HS256)
+//                .compact();
+    }
+    public String generateJwtToken2(Authentication authentication) {
+
+        AccountDTO userPrincipal = (AccountDTO) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + tokenExpireTime))
-                .signWith(key(), SignatureAlgorithm.HS256)
+                .signWith(key(), SignatureAlgorithm.HS512)
                 .compact();
     }
-
     private Key key() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     }
@@ -53,6 +71,14 @@ public class JwtProvider {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
+
+    private String doGenerateToken(Map<String, Object> claims, String subject) {
+
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + tokenExpireTime))
+                .signWith(SignatureAlgorithm.HS256, secret).compact();
+    }
+
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);

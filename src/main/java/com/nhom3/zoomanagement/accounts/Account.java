@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -24,7 +26,6 @@ public class Account {
     @Column
     @Enumerated(EnumType.STRING)
     private Enums.RoleEnum role;
-
     @Column
     @Enumerated(EnumType.STRING)
     private Enums.HumanGenderEnum gender;
@@ -40,4 +41,6 @@ public class Account {
 
     @OneToMany(mappedBy = "creator")
     private List<News> newsList;
+
+
 }
