@@ -31,7 +31,6 @@ public class JwtProvider {
     public String generateJwtToken(String userEmail) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("email",userEmail);
-        claims.put("username",userEmail);
 
         return doGenerateToken(claims, userEmail);
 //        GoogleUserInfo googleUserInfo = (GoogleUserInfo) authentication.getPrincipal();

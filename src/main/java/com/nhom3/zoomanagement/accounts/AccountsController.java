@@ -4,6 +4,7 @@ import com.nhom3.zoomanagement.errors.BadRequestException;
 import com.nhom3.zoomanagement.errors.ErrorReport;
 import com.nhom3.zoomanagement.utils.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +24,7 @@ public class AccountsController implements IAccountsController, UserDetailsServi
     @Autowired
     JwtProvider jwtProvider;
     @Override
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/")
     public List<AccountDTO> get() {
         return null;
@@ -30,6 +32,7 @@ public class AccountsController implements IAccountsController, UserDetailsServi
 
     @Override
     @GetMapping("{id}")
+    @PreAuthorize("hasAuthority('STAFF')")
     public AccountDTO get(@PathVariable("id") String id) {
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setId(id);
