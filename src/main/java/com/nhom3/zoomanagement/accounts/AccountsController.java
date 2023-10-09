@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("accounts")
-public class AccountsController implements IAccountsController, UserDetailsService {
+public class AccountsController implements IAccountsController{
     @Autowired
     AccountsRepository accountsRepository;
     
@@ -32,7 +32,7 @@ public class AccountsController implements IAccountsController, UserDetailsServi
 
     @Override
     @GetMapping("{id}")
-    @PreAuthorize("hasAuthority('STAFF')")
+    @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
     public AccountDTO get(@PathVariable("id") String id) {
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setId(id);
@@ -59,13 +59,5 @@ public class AccountsController implements IAccountsController, UserDetailsServi
     @Override
     public AccountDTO delete(String id) {
         return null;
-    }
-
-    @Override
-    public  UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Account account = accountsRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + username));
-
-        return AccountDTO.fromAccount(account, false);
     }
 }

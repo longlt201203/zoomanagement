@@ -1,7 +1,6 @@
 package com.nhom3.zoomanagement.utils.jwt;
 
-import com.nhom3.zoomanagement.accounts.AccountDTO;
-import com.nhom3.zoomanagement.google.GoogleUserInfo;
+import com.nhom3.zoomanagement.accounts.Account;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -31,20 +30,11 @@ public class JwtProvider {
     public String generateJwtToken(String userEmail) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("email",userEmail);
-
         return doGenerateToken(claims, userEmail);
-//        GoogleUserInfo googleUserInfo = (GoogleUserInfo) authentication.getPrincipal();
-//
-//        return Jwts.builder()
-//                .setSubject((googleUserInfo.getEmail()))
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date((new Date()).getTime() + tokenExpireTime))
-//                .signWith(key(), SignatureAlgorithm.HS256)
-//                .compact();
     }
     public String generateJwtToken2(Authentication authentication) {
         System.out.println("generate jwt: " + authentication.getPrincipal());
-        AccountDTO userPrincipal = (AccountDTO) authentication.getPrincipal();
+        Account userPrincipal = (Account) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
