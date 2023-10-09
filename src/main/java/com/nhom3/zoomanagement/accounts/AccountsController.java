@@ -31,7 +31,9 @@ public class AccountsController implements IAccountsController, UserDetailsServi
     @Override
     @GetMapping("{id}")
     public AccountDTO get(@PathVariable("id") String id) {
-        return null;
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setId(id);
+        return accountDTO;
     }
 
     @GetMapping("login/{id}")

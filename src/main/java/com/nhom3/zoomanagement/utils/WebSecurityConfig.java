@@ -26,20 +26,20 @@ import org.springframework.web.cors.CorsConfiguration;
 
 
 @Configuration
-@EnableMethodSecurity
-
+@EnableWebSecurity()
+@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig {
 //    @Autowired
 //    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+    
     @Autowired
     AccountsController userDetailsService;
-    @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
-    }
+    
+    @Autowired
+    public AuthTokenFilter authTokenFilter;
 
 
 //    @Bean
@@ -59,10 +59,10 @@ public class WebSecurityConfig {
 //    }
 //
 //
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+//        return authConfig.getAuthenticationManager();
+//    }
 
 
     @Bean
@@ -86,12 +86,12 @@ public class WebSecurityConfig {
                         .requestMatchers("/accounts/login/**").permitAll()
                                 .anyRequest().authenticated()
                 )
-//                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
         ;
 
 //        http.authenticationProvider(authenticationProvider());
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
