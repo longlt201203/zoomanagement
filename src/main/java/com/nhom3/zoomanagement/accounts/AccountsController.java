@@ -1,52 +1,66 @@
 package com.nhom3.zoomanagement.accounts;
 
 import com.nhom3.zoomanagement.errors.BadRequestException;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
+import com.nhom3.zoomanagement.errors.ErrorReport;
+import com.nhom3.zoomanagement.utils.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "Account", description = "Account API")
-//@SecurityRequirement(name = "accounts")
 @RestController
 @RequestMapping("accounts")
-public class AccountsController implements IAccountsController {
+public class AccountsController implements IAccountsController, UserDetailsService {
     @Autowired
-    AccountsService accountsService;
-
+    AccountsRepository accountsRepository;
+    
+    @Autowired
+    JwtProvider jwtProvider;
     @Override
     @GetMapping("/")
-    
     public List<AccountDTO> get() {
-        return accountsService.get();
+        return null;
     }
 
     @Override
-//    @PreAuthorize()
-    @GetMapping("/{id}")
-    public AccountDTO get(@PathVariable("id") String id) throws BadRequestException {
-        return accountsService.get(id);
+    @GetMapping("{id}")
+    public AccountDTO get(@PathVariable("id") String id) {
+        return null;
+    }
+
+    @GetMapping("login/{id}")
+    public String login(@PathVariable("id") String id) throws BadRequestException {
+        Account account = accountsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
+        String token = jwtProvider.generateJwtToken(account.getEmail());
+        return token;
     }
 
     @Override
-    @PostMapping("/")
-    public AccountDTO create(@RequestBody @Valid CreateAccountDTO dto) {
-        return accountsService.create(dto);
+    public AccountDTO create(CreateAccountDTO dto) {
+        return null;
     }
 
     @Override
-    @PutMapping("/{id}")
-    public AccountDTO update(@PathVariable("id") String id, @RequestBody @Valid UpdateAccountDTO dto) throws BadRequestException {
-        return accountsService.update(id, dto);
+    public AccountDTO update(String id, UpdateAccountDTO dto) {
+        return null;
     }
 
     @Override
-    @DeleteMapping("/{id}")
-    public AccountDTO delete(@PathVariable("id") String id) throws BadRequestException {
-        return accountsService.delete(id);
+    public AccountDTO delete(String id) {
+        return null;
+    }
+
+    @Override
+    public  UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        Account account = accountsRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + username));
+
+        return AccountDTO.fromAccount(account, false);
     }
 }
