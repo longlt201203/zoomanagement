@@ -17,6 +17,6 @@ public class AnimalImage {
     @Column()
     private String url;
 
-    @ManyToOne()
-    private Animal animal;
+//    @ManyToOne()
+//    private Animal animal;
 }

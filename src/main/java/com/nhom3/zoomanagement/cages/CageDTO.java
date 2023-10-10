@@ -3,6 +3,7 @@ package com.nhom3.zoomanagement.cages;
 import com.nhom3.zoomanagement.animal_species.AnimalSpeciesDTO;
 import com.nhom3.zoomanagement.animals.AnimalDTO;
 import com.nhom3.zoomanagement.areas.AreaDTO;
+import com.nhom3.zoomanagement.meal_schedules.MealScheduleDTO;
 import com.nhom3.zoomanagement.meals.MealDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CageDTO {
-    public static CageDTO fromCage(Cage cage, boolean hasAnimalSpecies, boolean hasArea, boolean hasAnimal, boolean hasMeal) {
+    public static CageDTO fromCage(Cage cage, boolean hasAnimalSpecies, boolean hasArea, boolean hasAnimal, boolean hasMealSchedule) {
         CageDTO cageDTO = new CageDTO();
         cageDTO.setId(cage.getId());
         cageDTO.setCode(cage.getCode());
@@ -26,11 +27,11 @@ public class CageDTO {
         if(hasArea){
             cageDTO.setArea(AreaDTO.fromArea(cage.getArea(), false));
         }
-        if(hasMeal){
-            cageDTO.setMealList(MealDTO.fromMealList(cage.getMealList(), false));
+        if(hasMealSchedule){
+            cageDTO.setMealScheduleList(MealScheduleDTO.fromMealScheduleList(cage.getMealScheduleList(), false, false));
         }
         if(hasAnimal){
-            cageDTO.setAnimalList(AnimalDTO.fromAnimalList(cage.getAnimalList(), false, false, false));
+            cageDTO.setAnimalList(AnimalDTO.fromAnimalList(cage.getAnimalList(), false, false));
         }
         return cageDTO;
     }
@@ -49,6 +50,6 @@ public class CageDTO {
     private AreaDTO area;
     private AnimalSpeciesDTO animalSpecies;
     private List<AnimalDTO> animalList;
-    private List<MealDTO> mealList;
+    private List<MealScheduleDTO> mealScheduleList;
 
 }

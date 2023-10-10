@@ -3,6 +3,7 @@ package com.nhom3.zoomanagement.cages;
 import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
 import com.nhom3.zoomanagement.animals.Animal;
 import com.nhom3.zoomanagement.areas.Area;
+import com.nhom3.zoomanagement.meal_schedules.MealSchedule;
 import com.nhom3.zoomanagement.meals.Meal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,6 @@ public class Cage {
     private List<Animal> animalList;
 
     @OneToMany(mappedBy = "cage")
-    private List<Meal> mealList;
+    private List<MealSchedule> mealScheduleList;
 
 }

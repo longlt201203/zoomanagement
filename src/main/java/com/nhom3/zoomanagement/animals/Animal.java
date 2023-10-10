@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Animal {
     private String nation;
 
     @Column()
-    private Date dob;
+    private LocalDate dob;
 
     @Column()
     @Enumerated(EnumType.STRING)
@@ -52,8 +53,7 @@ public class Animal {
     @ManyToOne()
     private Cage cage;
 
-    @OneToMany(mappedBy = "animal")
-    private List<AnimalImage> imageList;
+    private List<String> imageList;
 
 
 }
