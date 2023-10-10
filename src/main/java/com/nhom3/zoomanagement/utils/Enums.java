@@ -40,7 +40,7 @@ public class Enums {
     }
 
     public enum MealStatusEnum {
-        FEEDED,
-        NOT_FEEDED
+        FED,
+        NOT_FED_YET
     }
 }

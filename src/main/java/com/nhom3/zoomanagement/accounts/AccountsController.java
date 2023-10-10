@@ -24,7 +24,6 @@ public class AccountsController implements IAccountsController{
     @Autowired
     JwtProvider jwtProvider;
     @Override
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/")
     public List<AccountDTO> get() {
         return null;

@@ -34,7 +34,7 @@ public class Account implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Enums.HumanGenderEnum gender;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
     @Column
