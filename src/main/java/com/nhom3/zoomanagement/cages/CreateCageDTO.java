@@ -1,6 +1,7 @@
 package com.nhom3.zoomanagement.cages;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +15,8 @@ public class CreateCageDTO {
     @Size(max = 10, message = "code cannot be more than 10 characters!")
     private String code;
     private String description;
-    @NotBlank(message = "Area field cannot be blank")
-    private String area;
-    @NotBlank(message = "Species field cannot be blank")
-    private String animalSpecies;
+    @NotNull(message= "Area field can not be empty")
+    private Integer areaId;
+    @NotNull(message= "Animal Species field can not be empty")
+    private Integer animalSpeciesId;
 }

@@ -1,6 +1,7 @@
 package com.nhom3.zoomanagement.meals;
 
 import com.nhom3.zoomanagement.cages.Cage;
+import com.nhom3.zoomanagement.meal_schedules.MealSchedule;
 import com.nhom3.zoomanagement.utils.Enums;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,22 +21,16 @@ public class Meal {
     private Integer id;
 
     @Column()
-    private Date time;
+    private String time;
 
     @Column()
     private String food;
 
     @Column()
-    private String quantity;
-
-    @Column()
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("NOT_FEEDED")
-    private Enums.MealStatusEnum status = Enums.MealStatusEnum.NOT_FEEDED;
-
-    @Column()
-    private String note;
+    @ColumnDefault("NOT_FED_YET")
+    private Enums.MealStatusEnum status = Enums.MealStatusEnum.NOT_FED_YET;
 
     @ManyToOne()
-    private Cage cage;
+    private MealSchedule mealSchedule;
 }
