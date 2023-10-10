@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ICrudService<DtoType, IdType, CreateDtoType, UpdateDtoType> {
     List<DtoType> get();
-    DtoType get(IdType id) throws AppServiceException;
-    DtoType create(CreateDtoType dto) throws AppServiceException;
-    DtoType update(IdType id, @RequestBody @Valid UpdateDtoType dto) throws AppServiceException;
-    DtoType delete(IdType id) throws AppServiceException;
+    DtoType get(IdType id) throws AppServiceException, BadRequestException;
+    DtoType create(CreateDtoType dto) throws AppServiceException, BadRequestException;
+    DtoType update(IdType id, @RequestBody @Valid UpdateDtoType dto) throws AppServiceException, BadRequestException;
+    DtoType delete(IdType id) throws AppServiceException, BadRequestException;
 }
