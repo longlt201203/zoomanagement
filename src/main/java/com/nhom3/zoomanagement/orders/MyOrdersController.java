@@ -14,31 +14,31 @@ public class MyOrdersController implements IMyOrdersController {
     MyOrdersService myOrderService;
 
     @Override
-    @GetMapping("/")
+    @GetMapping("get-all")
     public List<MyOrderDTO> get() {
         return myOrderService.get();
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping("get-by-Id/{id}")
     public MyOrderDTO get(@PathVariable("id") String id) throws BadRequestException {
         return myOrderService.get(id);
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping("create")
     public MyOrderDTO create(CreateMyOrderDTO dto) throws BadRequestException {
         return myOrderService.create(dto);
     }
 
     @Override
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public MyOrderDTO update(@PathVariable("id") String id, @RequestBody @Valid Void dto) throws BadRequestException {
         return myOrderService.update(id, dto);
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public MyOrderDTO delete(@PathVariable("id") String id) throws BadRequestException {
         return myOrderService.delete(id);
     }

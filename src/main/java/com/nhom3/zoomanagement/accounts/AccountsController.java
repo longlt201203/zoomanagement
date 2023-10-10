@@ -14,31 +14,31 @@ public class AccountsController implements IAccountsController {
     AccountsService accountsService;
     
     @Override
-    @GetMapping("/")
+    @GetMapping("get-all")
     public List<AccountDTO> get() {
         return accountsService.get();
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping("get-by-Id/{id}")
     public AccountDTO get(@PathVariable("id") String id) throws BadRequestException {
         return accountsService.get(id);
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping("create")
     public AccountDTO create(@RequestBody @Valid CreateAccountDTO dto) {
         return accountsService.create(dto);
     }
 
     @Override
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public AccountDTO update(@PathVariable("id") String id, @RequestBody @Valid UpdateAccountDTO dto) throws BadRequestException {
         return accountsService.update(id, dto);
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public AccountDTO delete(@PathVariable("id") String id) throws BadRequestException {
         return accountsService.delete(id);
     }
