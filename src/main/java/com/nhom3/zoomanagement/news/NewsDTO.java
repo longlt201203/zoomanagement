@@ -23,6 +23,7 @@ public class NewsDTO {
     public static NewsDTO fromNews(News news, boolean hasCreator) {
         NewsDTO newsDTO = new NewsDTO();
         newsDTO.setId(news.getId());
+        newsDTO.setContent(news.getContent());
         newsDTO.setTitle(news.getTitle());
         newsDTO.setCreatedAt(news.getCreatedAt());
         if (hasCreator) {

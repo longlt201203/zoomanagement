@@ -37,4 +37,12 @@ public class CreateOrderDetailDTO {
     public Integer parseQuantity() {
         return Integer.parseInt(quantity);
     }
+    
+    public OrderDetail toOrderDetail() {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setQuantity(this.parseQuantity());
+        orderDetail.setPrice(this.parsePrice());
+        orderDetail.setType(this.parseType());
+        return orderDetail;
+    }
 }

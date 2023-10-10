@@ -25,4 +25,12 @@ public class UpdateNewsDTO {
     public Integer parseId() {
         return Integer.parseInt(id);
     }
+
+    public News toNews(News presentNews) {
+        News news = new News();
+        news.setContent(this.getContent());
+        news.setTitle(this.getTitle());
+        news.setCreator(presentNews.getCreator());
+        return news;
+    }
 }

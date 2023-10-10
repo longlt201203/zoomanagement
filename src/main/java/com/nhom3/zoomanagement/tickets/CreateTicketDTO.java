@@ -28,4 +28,11 @@ public class CreateTicketDTO {
     public Float parsePrice() {
         return Float.parseFloat(price);
     }
+    
+    public Ticket toTicket() {
+        Ticket ticket = new Ticket();
+        ticket.setType(this.parseType());
+        ticket.setPrice(this.parsePrice());
+        return ticket;
+    }
 }

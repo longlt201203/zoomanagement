@@ -27,9 +27,10 @@ public class AccountDTO {
         accountDTO.setId(account.getId());
         accountDTO.setName(account.getName());
         accountDTO.setRole(account.getRole());
-        accountDTO.setEmail(accountDTO.getEmail());
-        accountDTO.setPhoneNumber(accountDTO.getPhoneNumber());
-        accountDTO.setAvatar(accountDTO.getAvatar());
+        accountDTO.setEmail(account.getEmail());
+        accountDTO.setPhoneNumber(account.getPhoneNumber());
+        accountDTO.setAvatar(account.getAvatar());
+        accountDTO.setGender(account.getGender());
         if (hasNewsList) {
             accountDTO.setNewsList(NewsDTO.fromNewsList(account.getNewsList(), false));
         }

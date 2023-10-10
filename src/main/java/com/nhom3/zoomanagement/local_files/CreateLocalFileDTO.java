@@ -11,4 +11,10 @@ import lombok.NoArgsConstructor;
 public class CreateLocalFileDTO {
     @NotBlank(message = "Path must be not blank")
     private String path;
+    
+    public LocalFile toLocalFile() {
+        LocalFile localFile = new LocalFile();
+        localFile.setPath(this.getPath());
+        return localFile;
+    }
 }

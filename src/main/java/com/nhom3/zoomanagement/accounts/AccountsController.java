@@ -1,33 +1,45 @@
 package com.nhom3.zoomanagement.accounts;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.nhom3.zoomanagement.errors.BadRequestException;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("accounts")
 public class AccountsController implements IAccountsController {
+    @Autowired
+    AccountsService accountsService;
+    
     @Override
+    @GetMapping("get-all")
     public List<AccountDTO> get() {
-        return null;
+        return accountsService.get();
     }
 
     @Override
-    public AccountDTO get(String id) {
-        return null;
+    @GetMapping("get-by-Id/{id}")
+    public AccountDTO get(@PathVariable("id") String id) throws BadRequestException {
+        return accountsService.get(id);
     }
 
     @Override
-    public AccountDTO create(CreateAccountDTO dto) {
-        return null;
+    @PostMapping("create")
+    public AccountDTO create(@RequestBody @Valid CreateAccountDTO dto) {
+        return accountsService.create(dto);
     }
 
     @Override
-    public AccountDTO update(String id, UpdateAccountDTO dto) {
-        return null;
+    @PutMapping("update/{id}")
+    public AccountDTO update(@PathVariable("id") String id, @RequestBody @Valid UpdateAccountDTO dto) throws BadRequestException {
+        return accountsService.update(id, dto);
     }
 
     @Override
-    public AccountDTO delete(String id) {
-        return null;
+    @DeleteMapping("delete/{id}")
+    public AccountDTO delete(@PathVariable("id") String id) throws BadRequestException {
+        return accountsService.delete(id);
     }
 }

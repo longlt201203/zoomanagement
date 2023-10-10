@@ -20,4 +20,10 @@ public class UpdateLocalFileDTO {
     public Integer parseId() {
         return Integer.parseInt(id);
     }
+
+    public LocalFile toLocalFile() {
+        LocalFile localFile = new LocalFile();
+        localFile.setPath(this.getPath());
+        return localFile;
+    }
 }
