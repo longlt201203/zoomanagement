@@ -34,7 +34,7 @@ public class Account implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Enums.HumanGenderEnum gender;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
     @Column
@@ -58,7 +58,7 @@ public class Account implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override

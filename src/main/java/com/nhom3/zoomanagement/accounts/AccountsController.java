@@ -3,15 +3,13 @@ package com.nhom3.zoomanagement.accounts;
 import com.nhom3.zoomanagement.errors.BadRequestException;
 import com.nhom3.zoomanagement.errors.ErrorReport;
 import com.nhom3.zoomanagement.utils.jwt.JwtProvider;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,14 +18,14 @@ import java.util.List;
 public class AccountsController implements IAccountsController{
     @Autowired
     AccountsRepository accountsRepository;
-    
+    @Autowired
+    AccountsService accountsService;
     @Autowired
     JwtProvider jwtProvider;
     @Override
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/")
+    @GetMapping("get-all")
     public List<AccountDTO> get() {
-        return null;
+        return accountsService.get();
     }
 
     @Override
@@ -47,17 +45,20 @@ public class AccountsController implements IAccountsController{
     }
 
     @Override
-    public AccountDTO create(CreateAccountDTO dto) {
-        return null;
+    @PostMapping("create")
+    public AccountDTO create(@RequestBody @Valid CreateAccountDTO dto) {
+        return accountsService.create(dto);
     }
 
     @Override
-    public AccountDTO update(String id, UpdateAccountDTO dto) {
-        return null;
+    @PutMapping("update/{id}")
+    public AccountDTO update(@PathVariable("id") String id, @RequestBody @Valid UpdateAccountDTO dto) throws BadRequestException {
+        return accountsService.update(id, dto);
     }
 
     @Override
-    public AccountDTO delete(String id) {
-        return null;
+    @DeleteMapping("delete/{id}")
+    public AccountDTO delete(@PathVariable("id") String id) throws BadRequestException {
+        return accountsService.delete(id);
     }
 }

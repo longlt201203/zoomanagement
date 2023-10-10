@@ -14,31 +14,31 @@ public class NewsController implements INewsController {
     NewsService newsService;
     
     @Override
-    @GetMapping("/")
+    @GetMapping("get-all")
     public List<NewsDTO> get() {
         return newsService.get();
     }
     
-    @GetMapping("/{id}")
+    @GetMapping("get-by-Id/{id}")
     @Override
     public NewsDTO get(Integer id) throws BadRequestException {
         return newsService.get(id);
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping("create")
     public NewsDTO create(@RequestBody @Valid CreateNewsDTO dto) throws BadRequestException {
         return newsService.create(dto);
     }
 
     @Override
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public NewsDTO update(@PathVariable("id") Integer id, UpdateNewsDTO dto) throws BadRequestException {
         return newsService.update(id, dto);
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public NewsDTO delete(@PathVariable("id") Integer id) throws BadRequestException {
         return newsService.delete(id);
     }
