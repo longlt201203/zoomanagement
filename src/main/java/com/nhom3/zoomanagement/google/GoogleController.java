@@ -44,13 +44,13 @@ public class GoogleController {
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = {"Requestor-Type", "Authorization"}, exposedHeaders = "X-Get-Header")
     @PostMapping("/test-login-google")
     @ResponseBody
-    protected GoogleUserInfo testLoginGoogle(@RequestBody Map<String, String> params) throws GeneralSecurityException, IOException {
+    protected String testLoginGoogle(@RequestBody Map<String, String> params) throws GeneralSecurityException, IOException {
         System.out.println("credential: "+ params.get("credential"));
         GoogleUserInfo info = googleService.fromCredential(params.get("credential"));
         Account account = accountsRepository.findByEmail(info.getEmail());
         String jwt = jwtProvider.generateJwtToken(account.getEmail(), account.getRole().toString());
         System.out.println("new Jwt "+ jwt);
 
-        return info;
+        return jwt;
     }
 }
