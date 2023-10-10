@@ -40,7 +40,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/auth/**").permitAll()
+                        auth.requestMatchers("/test-login-google").permitAll()
                                 .requestMatchers("/accounts/login/**").permitAll()
                                 .anyRequest().authenticated()
                 )

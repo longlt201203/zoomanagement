@@ -27,9 +27,9 @@ public class JwtProvider {
     @Value("${jwt.secret}")
     private String secret;
 
-    public String generateJwtToken(String userEmail) {
+    public String generateJwtToken(String userEmail ,String role) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("email",userEmail);
+        claims.put("role",role);
         return doGenerateToken(claims, userEmail);
     }
     public String generateJwtToken2(Authentication authentication) {

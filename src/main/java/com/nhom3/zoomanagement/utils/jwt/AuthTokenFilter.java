@@ -38,7 +38,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             return;
         }
         String email = jwtUtils.getUserNameFromJwtToken(jwt);
-        UserDetails account = accountsRepository.findByEmail(email).orElseThrow(null);
+        UserDetails account = accountsRepository.findByEmail(email);
         if (account == null) {
             filterChain.doFilter(request, response);
             return;

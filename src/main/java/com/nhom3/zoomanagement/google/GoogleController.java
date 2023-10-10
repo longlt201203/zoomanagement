@@ -6,6 +6,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
+import com.nhom3.zoomanagement.accounts.Account;
+import com.nhom3.zoomanagement.accounts.AccountsRepository;
 import com.nhom3.zoomanagement.utils.GcpConfig;
 import com.nhom3.zoomanagement.utils.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,10 @@ public class GoogleController {
     @Autowired
     private IGoogleService googleService;
     @Autowired
-    JwtProvider jwtUtils;
+    JwtProvider jwtProvider;
+    @Autowired
+
+    AccountsRepository accountsRepository;
     @GetMapping("/google")
     protected String testGooglePage() {
         return "google.html";
@@ -42,10 +47,10 @@ public class GoogleController {
     protected GoogleUserInfo testLoginGoogle(@RequestBody Map<String, String> params) throws GeneralSecurityException, IOException {
         System.out.println("credential: "+ params.get("credential"));
         GoogleUserInfo info = googleService.fromCredential(params.get("credential"));
-        String jwt = jwtUtils.generateJwtToken(info.getEmail());
+        Account account = accountsRepository.findByEmail(info.getEmail());
+        String jwt = jwtProvider.generateJwtToken(account.getEmail(), account.getRole().toString());
         System.out.println("new Jwt "+ jwt);
-        String username = jwtUtils.getUserNameFromJwtToken(jwt);
-        System.out.println("username: "+ username);
+
         return info;
     }
 }

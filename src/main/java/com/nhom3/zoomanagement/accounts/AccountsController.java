@@ -42,7 +42,7 @@ public class AccountsController implements IAccountsController{
     @GetMapping("login/{id}")
     public String login(@PathVariable("id") String id) throws BadRequestException {
         Account account = accountsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
-        String token = jwtProvider.generateJwtToken(account.getEmail());
+        String token = jwtProvider.generateJwtToken(account.getEmail(), account.getRole().toString());
         return token;
     }
 
