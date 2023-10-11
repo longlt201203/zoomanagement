@@ -2,12 +2,15 @@ package com.nhom3.zoomanagement.animals;
 
 import com.nhom3.zoomanagement.animal_images.AnimalImage;
 import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
+import com.nhom3.zoomanagement.cages.Cage;
 import com.nhom3.zoomanagement.utils.Enums;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -27,13 +30,16 @@ public class Animal {
     private String nation;
 
     @Column()
-    private Date dob;
+    private LocalDate dob;
 
     @Column()
+    @Enumerated(EnumType.STRING)
     private Enums.AnimalGenderEnum gender;
 
     @Column()
-    private Enums.AnimalStatusEnum status;
+    @ColumnDefault("HEALTHY")
+    @Enumerated(EnumType.STRING)
+    private Enums.AnimalStatusEnum status = Enums.AnimalStatusEnum.HEALTHY;
 
     @Column()
     private String description;
@@ -44,8 +50,10 @@ public class Animal {
     @ManyToOne()
     private AnimalSpecies species;
 
-    @OneToMany(mappedBy = "animal")
-    private List<AnimalImage> imageList;
+    @ManyToOne()
+    private Cage cage;
+
+    private List<String> imageList;
 
 
 }

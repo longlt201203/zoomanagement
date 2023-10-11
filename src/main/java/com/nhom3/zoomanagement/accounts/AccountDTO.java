@@ -5,6 +5,8 @@ import com.nhom3.zoomanagement.utils.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +24,22 @@ public class AccountDTO {
     private String avatar;
     private List<NewsDTO> newsList;
 
+
     public static AccountDTO fromAccount(Account account, boolean hasNewsList) {
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(account.getRole().toString()));
+
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setId(account.getId());
         accountDTO.setName(account.getName());
         accountDTO.setRole(account.getRole());
-        accountDTO.setEmail(accountDTO.getEmail());
-        accountDTO.setPhoneNumber(accountDTO.getPhoneNumber());
-        accountDTO.setAvatar(accountDTO.getAvatar());
+        accountDTO.setGender(account.getGender());
+        accountDTO.setEmail(account.getEmail());
+
+
+        accountDTO.setPhoneNumber(account.getPhoneNumber());
+        accountDTO.setAvatar(account.getAvatar());
         if (hasNewsList) {
             accountDTO.setNewsList(NewsDTO.fromNewsList(account.getNewsList(), false));
         }
@@ -44,6 +54,5 @@ public class AccountDTO {
         }
         return accountDTOList;
     }
-
 
 }

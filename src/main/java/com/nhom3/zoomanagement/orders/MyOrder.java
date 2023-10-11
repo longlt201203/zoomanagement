@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,12 +35,12 @@ public class MyOrder {
     
     @Column
     @Temporal(TemporalType.DATE)
-    private Date dateToGo;
+    private LocalDate dateToGo;
 
     @Column(updatable = false)
     @CreationTimestamp
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> details;
 }

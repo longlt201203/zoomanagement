@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class GoogleUserInfo {
+    @Getter
+    @Setter
     private String email;
     private boolean isEmailVerified;
     private String familyName;

@@ -1,6 +1,12 @@
 package com.nhom3.zoomanagement.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 public class Enums {
+
+    @Getter
+    @AllArgsConstructor
     public enum HumanGenderEnum {
         MALE,
         FEMALE,
@@ -9,6 +15,7 @@ public class Enums {
 
     public enum RoleEnum {
         STAFF,
+
         ZOO_TRAINER,
         ADMIN
     }
@@ -16,13 +23,13 @@ public class Enums {
     public enum TicketTypeEnum {
         ADULT,
         CHILDREN
-     }
-  
-     public enum AnimalGenderEnum {
-         FEMALE,
-         MALE,
-         HERMAPHRODITE,
-         ASEXUAL
+    }
+
+    public enum AnimalGenderEnum {
+        FEMALE,
+        MALE,
+        HERMAPHRODITE,
+        ASEXUAL
     }
 
     public enum AnimalStatusEnum {
@@ -33,7 +40,7 @@ public class Enums {
     }
 
     public enum MealStatusEnum {
-        FEEDED,
-        NOT_FEEDED
+        FED,
+        NOT_FED_YET
     }
 }

@@ -23,7 +23,7 @@ public class AnimalSpeciesDTO {
             animalSpeciesDTO.setAnimalList(AnimalDTO.fromAnimalList(animalSpecies.getAnimalList(), false, false));
         }
         if(hasCage){
-            animalSpeciesDTO.setCageList(CageDTO.fromCageList(animalSpecies.getCageList(), false, false,false));
+            animalSpeciesDTO.setCageList(CageDTO.fromCageList(animalSpecies.getCageList(), false,false, false,false));
         }
         return animalSpeciesDTO;
     }

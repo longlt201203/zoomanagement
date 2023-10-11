@@ -2,11 +2,13 @@ package com.nhom3.zoomanagement.animals;
 
 import com.nhom3.zoomanagement.animal_images.AnimalImageDTO;
 import com.nhom3.zoomanagement.animal_species.AnimalSpeciesDTO;
+import com.nhom3.zoomanagement.cages.CageDTO;
 import com.nhom3.zoomanagement.utils.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnimalDTO {
-    public static AnimalDTO fromAnimal(Animal animal, boolean hasAnimalImage, boolean hasSpecies) {
+    public static AnimalDTO fromAnimal(Animal animal, boolean hasSpecies, boolean hasCage) {
         AnimalDTO animalDTO = new AnimalDTO();
         animalDTO.setId(animal.getId());
         animalDTO.setName(animal.getName());
@@ -25,19 +27,20 @@ public class AnimalDTO {
         animalDTO.setStatus(animal.getStatus());
         animalDTO.setDescription(animal.getDescription());
         animalDTO.setNote(animal.getNote());
-        if (hasAnimalImage) {
-            animalDTO.setImageList(AnimalImageDTO.fromAnimalImageList(animal.getImageList(), false));
-        }
+        animalDTO.setImageList(animal.getImageList());
         if(hasSpecies){
             animalDTO.setSpecies(AnimalSpeciesDTO.fromAnimalSpecie(animal.getSpecies(), false, false));
+        }
+        if(hasCage){
+            animalDTO.setCage(CageDTO.fromCage(animal.getCage(),false, false, false, false));
         }
         return animalDTO;
     }
 
-    public static List<AnimalDTO> fromAnimalList(List<Animal> animalList, boolean hasAnimalImage, boolean hasSpecies) {
+    public static List<AnimalDTO> fromAnimalList(List<Animal> animalList, boolean hasSpecies, boolean hasCage) {
         List<AnimalDTO> animalDTOList = new ArrayList<>();
         for (Animal animal : animalList) {
-            AnimalDTO animalDTO = fromAnimal(animal, hasAnimalImage, hasSpecies);
+            AnimalDTO animalDTO = fromAnimal(animal, hasSpecies, hasCage);
             animalDTOList.add(animalDTO);
         }
         return animalDTOList;
@@ -45,11 +48,12 @@ public class AnimalDTO {
     private Integer id;
     private String name;
     private String nation;
-    private Date dob;
+    private LocalDate dob;
     private Enums.AnimalGenderEnum gender;
     private Enums.AnimalStatusEnum status;
     private String description;
     private String note;
     private AnimalSpeciesDTO species;
-    private List<AnimalImageDTO> imageList;
+    private CageDTO cage;
+    private List<String> imageList;
 }

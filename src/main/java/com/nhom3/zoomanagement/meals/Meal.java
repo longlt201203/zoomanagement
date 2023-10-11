@@ -1,11 +1,13 @@
 package com.nhom3.zoomanagement.meals;
 
 import com.nhom3.zoomanagement.cages.Cage;
+import com.nhom3.zoomanagement.meal_schedules.MealSchedule;
 import com.nhom3.zoomanagement.utils.Enums;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 
@@ -19,20 +21,16 @@ public class Meal {
     private Integer id;
 
     @Column()
-    private Date time;
+    private String time;
 
     @Column()
     private String food;
 
     @Column()
-    private String quantity;
+    @Enumerated(EnumType.STRING)
+    @ColumnDefault("NOT_FED_YET")
+    private Enums.MealStatusEnum status = Enums.MealStatusEnum.NOT_FED_YET;
 
-    @Column()
-    private Enums.MealStatusEnum status;
-
-    @Column()
-    private String note;
-
-    @OneToOne()
-    private Cage cage;
+    @ManyToOne()
+    private MealSchedule mealSchedule;
 }

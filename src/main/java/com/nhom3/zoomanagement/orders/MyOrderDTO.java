@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,8 +19,8 @@ public class MyOrderDTO {
     private String email;
     private String name;
     private Float totalPrice;
-    private Date dateToGo;
-    private Date createdAt;
+    private LocalDate dateToGo;
+    private LocalDateTime createdAt;
     private List<OrderDetailDTO> details;
 
     public static MyOrderDTO fromMyOrder(MyOrder myOrder, boolean hasDetails) {

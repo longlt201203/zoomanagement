@@ -6,6 +6,7 @@ import com.nhom3.zoomanagement.errors.ValidationErrorReport;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,4 +30,9 @@ public class AppControllerAdvisor {
         }
         return handleBadRequest(new BadRequestException(new ValidationErrorReport(errMsgs)), req);
     }
+    
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorReport> handleDeserializationError(HttpMessageNotReadableException e, HttpServletRequest req) {
+        return handleBadRequest(new BadRequestException(new ErrorReport("Error while Deserializing")), req);
+    } 
 }
