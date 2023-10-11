@@ -7,6 +7,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.nhom3.zoomanagement.utils.GcpConfig;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,16 +29,21 @@ public class GoogleService implements IGoogleService {
                 .setAudience(Collections.singletonList(gcpConfig.getClientId()))
                 .build();
 
+//        String userEmail = gcpConfig.getUserEmailFromToken(credential);
         GoogleIdToken idToken = verifier.verify(credential);
 
-        if (idToken != null) {
+//        System.out.println(userEmail);
+        if (idToken  != null) {
+//            Claims payload = gcpConfig.getAllClaimsFromToken(credential);
             GoogleIdToken.Payload payload = idToken.getPayload();
-            info.setEmail(payload.getEmail());
-            info.setEmailVerified(payload.getEmailVerified());
+            info.setEmail((String)  payload.get("email"));
+//            info.setEmailVerified((Boolean)  payload.get("isEmailVerified"));
             info.setFamilyName((String) payload.get("family_name"));
             info.setGivenName((String) payload.get("given_name"));
             info.setAvatar((String) payload.get("picture"));
         }
         return info;
     }
+
+
 }

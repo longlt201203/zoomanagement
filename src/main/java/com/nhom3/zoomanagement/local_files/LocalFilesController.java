@@ -12,7 +12,7 @@ import java.util.List;
 public class LocalFilesController implements ILocalFilesController {
     @Autowired
     LocalFilesService localFilesService;
-    
+
     @Override
     @GetMapping("get-all")
     public List<LocalFileDTO> get() {
