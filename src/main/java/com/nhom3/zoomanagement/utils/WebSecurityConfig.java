@@ -41,7 +41,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/test-login-google").permitAll()
-                                .requestMatchers("/accounts/login/**").permitAll()
+                                .requestMatchers("accounts/login/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))

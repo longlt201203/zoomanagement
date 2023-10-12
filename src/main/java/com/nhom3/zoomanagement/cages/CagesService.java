@@ -1,5 +1,7 @@
 package com.nhom3.zoomanagement.cages;
 
+import com.nhom3.zoomanagement.accounts.Account;
+import com.nhom3.zoomanagement.accounts.AccountsRepository;
 import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
 import com.nhom3.zoomanagement.animal_species.AnimalSpeciesRepository;
 import com.nhom3.zoomanagement.areas.Area;
@@ -11,6 +13,7 @@ import com.nhom3.zoomanagement.errors.ErrorReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,17 +24,19 @@ public class CagesService implements ICagesService{
     AreasRepository areasRepository;
     @Autowired
     AnimalSpeciesRepository animalSpeciesRepository;
+    @Autowired
+    AccountsRepository accountsRepository;
 
     @Override
     public List<CageDTO> get() {
         List<Cage> cageList = cagesRepository.findAll();
-        return  CageDTO.fromCageList(cageList, true, true, false, false);
+        return  CageDTO.fromCageList(cageList, true, true, false, false, true, true);
     }
 
     @Override
     public CageDTO get(Integer id) throws AppServiceException {
         Cage cage = cagesRepository.findById(id).orElseThrow(() -> new AppServiceException(new ErrorReport("Cage not found")));
-        return  CageDTO.fromCage(cage, true, true, false, false);
+        return  CageDTO.fromCage(cage, true, true, false, false, true, true);
     }
 
     @Override
@@ -40,19 +45,22 @@ public class CagesService implements ICagesService{
             throw new AppServiceException(new ErrorReport("Cage code already existed"));
         }
         Cage cage = new Cage();
-        Area area = areasRepository.findById(dto.getAreaId()).orElseThrow(() -> new RuntimeException("Area not found"));
-        AnimalSpecies animalSpecies = animalSpeciesRepository.findById(dto.getAnimalSpeciesId()).orElseThrow(() -> new RuntimeException("Animal Species not found"));
+        Area area = areasRepository.findById(dto.getAreaId()).orElseThrow(() -> new AppServiceException(new ErrorReport("Area not found")));
+        AnimalSpecies animalSpecies = animalSpeciesRepository.findById(dto.getAnimalSpeciesId()).orElseThrow(() -> new AppServiceException(new ErrorReport("Animal Species not found")));
+        Account account = accountsRepository.findById(dto.getManagedBy()).orElseThrow(() -> new AppServiceException(new ErrorReport("Account not found")));
         cage.setCode(dto.getCode());
         cage.setDescription(dto.getDescription());
         cage.setArea(area);
         cage.setAnimalSpecies(animalSpecies);
+        cage.setManagedBy(account);
         cage = cagesRepository.save(cage);
-        return CageDTO.fromCage(cage, true, true, false, false);
+        return CageDTO.fromCage(cage, true, true, false, false, true, true);
     }
 
     @Override
     public CageDTO update(Integer id, UpdateCageDTO dto) throws AppServiceException {
         Cage cage = cagesRepository.findById(id).orElseThrow(() -> new AppServiceException(new ErrorReport("Cage not found")));
+        Account account = accountsRepository.findById(dto.getManagedBy()).orElseThrow(() -> new AppServiceException(new ErrorReport("Account not found")));
         if(cagesRepository.existsByCode(dto.getCode()) && !dto.getCode().matches(cage.getCode())){
             throw new AppServiceException(new ErrorReport("Cage code already existed"));
         }
@@ -62,8 +70,9 @@ public class CagesService implements ICagesService{
         cage.setDescription(dto.getDescription());
         cage.setArea(area);
         cage.setAnimalSpecies(animalSpecies);
+        cage.setManagedBy(account);
         cage = cagesRepository.save(cage);
-        return CageDTO.fromCage(cage, true, true, false, false);
+        return CageDTO.fromCage(cage, true, true, false, false, true, true);
     }
 
     @Override

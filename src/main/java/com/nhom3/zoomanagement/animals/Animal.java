@@ -1,5 +1,6 @@
 package com.nhom3.zoomanagement.animals;
 
+import com.nhom3.zoomanagement.accounts.Account;
 import com.nhom3.zoomanagement.animal_images.AnimalImage;
 import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
 import com.nhom3.zoomanagement.cages.Cage;
@@ -9,6 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -18,6 +22,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +41,7 @@ public class Animal {
     @Enumerated(EnumType.STRING)
     private Enums.AnimalGenderEnum gender;
 
-    @Column()
-    @ColumnDefault("HEALTHY")
+    @Column(columnDefinition = "varchar(255) default 'HEALTHY'")
     @Enumerated(EnumType.STRING)
     private Enums.AnimalStatusEnum status = Enums.AnimalStatusEnum.HEALTHY;
 
@@ -52,6 +56,22 @@ public class Animal {
 
     @ManyToOne()
     private Cage cage;
+
+    @ManyToOne
+    @CreatedBy
+    private Account createdBy;
+
+    @Column()
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @ManyToOne
+    @LastModifiedBy
+    private Account updatedBy;
+
+    @Column()
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
     private List<String> imageList;
 

@@ -5,6 +5,7 @@ import com.nhom3.zoomanagement.errors.ErrorReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,19 +22,19 @@ public class AnimalSpeciesService implements IAnimalSpeciesService {
         animalSpecies.setImage(dto.getImage());
         animalSpecies.setDescription(dto.getDescription());
         animalSpecies = animalSpeciesRepository.save(animalSpecies);
-        return AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
+        return AnimalSpeciesDTO.fromAnimalSpecies(animalSpecies, false, false,true);
     }
 
     @Override
     public List<AnimalSpeciesDTO> get() {
         List<AnimalSpecies> animalSpeciesList = animalSpeciesRepository.findAll();
-        return AnimalSpeciesDTO.fromAnimaSpecielList(animalSpeciesList, false, false);
+        return AnimalSpeciesDTO.fromAnimaSpecieslList(animalSpeciesList, false, false, true);
     }
 
     @Override
     public AnimalSpeciesDTO get(Integer id) throws AppServiceException {
         AnimalSpecies animalSpecies = animalSpeciesRepository.findById(id).orElseThrow(() -> new AppServiceException(new ErrorReport("Animal Species not found")));
-        return  AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
+        return  AnimalSpeciesDTO.fromAnimalSpecies(animalSpecies, false, false, true);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class AnimalSpeciesService implements IAnimalSpeciesService {
         animalSpecies.setImage(dto.getImage());
         animalSpecies.setDescription(dto.getDescription());
         animalSpecies = animalSpeciesRepository.save(animalSpecies);
-        return AnimalSpeciesDTO.fromAnimalSpecie(animalSpecies, false, false);
+        return AnimalSpeciesDTO.fromAnimalSpecies(animalSpecies, false, false, true);
     }
 
     @Override
