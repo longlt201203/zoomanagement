@@ -6,38 +6,93 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Account {
+public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column
-    private String name;
+    @Column(nullable = false)
+    private String fname;
+
+    @Column(nullable = false)
+    private String lname;
 
     @Column
     @Enumerated(EnumType.STRING)
     private Enums.RoleEnum role;
-
+    
     @Column
     @Enumerated(EnumType.STRING)
-    private Enums.HumanGenderEnum gender;
+    private Enums.AccountGenderEnum gender;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column
-    private String phoneNumber;
+    @Column(nullable = false)
+    private String phone;
 
+    @Column(nullable = false)
+    private String avt;
+    
     @Column
-    private String avatar;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    
+    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ACTIVE'")
+    @Enumerated(EnumType.STRING)
+    private Enums.AccountStatusEnum status;
+    
+    @ManyToOne
+    private Account createdBy;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "author")
     private List<News> newsList;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.toString()));
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

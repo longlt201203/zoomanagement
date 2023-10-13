@@ -1,7 +1,5 @@
 package com.nhom3.zoomanagement.order_details;
 
-import com.nhom3.zoomanagement.utils.Enums;
-import com.nhom3.zoomanagement.utils.validate_enum.ValueOfEnum;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -18,20 +16,20 @@ public class CreateOrderDetailDTO {
     @Min(value = 1, message = "The smallest quantity is 1")
     private String quantity;
 
+    @NotBlank(message = "TicketPrice must be not blank")
     @Pattern(regexp = "[+-]?([0-9]*[.])?[0-9]+", message = "Price must be a number")
     @Min(value = 0, message = "The smallest price is 0")
-    private String price;
+    private String ticketPrice;
 
-    @NotBlank(message = "Type must be not blank")
-    @ValueOfEnum(enumClass = Enums.TicketTypeEnum.class, message = "Ticket type is invalid")
-    private String type;
+    @NotBlank(message = "TicketId must be not blank")
+    @Pattern(regexp = "^\\d+$", message = "TicketId must be an integer")
+    private String ticketId;
 
-    public Enums.TicketTypeEnum parseType() {
-        return Enums.TicketTypeEnum.valueOf(type);
+    public Integer parseTicketPrice() {
+        return Integer.parseInt(ticketPrice);
     }
-
-    public Float parsePrice() {
-        return Float.parseFloat(price);
+    public Integer parseTicketId() {
+        return Integer.parseInt(ticketId);
     }
 
     public Integer parseQuantity() {
@@ -41,8 +39,7 @@ public class CreateOrderDetailDTO {
     public OrderDetail toOrderDetail() {
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setQuantity(this.parseQuantity());
-        orderDetail.setPrice(this.parsePrice());
-        orderDetail.setType(this.parseType());
+        orderDetail.setTicketPrice(this.parseTicketPrice());
         return orderDetail;
     }
 }

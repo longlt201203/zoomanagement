@@ -33,9 +33,9 @@ public class NewsService implements INewsService {
 
     @Override
     public NewsDTO create(CreateNewsDTO dto) throws BadRequestException {
-        Account account = accountsRepository.findById(dto.getCreatorId()).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
+        Account account = accountsRepository.findById(dto.getAuthorId()).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
         News news = dto.toNews();
-        news.setCreator(account);
+        news.setAuthor(account);
         NewsDTO newsDTO = NewsDTO.fromNews(newsRepository.save(news), true);
         return newsDTO;
     }

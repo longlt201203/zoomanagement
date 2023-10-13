@@ -15,21 +15,23 @@ public class AccountsService implements IAccountsService {
     @Override
     public List<AccountDTO> get() {
         List<Account> accounts = accountsRepository.findAll();
-        List<AccountDTO> accountDTOS = AccountDTO.fromAccountList(accounts, false);
+        List<AccountDTO> accountDTOS = AccountDTO.fromAccountList(accounts, false, false);
         return accountDTOS;
     }
 
     @Override
     public AccountDTO get(String id) throws BadRequestException {
         Account account = accountsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
-        AccountDTO accountDTO = AccountDTO.fromAccount(account, false);
+        AccountDTO accountDTO = AccountDTO.fromAccount(account, false, false);
         return accountDTO;
     }
 
     @Override
-    public AccountDTO create(CreateAccountDTO dto) {
+    public AccountDTO create(CreateAccountDTO dto) throws BadRequestException {
+        Account creator = accountsRepository.findById(dto.getCreatedBy()).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
         Account account = dto.toAccount();
-        AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(account), false);
+        account.setCreatedBy(creator);
+        AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(account), false, false);
         return accountDTO;
     }
 
@@ -37,7 +39,7 @@ public class AccountsService implements IAccountsService {
     public AccountDTO update(String id, UpdateAccountDTO dto) throws BadRequestException {
         Account account = accountsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
         Account updateAccount = dto.toAccount(account);
-        AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(updateAccount), false);
+        AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(updateAccount), false, false);
         return accountDTO;
     }
 

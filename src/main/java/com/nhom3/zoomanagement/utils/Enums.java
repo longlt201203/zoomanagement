@@ -7,15 +7,21 @@ public class Enums {
 
     @Getter
     @AllArgsConstructor
-    public enum HumanGenderEnum {
+    public enum AccountGenderEnum {
         MALE,
         FEMALE,
         OTHER
     }
+    
+    public enum AccountStatusEnum {
+        ACTIVE,
+        INACTIVE
+    }
 
     public enum RoleEnum {
         STAFF,
-        ZOO_TRAINER,
+
+        TRAINER,
         ADMIN
     }
 
@@ -41,5 +47,11 @@ public class Enums {
     public enum MealStatusEnum {
         FED,
         NOT_FED_YET
+    }
+    
+    public enum OrderStatus {
+        DONE,
+        PENDING,
+        CANCELLED
     }
 }

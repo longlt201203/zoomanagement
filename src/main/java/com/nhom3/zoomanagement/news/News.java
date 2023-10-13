@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -19,16 +18,16 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable = false)
     private String content;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
     @Column
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private LocalDateTime postedAt;
     
-    @ManyToOne
-    private Account creator;
+    @ManyToOne(optional = false)
+    private Account author;
 }

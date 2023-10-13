@@ -2,7 +2,6 @@ package com.nhom3.zoomanagement.order_details;
 
 import com.nhom3.zoomanagement.orders.MyOrder;
 import com.nhom3.zoomanagement.tickets.Ticket;
-import com.nhom3.zoomanagement.utils.Enums;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,12 +20,12 @@ public class OrderDetail {
     private Integer quantity;
 
     @Column
-    private Float price;
+    private Integer ticketPrice;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Enums.TicketTypeEnum type;
     
     @ManyToOne(optional = false)
     private MyOrder order;
+    
+    @ManyToOne(optional = false)
+    private Ticket ticket;
 }
