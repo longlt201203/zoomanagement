@@ -42,7 +42,6 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/test-login-google").permitAll()
                                 .requestMatchers("/accounts/login/**").permitAll()
-                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
