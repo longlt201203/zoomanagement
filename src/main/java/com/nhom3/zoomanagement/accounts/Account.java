@@ -1,5 +1,11 @@
 package com.nhom3.zoomanagement.accounts;
 
+import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
+import com.nhom3.zoomanagement.animals.Animal;
+import com.nhom3.zoomanagement.areas.Area;
+import com.nhom3.zoomanagement.cage_meals.CageMeal;
+import com.nhom3.zoomanagement.cages.Cage;
+import com.nhom3.zoomanagement.meal_records.MealRecord;
 import com.nhom3.zoomanagement.news.News;
 import com.nhom3.zoomanagement.utils.Enums;
 import jakarta.persistence.*;
@@ -60,6 +66,30 @@ public class Account implements UserDetails {
 
     @OneToMany(mappedBy = "author")
     private List<News> newsList;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<AnimalSpecies> createdAnimalSpecies;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<Animal> createdAnimal;
+
+    @OneToMany(mappedBy = "updatedBy")
+    private List<Animal> updatedAnimal;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<Area> createdArea;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<Cage> createdCage;
+
+    @OneToMany(mappedBy = "managedBy")
+    private List<Cage> managedCage;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<CageMeal> createdCageMeals;
+
+    @OneToMany(mappedBy = "updatedBy")
+    private List<MealRecord> updatedMealRecord;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

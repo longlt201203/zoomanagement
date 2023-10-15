@@ -2,6 +2,7 @@ package com.nhom3.zoomanagement.areas;
 
 import com.nhom3.zoomanagement.errors.AppServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,12 +27,14 @@ public class AreasController implements IAreasController{
         return areaDTO;
     }
 
+    @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
     @Override
     public AreaDTO create(CreateAreaDTO dto) throws AppServiceException {
         AreaDTO areaDTO = areasService.create(dto);
         return areaDTO;
     }
 
+    @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
     @Override
     public AreaDTO update(Integer id, UpdateAreaDTO dto) throws AppServiceException {
         AreaDTO areaDTO = areasService.update(id, dto);

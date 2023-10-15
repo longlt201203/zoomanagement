@@ -2,6 +2,7 @@ package com.nhom3.zoomanagement.cages;
 
 import com.nhom3.zoomanagement.errors.AppServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,12 +25,14 @@ public class CagesController implements ICagesController{
         return  cageDTO;
     }
 
+    @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
     @Override
     public CageDTO create(CreateCageDTO dto) throws AppServiceException {
         CageDTO cageDTO = cagesService.create(dto);
         return  cageDTO;
     }
 
+    @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
     @Override
     public CageDTO update(Integer id, UpdateCageDTO dto) throws AppServiceException {
         CageDTO cageDTO = cagesService.update(id, dto);

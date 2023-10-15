@@ -5,6 +5,7 @@ import com.nhom3.zoomanagement.errors.ErrorReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,13 +15,13 @@ public class AreasService implements IAreasService {
     @Override
     public List<AreaDTO> get() {
         List<Area> areaList = areasRepository.findAll();
-        return  AreaDTO.fromAreaList(areaList, false);
+        return  AreaDTO.fromAreaList(areaList, false, true);
     }
 
     @Override
     public AreaDTO get(Integer id) throws AppServiceException {
         Area area = areasRepository.findById(id).orElseThrow(() -> new AppServiceException(new ErrorReport("Area not found")));
-        return  AreaDTO.fromArea(area, false);
+        return  AreaDTO.fromArea(area, false, true);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class AreasService implements IAreasService {
         area.setName(dto.getName());
         area.setLocation(dto.getLocation());
         area = areasRepository.save(area);
-        return AreaDTO.fromArea(area, false);
+        return AreaDTO.fromArea(area, false, true);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class AreasService implements IAreasService {
         area.setName(dto.getName());
         area.setLocation(dto.getLocation());
         area = areasRepository.save(area);
-        return AreaDTO.fromArea(area, false);
+        return AreaDTO.fromArea(area, false, true);
     }
 
     @Override

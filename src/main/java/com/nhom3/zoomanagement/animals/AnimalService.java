@@ -11,6 +11,7 @@ import com.nhom3.zoomanagement.utils.Enums;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 @Service
 public class AnimalService implements IAnimalService{
@@ -24,13 +25,13 @@ public class AnimalService implements IAnimalService{
     @Override
     public List<AnimalDTO> get() {
         List<Animal> animalList = animalsRepository.findAll();
-        return AnimalDTO.fromAnimalList(animalList, true, true);
+        return AnimalDTO.fromAnimalList(animalList, true, true, true, true);
     }
 
     @Override
     public AnimalDTO get(Integer id) throws AppServiceException {
         Animal animal = animalsRepository.findById(id).orElseThrow(() -> new AppServiceException(new ErrorReport("Animal not found")));
-        return AnimalDTO.fromAnimal(animal, true, true);
+        return AnimalDTO.fromAnimal(animal, true, true, true, true);
     }
 
     @Override
@@ -50,9 +51,10 @@ public class AnimalService implements IAnimalService{
         animal.setNote(dto.getNote());
         animal.setSpecies(species);
         animal.setCage(cage);
+        animal.setCreatedAt(new Date());
         animal.setImageList(dto.getImageList());
         animal = animalsRepository.save(animal);
-        return AnimalDTO.fromAnimal(animal, false, false);
+        return AnimalDTO.fromAnimal(animal, false, false, true, true);
     }
 
     @Override
@@ -73,8 +75,9 @@ public class AnimalService implements IAnimalService{
         animal.setSpecies(species);
         animal.setCage(cage);
         animal.setImageList(dto.getImageList());
+        animal.setUpdatedAt(new Date());
         animal = animalsRepository.save(animal);
-        return AnimalDTO.fromAnimal(animal, false, false);
+        return AnimalDTO.fromAnimal(animal, false, false, true, true);
     }
 
     @Override
