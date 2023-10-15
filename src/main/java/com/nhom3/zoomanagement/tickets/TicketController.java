@@ -3,6 +3,7 @@ package com.nhom3.zoomanagement.tickets;
 import com.nhom3.zoomanagement.errors.BadRequestException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,18 +27,21 @@ public class TicketController implements ITicketController{
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority({'ADMIN'})")
     @PostMapping("create")
     public TicketDTO create(@RequestBody @Valid CreateTicketDTO dto) throws BadRequestException {
         return ticketService.create(dto);
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority({'ADMIN'})")
     @PutMapping("update/{id}")
     public TicketDTO update(@PathVariable("id") Integer id, @RequestBody @Valid UpdateTicketDTO dto) throws BadRequestException {
         return ticketService.update(id, dto);
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority({'ADMIN'})")
     @DeleteMapping("delete/{id}")
     public TicketDTO delete(@PathVariable("id") Integer id) throws BadRequestException {
         return ticketService.delete(id);

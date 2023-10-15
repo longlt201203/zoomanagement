@@ -28,9 +28,9 @@ public class AccountsService implements IAccountsService {
 
     @Override
     public AccountDTO create(CreateAccountDTO dto) throws BadRequestException {
-        Account creator = accountsRepository.findById(dto.getCreatedBy()).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
+        Account existAccountByEmail = accountsRepository.findByEmail(dto.getEmail());
+        if (existAccountByEmail != null) throw new BadRequestException(new ErrorReport("Email existed"));
         Account account = dto.toAccount();
-        account.setCreatedBy(creator);
         AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(account), false, false);
         return accountDTO;
     }

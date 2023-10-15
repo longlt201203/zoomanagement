@@ -34,10 +34,10 @@ public class CageDTO {
             cageDTO.setAnimalList(AnimalDTO.fromAnimalList(cage.getAnimalList(), false, false, false, false));
         }
         if(hasManagedBy){
-            cageDTO.setManagedBy(AccountDTO.fromAccount(cage.getManagedBy(), false));
+            cageDTO.setManagedBy(AccountDTO.fromAccount(cage.getManagedBy(), false, false));
         }
         if(hasCreatedBy){
-            cageDTO.setCreatedBy(AccountDTO.fromAccount(cage.getCreatedBy(), false));
+            cageDTO.setCreatedBy(AccountDTO.fromAccount(cage.getCreatedBy(), false, false));
         }
         return cageDTO;
     }

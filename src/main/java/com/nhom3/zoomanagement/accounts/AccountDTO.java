@@ -44,6 +44,7 @@ public class AccountDTO {
         accountDTO.setEmail(account.getEmail());
         accountDTO.setPhone(account.getPhone());
         accountDTO.setAvt(account.getAvt());
+        accountDTO.setCreatedAt(account.getCreatedAt());
         if (hasNewsList) {
             accountDTO.setNewsList(NewsDTO.fromNewsList(account.getNewsList(), false));
         }
@@ -58,7 +59,7 @@ public class AccountDTO {
         for (Account account : accountList) {
             AccountDTO accountDTO = fromAccount(account, hasNewsList, hasCreatedBy);
             accountDTOList.add(accountDTO);
+        }
         return accountDTOList;
     }
-
 }

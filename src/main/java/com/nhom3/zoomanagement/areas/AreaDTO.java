@@ -23,7 +23,7 @@ public class AreaDTO {
             areaDTO.setCageList(CageDTO.fromCageList(area.getCageList(), false, false, false, false, false, false));
         }
         if(hasCreatedBy){
-            areaDTO.setCreatedBy(AccountDTO.fromAccount(area.getCreatedBy(), false));
+            areaDTO.setCreatedBy(AccountDTO.fromAccount(area.getCreatedBy(), false, false));
         }
         return areaDTO;
     }

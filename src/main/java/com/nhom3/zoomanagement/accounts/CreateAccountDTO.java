@@ -39,9 +39,6 @@ public class CreateAccountDTO {
     private String phone;
 
     private String avt;
-    
-    @NotBlank(message = "CreatedBy must be not blank")
-    private String createdBy;
 
     public Enums.RoleEnum parseRole() {
         return Enums.RoleEnum.valueOf(role);

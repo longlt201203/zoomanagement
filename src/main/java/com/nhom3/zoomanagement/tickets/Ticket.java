@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
 
 @Data
 @NoArgsConstructor
@@ -26,5 +27,6 @@ public class Ticket {
     private Float price;
     
     @ManyToOne
+    @CreatedBy
     private Account createdBy;
 }

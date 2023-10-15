@@ -25,7 +25,7 @@ public class MealRecordDTO {
             mealRecordDTO.setCageMealDTO(CageMealDTO.fromCageMeal(mealRecord.getCageMeal(), false, false, false));
         }
         if(hasUpdatedBy){
-            mealRecordDTO.setUpdatedBy(AccountDTO.fromAccount(mealRecord.getUpdatedBy(), false));
+            mealRecordDTO.setUpdatedBy(AccountDTO.fromAccount(mealRecord.getUpdatedBy(), false, false));
         }
         return mealRecordDTO;
     }

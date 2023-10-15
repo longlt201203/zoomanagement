@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +26,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Account implements UserDetails {
     @Id
@@ -39,7 +42,7 @@ public class Account implements UserDetails {
     @Column
     @Enumerated(EnumType.STRING)
     private Enums.RoleEnum role;
-    
+
     @Column
     @Enumerated(EnumType.STRING)
     private Enums.AccountGenderEnum gender;
@@ -50,18 +53,19 @@ public class Account implements UserDetails {
     @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String avt;
-    
+
     @Column
     @CreationTimestamp
     private LocalDateTime createdAt;
-    
-    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ACTIVE'")
+
+    @Column()
     @Enumerated(EnumType.STRING)
-    private Enums.AccountStatusEnum status;
-    
+    private Enums.AccountStatusEnum status = Enums.AccountStatusEnum.ACTIVE;
+
     @ManyToOne
+    @CreatedBy
     private Account createdBy;
 
     @OneToMany(mappedBy = "author")
