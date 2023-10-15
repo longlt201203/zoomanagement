@@ -1,14 +1,16 @@
 package com.nhom3.zoomanagement.cages;
 
+import com.nhom3.zoomanagement.accounts.Account;
 import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
 import com.nhom3.zoomanagement.animals.Animal;
 import com.nhom3.zoomanagement.areas.Area;
-import com.nhom3.zoomanagement.meal_schedules.MealSchedule;
-import com.nhom3.zoomanagement.meals.Meal;
+import com.nhom3.zoomanagement.cage_meals.CageMeal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Cage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +40,14 @@ public class Cage {
     private List<Animal> animalList;
 
     @OneToMany(mappedBy = "cage")
-    private List<MealSchedule> mealScheduleList;
+    private List<CageMeal> mealScheduleList;
+
+    @ManyToOne
+    private Account managedBy;
+
+    @ManyToOne
+    @CreatedBy
+    private Account createdBy;
+
 
 }
