@@ -30,7 +30,7 @@ public class AccountsController implements IAccountsController{
 
     @Override
     @GetMapping("{id}")
-    @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
+    
     public AccountDTO get(@PathVariable("id") String id) {
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setId(id);
@@ -45,8 +45,9 @@ public class AccountsController implements IAccountsController{
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority({'ADMIN'})")
     @PostMapping("create")
-    public AccountDTO create(@RequestBody @Valid CreateAccountDTO dto) {
+    public AccountDTO create(@RequestBody @Valid CreateAccountDTO dto) throws BadRequestException {
         return accountsService.create(dto);
     }
 

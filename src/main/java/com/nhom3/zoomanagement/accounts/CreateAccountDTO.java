@@ -14,16 +14,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAccountDTO {
-    @NotBlank(message = "Name must be not blank")
-    @Size(max = 30, message = "Length of name must not exceed 30")
-    private String name;
+    @NotBlank(message = "FName must be not blank")
+    @Size(max = 30, message = "Length of FName must not exceed 30")
+    private String fName;
+    
+    @NotBlank(message = "LName must be not blank")
+    @Size(max = 30, message = "Length of LName must not exceed 30")
+    private String lName;
 
     @NotBlank(message = "Role must be not blank")
     @ValueOfEnum(enumClass = Enums.RoleEnum.class, message = "Role is invalid")
     private String role;
 
     @NotBlank(message = "Gender must be not blank")
-    @ValueOfEnum(enumClass = Enums.HumanGenderEnum.class, message = "Gender is invalid")
+    @ValueOfEnum(enumClass = Enums.AccountGenderEnum.class, message = "Gender is invalid")
     private String gender;
 
     @NotBlank(message = "Email must be not blank")
@@ -32,26 +36,27 @@ public class CreateAccountDTO {
 
     @NotBlank(message = "Phone number must be not blank")
     @Pattern(regexp = "(84|0[35789])+([0-9]{8})\\b", message = "Invalid phone number")
-    private String phoneNumber;
+    private String phone;
 
-    private String avatar;
+    private String avt;
 
     public Enums.RoleEnum parseRole() {
         return Enums.RoleEnum.valueOf(role);
     }
 
-    public Enums.HumanGenderEnum parseGender() {
-        return Enums.HumanGenderEnum.valueOf(gender);
+    public Enums.AccountGenderEnum parseGender() {
+        return Enums.AccountGenderEnum.valueOf(gender);
     }
     
     public Account toAccount() {
         Account account = new Account();
-        account.setName(this.getName());
+        account.setFname(this.getFName());
+        account.setLname(this.getLName());
         account.setRole(this.parseRole());
         account.setGender(this.parseGender());
         account.setEmail(this.getEmail());
-        account.setPhoneNumber(this.getPhoneNumber());
-        account.setAvatar(this.getAvatar());
+        account.setPhone(this.getPhone());
+        account.setAvt(this.getAvt());
         return account;
     }
 }

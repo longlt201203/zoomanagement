@@ -15,14 +15,14 @@ public class OrderDetailsService implements IOrderDetailsService {
     @Override
     public List<OrderDetailDTO> get() {
         List<OrderDetail> orderDetails = orderDetailsRepository.findAll();
-        List<OrderDetailDTO> orderDetailDTOS = OrderDetailDTO.fromOrderDetaillist(orderDetails, true);
+        List<OrderDetailDTO> orderDetailDTOS = OrderDetailDTO.fromOrderDetaillist(orderDetails, true, true);
         return orderDetailDTOS;
     }
 
     @Override
     public OrderDetailDTO get(Integer id) throws BadRequestException {
         OrderDetail orderDetail = orderDetailsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Order detail not found")));
-        OrderDetailDTO orderDetailDTO = OrderDetailDTO.fromOrderDetail(orderDetail, true);
+        OrderDetailDTO orderDetailDTO = OrderDetailDTO.fromOrderDetail(orderDetail, true, true);
         return orderDetailDTO;
     }
 

@@ -26,7 +26,7 @@ public class CageMealDTO {
             cageMealDTO.setMealRecordDTOList(MealRecordDTO.fromMealRecordList(cageMeal.getMealRecordList(), false, false));
         }
         if(hasCreatedBy){
-            cageMealDTO.setCreatedBy(AccountDTO.fromAccount(cageMeal.getCreatedBy(), false));
+            cageMealDTO.setCreatedBy(AccountDTO.fromAccount(cageMeal.getCreatedBy(), false, false));
         }
         return cageMealDTO;
     }

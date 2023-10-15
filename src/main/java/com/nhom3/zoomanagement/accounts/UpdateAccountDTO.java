@@ -12,35 +12,38 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateAccountDTO {
-    @NotBlank(message = "Id must be not blank")
-    private String id;
 
-    @NotBlank(message = "Name must be not blank")
-    private String name;
+    @NotBlank(message = "Fname must be not blank")
+    private String fname;
+    
+    @NotBlank(message = "Lname must be not blank")
+    private String lname;
 
     @NotBlank(message = "Gender must be not blank")
-    @ValueOfEnum(enumClass = Enums.HumanGenderEnum.class, message = "Gender is invalid")
+    @ValueOfEnum(enumClass = Enums.AccountGenderEnum.class, message = "Gender is invalid")
     private String gender;
 
     @NotBlank(message = "Phone number must be not blank")
     @Pattern(regexp = "(84|0[35789])+([0-9]{8})\\b", message = "Invalid phone number")
-    private String phoneNumber;
+    private String phone;
 
-    private String avatar;
+    private String avt;
 
-    public Enums.HumanGenderEnum parseGender() {
-        return Enums.HumanGenderEnum.valueOf(gender);
+    public Enums.AccountGenderEnum parseGender() {
+        return Enums.AccountGenderEnum.valueOf(gender);
     }
 
     public Account toAccount(Account presentAccount) {
         Account account = new Account();
-        account.setId(this.getId());
-        account.setName(this.getName());
+        account.setFname(this.getFname());
+        account.setLname(this.getLname());
         account.setRole(presentAccount.getRole());
         account.setGender(this.parseGender());
-        account.setPhoneNumber(this.getPhoneNumber());
-        account.setAvatar(this.getAvatar());
+        account.setPhone(this.getPhone());
+        account.setAvt(this.getAvt());
         account.setEmail(presentAccount.getEmail());
+        account.setCreatedBy(presentAccount.getCreatedBy());
+        account.setStatus(presentAccount.getStatus());
         return account;
     }
 }

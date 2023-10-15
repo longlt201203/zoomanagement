@@ -1,5 +1,6 @@
 package com.nhom3.zoomanagement.tickets;
 
+import com.nhom3.zoomanagement.accounts.Account;
 import com.nhom3.zoomanagement.utils.Enums;
 import com.nhom3.zoomanagement.utils.validate_enum.ValueOfEnum;
 import jakarta.validation.constraints.Min;
@@ -13,35 +14,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateTicketDTO {
-    @NotBlank(message = "Id must be not blank")
-    @Pattern(regexp = "^\\d+$", message = "Id must be an integer")
-    private String id;
 
-    @NotBlank(message = "Type must be not blank")
-    @ValueOfEnum(enumClass = Enums.TicketTypeEnum.class, message = "Type is invalid")
-    private String type;
+    @NotBlank(message = "Name must be not blank")
+    private String name;
+    
+    private String description;
 
     @Pattern(regexp = "[+-]?([0-9]*[.])?[0-9]+", message = "Price must be a number")
     @Min(value = 0, message = "The smallest price is 0")
     private String price;
 
-    public Enums.TicketTypeEnum parseType() {
-        return Enums.TicketTypeEnum.valueOf(type);
-    }
-
     public Float parsePrice() {
         return Float.parseFloat(price);
     }
 
-    public Integer parseId() {
-        return Integer.parseInt(id);
-    }
-
-    public Ticket toTicket() {
+    public Ticket toTicket(Ticket presentTicket) {
         Ticket ticket = new Ticket();
-        ticket.setId(this.parseId());
-        ticket.setType(this.parseType());
+        ticket.setName(this.getName());
+        ticket.setDescription(this.getDescription());
         ticket.setPrice(this.parsePrice());
+        ticket.setId(presentTicket.getId());
+        ticket.setCreatedBy(presentTicket.getCreatedBy());
         return ticket;
     }
 }

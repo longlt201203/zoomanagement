@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -17,17 +16,17 @@ public class NewsDTO {
     private Integer id;
     private String content;
     private String title;
-    private LocalDateTime createdAt;
-    private AccountDTO creator;
+    private LocalDateTime postedAt;
+    private AccountDTO author;
 
     public static NewsDTO fromNews(News news, boolean hasCreator) {
         NewsDTO newsDTO = new NewsDTO();
         newsDTO.setId(news.getId());
         newsDTO.setContent(news.getContent());
         newsDTO.setTitle(news.getTitle());
-        newsDTO.setCreatedAt(news.getCreatedAt());
+        newsDTO.setPostedAt(news.getPostedAt());
         if (hasCreator) {
-            newsDTO.setCreator(AccountDTO.fromAccount(news.getCreator(), false));
+            newsDTO.setAuthor(AccountDTO.fromAccount(news.getAuthor(), false, false));
         }
         return newsDTO;
     }

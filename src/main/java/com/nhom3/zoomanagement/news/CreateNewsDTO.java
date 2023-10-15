@@ -17,9 +17,6 @@ public class CreateNewsDTO {
     @Size(max = 100, message = "Length of title must not exceed 100")
     private String title;
     
-    @NotBlank(message = "CreatorId must be not blank")
-    private String creatorId;
-    
     public News toNews() {
         News news = new News();
         news.setContent(this.getContent());

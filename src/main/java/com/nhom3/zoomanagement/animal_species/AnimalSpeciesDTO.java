@@ -29,7 +29,7 @@ public class AnimalSpeciesDTO {
             animalSpeciesDTO.setCageList(CageDTO.fromCageList(animalSpecies.getCageList(), false, false, false, false, false,false));
         }
         if(hasCreatedBy){
-            animalSpeciesDTO.setCreatedBy(AccountDTO.fromAccount(animalSpecies.getCreatedBy(), false));
+            animalSpeciesDTO.setCreatedBy(AccountDTO.fromAccount(animalSpecies.getCreatedBy(), false, false));
         }
         return animalSpeciesDTO;
     }

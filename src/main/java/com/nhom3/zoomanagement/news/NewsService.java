@@ -5,6 +5,7 @@ import com.nhom3.zoomanagement.accounts.AccountsRepository;
 import com.nhom3.zoomanagement.errors.BadRequestException;
 import com.nhom3.zoomanagement.errors.ErrorReport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,9 +34,7 @@ public class NewsService implements INewsService {
 
     @Override
     public NewsDTO create(CreateNewsDTO dto) throws BadRequestException {
-        Account account = accountsRepository.findById(dto.getCreatorId()).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
         News news = dto.toNews();
-        news.setCreator(account);
         NewsDTO newsDTO = NewsDTO.fromNews(newsRepository.save(news), true);
         return newsDTO;
     }

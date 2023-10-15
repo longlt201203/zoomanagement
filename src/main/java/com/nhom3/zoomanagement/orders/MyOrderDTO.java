@@ -1,6 +1,7 @@
 package com.nhom3.zoomanagement.orders;
 
 import com.nhom3.zoomanagement.order_details.OrderDetailDTO;
+import com.nhom3.zoomanagement.utils.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,22 +16,27 @@ import java.util.List;
 @AllArgsConstructor
 public class MyOrderDTO {
     private String id;
-    private String email;
     private String name;
-    private Float totalPrice;
-    private LocalDate dateToGo;
+    private String email;
+    private String phone;
+    private Integer total;
+    private LocalDate visitDate;
     private LocalDateTime createdAt;
+    private Enums.OrderStatus orderStatus;
     private List<OrderDetailDTO> details;
 
     public static MyOrderDTO fromMyOrder(MyOrder myOrder, boolean hasDetails) {
         MyOrderDTO myOrderDTO = new MyOrderDTO();
         myOrderDTO.setId(myOrder.getId());
         myOrderDTO.setName(myOrder.getName());
-        myOrderDTO.setTotalPrice(myOrder.getTotalPrice());
-        myOrderDTO.setDateToGo(myOrder.getDateToGo());
+        myOrderDTO.setEmail(myOrder.getEmail());
+        myOrderDTO.setPhone(myOrder.getPhone());
+        myOrderDTO.setTotal(myOrder.getTotal());
+        myOrderDTO.setVisitDate(myOrder.getVisitDate());
         myOrderDTO.setCreatedAt(myOrder.getCreatedAt());
+        myOrderDTO.setOrderStatus(myOrder.getOrderStatus());
         if (hasDetails) {
-            myOrderDTO.setDetails(OrderDetailDTO.fromOrderDetaillist(myOrder.getDetails(), false));
+            myOrderDTO.setDetails(OrderDetailDTO.fromOrderDetaillist(myOrder.getDetails(), false, true));
         }
         return myOrderDTO;
     }

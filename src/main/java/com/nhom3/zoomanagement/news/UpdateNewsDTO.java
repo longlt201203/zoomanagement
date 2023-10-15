@@ -30,7 +30,7 @@ public class UpdateNewsDTO {
         News news = new News();
         news.setContent(this.getContent());
         news.setTitle(this.getTitle());
-        news.setCreator(presentNews.getCreator());
+        news.setAuthor(presentNews.getAuthor());
         return news;
     }
 }

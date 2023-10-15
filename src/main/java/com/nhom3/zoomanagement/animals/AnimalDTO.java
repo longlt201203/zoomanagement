@@ -39,10 +39,10 @@ public class AnimalDTO {
             animalDTO.setCage(CageDTO.fromCage(animal.getCage(),false, false, false, false, false, false));
         }
         if(hasCreatedBy){
-            animalDTO.setCreatedBy(AccountDTO.fromAccount(animal.getCreatedBy(), false));
+            animalDTO.setCreatedBy(AccountDTO.fromAccount(animal.getCreatedBy(), false, false));
         }
         if(hasUpdatedBy){
-            animalDTO.setUpdatedBy(AccountDTO.fromAccount(animal.getUpdatedBy(), false));
+            animalDTO.setUpdatedBy(AccountDTO.fromAccount(animal.getUpdatedBy(), false, false));
         }
         return animalDTO;
     }
