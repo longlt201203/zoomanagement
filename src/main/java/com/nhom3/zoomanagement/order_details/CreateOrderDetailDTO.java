@@ -16,18 +16,11 @@ public class CreateOrderDetailDTO {
     @Min(value = 1, message = "The smallest quantity is 1")
     private String quantity;
 
-    @NotBlank(message = "TicketPrice must be not blank")
-    @Pattern(regexp = "[+-]?([0-9]*[.])?[0-9]+", message = "Price must be a number")
-    @Min(value = 0, message = "The smallest price is 0")
-    private String ticketPrice;
 
     @NotBlank(message = "TicketId must be not blank")
     @Pattern(regexp = "^\\d+$", message = "TicketId must be an integer")
     private String ticketId;
 
-    public Integer parseTicketPrice() {
-        return Integer.parseInt(ticketPrice);
-    }
     public Integer parseTicketId() {
         return Integer.parseInt(ticketId);
     }
@@ -39,7 +32,6 @@ public class CreateOrderDetailDTO {
     public OrderDetail toOrderDetail() {
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setQuantity(this.parseQuantity());
-        orderDetail.setTicketPrice(this.parseTicketPrice());
         return orderDetail;
     }
 }

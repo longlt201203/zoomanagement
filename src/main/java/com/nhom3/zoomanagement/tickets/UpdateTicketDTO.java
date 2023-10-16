@@ -24,8 +24,8 @@ public class UpdateTicketDTO {
     @Min(value = 0, message = "The smallest price is 0")
     private String price;
 
-    public Float parsePrice() {
-        return Float.parseFloat(price);
+    public Integer parsePrice() {
+        return Integer.parseInt(price);
     }
 
     public Ticket toTicket(Ticket presentTicket) {

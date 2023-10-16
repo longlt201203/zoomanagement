@@ -17,7 +17,7 @@ public class TicketDTO {
     private Integer id;
     private String name;
     private String description;
-    private Float price;
+    private Integer price;
     private AccountDTO createdBy;
 
     public static TicketDTO fromTicket(Ticket ticket, boolean hasCreatedBy) {

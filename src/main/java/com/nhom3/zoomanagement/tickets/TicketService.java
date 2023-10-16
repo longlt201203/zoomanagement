@@ -33,8 +33,7 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketDTO create(CreateTicketDTO dto) throws BadRequestException {
-        Account creator =  accountsRepository.findById(dto.getCreatedById()).orElseThrow(() -> new BadRequestException(new ErrorReport("Creator not found")));
-        Ticket ticket = dto.toTicket(creator);
+        Ticket ticket = dto.toTicket();
         TicketDTO ticketDTO = TicketDTO.fromTicket(ticketsRepository.save(ticket), true);
         return ticketDTO;
     }

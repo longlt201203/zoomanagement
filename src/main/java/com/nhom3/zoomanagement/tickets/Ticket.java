@@ -7,10 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Ticket {
     @Id
@@ -24,7 +26,7 @@ public class Ticket {
     private String description;
 
     @Column(nullable = false)
-    private Float price;
+    private Integer price;
     
     @ManyToOne
     @CreatedBy

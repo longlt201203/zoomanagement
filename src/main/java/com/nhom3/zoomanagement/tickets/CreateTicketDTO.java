@@ -15,9 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateTicketDTO {
     
-    @NotBlank(message = "CreatedById must be not blank")
-    private String createdById;
-    
     @NotBlank(message = "Name must be not blank")
     private String name;
 
@@ -27,16 +24,15 @@ public class CreateTicketDTO {
     @Pattern(regexp = "[+-]?([0-9]*[.])?[0-9]+", message = "Price must be a number")
     private String price;
 
-    public Float parsePrice() {
-        return Float.parseFloat(price);
+    public Integer parsePrice() {
+        return Integer.parseInt(price);
     }
     
-    public Ticket toTicket(Account creator) {
+    public Ticket toTicket() {
         Ticket ticket = new Ticket();
         ticket.setName(this.getName());
         ticket.setPrice(this.parsePrice());
         ticket.setDescription(this.getDescription());
-        ticket.setCreatedBy(creator);
         return ticket;
     }
 }

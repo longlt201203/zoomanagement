@@ -1,6 +1,7 @@
 package com.nhom3.zoomanagement.orders;
 
 import com.nhom3.zoomanagement.errors.BadRequestException;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,10 @@ public class MyOrdersController implements IMyOrdersController {
     @DeleteMapping("delete/{id}")
     public MyOrderDTO delete(@PathVariable("id") String id) throws BadRequestException {
         return myOrderService.delete(id);
+    }
+
+    @PostMapping("send-email-order-info/{id}")
+    public boolean sendEmailOrderInfo(@PathVariable("id") String orderId) throws BadRequestException, MessagingException {
+        return myOrderService.sendEmailOrderInfo(orderId);
     }
 }
