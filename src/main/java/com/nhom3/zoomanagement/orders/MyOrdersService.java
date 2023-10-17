@@ -114,7 +114,7 @@ public class MyOrdersService implements IMyOrdersService {
 
         List<String> distinctTicketNames = ticketsRepository.findDistinctTicketNames();
         for (String name : distinctTicketNames) {
-
+    
         }
         return null;
     }
@@ -140,13 +140,9 @@ public class MyOrdersService implements IMyOrdersService {
             LocalDate currentDate = startDate.plusDays(i);
             map.put(currentDate.toString(), new RevenueStatisticsDTO(currentDate, null, 0, 0, 0));
         }
-        System.out.println(listDetails.size());
         listDetails.forEach(listDetail -> {
             listDetail.forEach(detail -> {
-                System.out.println((LocalDateTime) detail[0]);
                 LocalDate currentDate = ((LocalDateTime) detail[0]).toLocalDate();
-                System.out.println(1);
-                System.out.println(currentDate);
                 if (map.get(currentDate.toString()).getTicketDetails() == null) {
                     map.get(currentDate.toString()).setTicketDetails(new ArrayList<>());
                 }

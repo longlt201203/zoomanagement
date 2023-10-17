@@ -74,6 +74,4 @@ public class Animal {
     private Date updatedAt;
 
     private List<String> imageList;
-
-
 }
