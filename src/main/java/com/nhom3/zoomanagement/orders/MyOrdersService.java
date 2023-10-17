@@ -119,7 +119,7 @@ public class MyOrdersService implements IMyOrdersService {
         return null;
     }
 
-    public Map<String, Object> getRevenue(LocalDate startDate) throws BadRequestException {
+    public Map<String, Object> getRevenueIn7Days(LocalDate startDate) throws BadRequestException {
         if (startDate == null) {
             startDate = LocalDate.now().minusDays(6);
         }
