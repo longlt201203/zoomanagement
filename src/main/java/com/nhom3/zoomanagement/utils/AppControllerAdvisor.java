@@ -11,6 +11,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,5 +35,11 @@ public class AppControllerAdvisor {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorReport> handleDeserializationError(HttpMessageNotReadableException e, HttpServletRequest req) {
         return handleBadRequest(new BadRequestException(new ErrorReport("Error while Deserializing")), req);
-    } 
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorReport> handleMethodArgumentTypeMismatchError(MethodArgumentTypeMismatchException e, HttpServletRequest req) {
+        return handleBadRequest(new BadRequestException(new ErrorReport("Wrong type of inputs")), req);
+    }
+    
 }
