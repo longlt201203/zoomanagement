@@ -29,7 +29,6 @@ public class MyOrdersController implements IMyOrdersController {
 
     @Override
     @GetMapping("get-by-Id/{id}")
-    @PreAuthorize("hasAnyAuthority({'ADMIN', 'STAFF'})")
     public MyOrderDTO get(@PathVariable("id") String id) throws BadRequestException {
         return myOrderService.get(id);
     }
