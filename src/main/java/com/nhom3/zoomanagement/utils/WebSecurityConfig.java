@@ -43,20 +43,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/test-login-google").permitAll()
                                 .requestMatchers("accounts/login/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "news/get-all").permitAll()
-                                .requestMatchers(HttpMethod.GET, "news/get-by-Id/**").permitAll()
-                                
-                                .requestMatchers(HttpMethod.GET, "orders/get-all").permitAll()
-                                .requestMatchers(HttpMethod.GET, "orders/get-by-Id/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "orders/create").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "orders/update/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "orders/update-status/**").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "orders/delete/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "orders/send-email-order-info/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "orders/get-revenue").permitAll()
-                                
-                                .requestMatchers(HttpMethod.GET, "tickets/get-all").permitAll()
-                                .requestMatchers(HttpMethod.GET, "tickets/get-by-Id/**").permitAll()
+                                .requestMatchers("**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))

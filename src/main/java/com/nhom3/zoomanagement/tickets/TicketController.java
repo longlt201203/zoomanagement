@@ -15,34 +15,29 @@ public class TicketController implements ITicketController{
     TicketService ticketService;
     
     @Override
-    @GetMapping("get-all")
     public List<TicketDTO> get() {
         return ticketService.get();
     }
 
     @Override
-    @GetMapping("get-by-Id/{id}")
     public TicketDTO get(@PathVariable("id") Integer id) throws BadRequestException {
         return ticketService.get(id);
     }
 
     @Override
     @PreAuthorize("hasAnyAuthority({'ADMIN'})")
-    @PostMapping("create")
     public TicketDTO create(@RequestBody @Valid CreateTicketDTO dto) throws BadRequestException {
         return ticketService.create(dto);
     }
 
     @Override
     @PreAuthorize("hasAnyAuthority({'ADMIN'})")
-    @PutMapping("update/{id}")
     public TicketDTO update(@PathVariable("id") Integer id, @RequestBody @Valid UpdateTicketDTO dto) throws BadRequestException {
         return ticketService.update(id, dto);
     }
 
     @Override
     @PreAuthorize("hasAnyAuthority({'ADMIN'})")
-    @DeleteMapping("delete/{id}")
     public TicketDTO delete(@PathVariable("id") Integer id) throws BadRequestException {
         return ticketService.delete(id);
     }
