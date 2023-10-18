@@ -28,18 +28,18 @@ public class OrderDetailsController implements IOrderDetailsController {
     @Override
     @PostMapping("create")
     public OrderDetailDTO create(@RequestBody @Valid CreateOrderDetailDTO dto) throws BadRequestException {
-        return orderDetailService.create(dto);
+        return null;
     }
 
     @Override
     @PutMapping("update/{id}")
     public OrderDetailDTO update(@PathVariable("id") Integer id, @RequestBody @Valid UpdateOrderDetailDTO dto) throws BadRequestException {
-        return orderDetailService.update(id, dto);
+        return null;
     }
 
     @Override
     @DeleteMapping("delete/{id}")
     public OrderDetailDTO delete(@PathVariable("id") Integer id) throws BadRequestException {
-        return orderDetailService.delete(id);
+        return null;
     }
 }

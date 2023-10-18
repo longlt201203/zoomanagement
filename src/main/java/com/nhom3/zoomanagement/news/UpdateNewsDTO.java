@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateNewsDTO {
-    @NotBlank(message = "Id must be not blank")
-    @Pattern(regexp = "^\\d+$", message = "Id must be an integer")
-    private String id;
 
     @NotBlank(message = "Content must be not blank")
     private String content;
@@ -22,15 +19,9 @@ public class UpdateNewsDTO {
     @Size(max = 100, message = "Length of title must not exceed 100")
     private String title;
 
-    public Integer parseId() {
-        return Integer.parseInt(id);
-    }
-
     public News toNews(News presentNews) {
-        News news = new News();
-        news.setContent(this.getContent());
-        news.setTitle(this.getTitle());
-        news.setAuthor(presentNews.getAuthor());
-        return news;
+        presentNews.setContent(this.getContent());
+        presentNews.setTitle(this.getTitle());
+        return presentNews;
     }
 }

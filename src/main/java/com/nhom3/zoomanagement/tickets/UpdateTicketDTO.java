@@ -29,12 +29,9 @@ public class UpdateTicketDTO {
     }
 
     public Ticket toTicket(Ticket presentTicket) {
-        Ticket ticket = new Ticket();
-        ticket.setName(this.getName());
-        ticket.setDescription(this.getDescription());
-        ticket.setPrice(this.parsePrice());
-        ticket.setId(presentTicket.getId());
-        ticket.setCreatedBy(presentTicket.getCreatedBy());
-        return ticket;
+        presentTicket.setName(this.getName());
+        presentTicket.setDescription(this.getDescription());
+        presentTicket.setPrice(this.parsePrice());
+        return presentTicket;
     }
 }

@@ -5,6 +5,7 @@ import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +22,14 @@ public class MyOrdersController implements IMyOrdersController {
 
     @Override
     @GetMapping("get-all")
+    @PreAuthorize("hasAnyAuthority({'ADMIN', 'STAFF'})")
     public List<MyOrderDTO> get() {
         return myOrderService.get();
     }
 
     @Override
     @GetMapping("get-by-Id/{id}")
+    @PreAuthorize("hasAnyAuthority({'ADMIN', 'STAFF'})")
     public MyOrderDTO get(@PathVariable("id") String id) throws BadRequestException {
         return myOrderService.get(id);
     }
@@ -40,8 +43,13 @@ public class MyOrdersController implements IMyOrdersController {
     @Override
     @PutMapping("update/{id}")
     public MyOrderDTO update(@PathVariable("id") String id, @RequestBody @Valid Void dto) throws BadRequestException {
-        return myOrderService.update(id, dto);
+        return null;
     }
+
+    @PostMapping ("update-status/{id}")
+    public MyOrderDTO updateStatus(@PathVariable("id") String id, @RequestBody @Valid UpdateOrderStatusDTO dto) throws BadRequestException {
+        return myOrderService.updateStatus(id,dto);
+    }   
 
     @Override
     @DeleteMapping("delete/{id}")
@@ -54,9 +62,9 @@ public class MyOrdersController implements IMyOrdersController {
         return myOrderService.sendEmailOrderInfo(orderId);
     }
 
-    @GetMapping("get-revenue/{startDate}")
-    public Map<String, Object> getRevenueIn7Days(@PathVariable("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) throws BadRequestException {
-        return myOrderService.getRevenueIn7Days(startDate);
+    @PostMapping("get-revenue")
+    public Map<String, Object> getRevenueIn7Days(@RequestBody @Valid ReceiveDateDTO dto) throws BadRequestException {
+        return myOrderService.getRevenueIn7Days(dto.parseStartDate());
     }
 
 }

@@ -22,7 +22,7 @@ public class MyOrderDTO {
     private Integer total;
     private LocalDate visitDate;
     private LocalDateTime createdAt;
-    private Enums.OrderStatus orderStatus;
+    private Enums.OrderStatus status;
     private List<OrderDetailDTO> details;
 
     public static MyOrderDTO fromMyOrder(MyOrder myOrder, boolean hasDetails) {
@@ -34,7 +34,7 @@ public class MyOrderDTO {
         myOrderDTO.setTotal(myOrder.getTotal());
         myOrderDTO.setVisitDate(myOrder.getVisitDate());
         myOrderDTO.setCreatedAt(myOrder.getCreatedAt());
-        myOrderDTO.setOrderStatus(myOrder.getOrderStatus());
+        myOrderDTO.setStatus(myOrder.getOrderStatus());
         if (hasDetails) {
             myOrderDTO.setDetails(OrderDetailDTO.fromOrderDetaillist(myOrder.getDetails(), false, true));
         }

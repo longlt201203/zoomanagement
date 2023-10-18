@@ -10,7 +10,7 @@ public class ValueOfDateValidator implements ConstraintValidator<ValueOfDate, St
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value.isEmpty()) {
+        if (value == null || value.isEmpty()) {
             return true;
         }
         try {

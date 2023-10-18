@@ -45,9 +45,9 @@ public class MyOrder {
     @CreationTimestamp
     private LocalDateTime createdAt;
     
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
+    @Column
     @Enumerated(EnumType.STRING)
-    private Enums.OrderStatus orderStatus;
+    private Enums.OrderStatus orderStatus = Enums.OrderStatus.PENDING;
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> details;

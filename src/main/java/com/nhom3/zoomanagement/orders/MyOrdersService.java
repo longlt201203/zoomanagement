@@ -78,8 +78,19 @@ public class MyOrdersService implements IMyOrdersService {
         return null;
     }
 
+    public MyOrderDTO updateStatus(String id, UpdateOrderStatusDTO dto) throws BadRequestException {
+        MyOrder order = myOrdersRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Order not found")));
+        order.setOrderStatus(dto.parseStatus());
+        return MyOrderDTO.fromMyOrder(myOrdersRepository.save(order), false);
+    }
+
     @Override
     public MyOrderDTO delete(String id) throws BadRequestException {
+        if (myOrdersRepository.existsById(id)) {
+            myOrdersRepository.deleteById(id);
+        } else {
+            throw new BadRequestException(new ErrorReport("Order not found"));
+        }
         return null;
     }
 
@@ -172,4 +183,5 @@ public class MyOrdersService implements IMyOrdersService {
         return response;
     }
 
+    
 }

@@ -22,7 +22,7 @@ public class NewsController implements INewsController {
     
     @GetMapping("get-by-Id/{id}")
     @Override
-    public NewsDTO get(Integer id) throws BadRequestException {
+    public NewsDTO get(@PathVariable("id") Integer id) throws BadRequestException {
         return newsService.get(id);
     }
 

@@ -6,11 +6,13 @@ import com.nhom3.zoomanagement.utils.jwt.JwtProvider;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -23,22 +25,17 @@ public class AccountsController implements IAccountsController{
     @Autowired
     JwtProvider jwtProvider;
     @Override
+    @PreAuthorize("hasAnyAuthority({'ADMIN'})")
     @GetMapping("get-all")
     public List<AccountDTO> get() {
         return accountsService.get();
     }
 
     @Override
-    @GetMapping("{id}")
+    @PreAuthorize("hasAnyAuthority({'ADMIN', 'STAFF', 'TRAINER'})")
+    @GetMapping("get-by-Id/{id}")
     public AccountDTO get(@PathVariable("id") String id) throws BadRequestException {
         return accountsService.get(id);
-    }
-
-    @GetMapping("login/{id}")
-    public String login(@PathVariable("id") String id) throws BadRequestException {
-        Account account = accountsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
-        String token = jwtProvider.generateJwtToken(account.getEmail(), account.getRole().toString());
-        return token;
     }
 
     @Override
@@ -49,14 +46,29 @@ public class AccountsController implements IAccountsController{
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority({'ADMIN'})")
     @PutMapping("update/{id}")
     public AccountDTO update(@PathVariable("id") String id, @RequestBody @Valid UpdateAccountDTO dto) throws BadRequestException {
         return accountsService.update(id, dto);
     }
 
+    @PreAuthorize("hasAnyAuthority({'ADMIN', 'STAFF', 'TRAINER'})")
+    @PutMapping("update-own-account")
+    public AccountDTO updateOwnAccount(Authentication authentication, @RequestBody @Valid UpdateAccountDTO dto) throws BadRequestException {
+        Account currrentAccount = (Account) authentication.getPrincipal();
+        return accountsService.updateOwnAccount(currrentAccount, dto);
+    }
+
+    @PreAuthorize("hasAnyAuthority({'ADMIN'})")
+    @PutMapping("toggle-status/{id}")
+    public AccountDTO toggleStatus(@PathVariable("id") String id) throws BadRequestException {
+        return accountsService.toggleStatus(id);
+    }
+
     @Override
     @DeleteMapping("delete/{id}")
     public AccountDTO delete(@PathVariable("id") String id) throws BadRequestException {
-        return accountsService.delete(id);
+        return null;
     }
+    
 }

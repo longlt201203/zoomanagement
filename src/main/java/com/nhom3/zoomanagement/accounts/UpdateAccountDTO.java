@@ -34,16 +34,11 @@ public class UpdateAccountDTO {
     }
 
     public Account toAccount(Account presentAccount) {
-        Account account = new Account();
-        account.setFname(this.getFname());
-        account.setLname(this.getLname());
-        account.setRole(presentAccount.getRole());
-        account.setGender(this.parseGender());
-        account.setPhone(this.getPhone());
-        account.setAvt(this.getAvt());
-        account.setEmail(presentAccount.getEmail());
-        account.setCreatedBy(presentAccount.getCreatedBy());
-        account.setStatus(presentAccount.getStatus());
-        return account;
+        presentAccount.setFname(this.getFname());
+        presentAccount.setLname(this.getLname());
+        presentAccount.setGender(this.parseGender());
+        presentAccount.setPhone(this.getPhone());
+        presentAccount.setAvt(this.getAvt());
+        return presentAccount;
     }
 }

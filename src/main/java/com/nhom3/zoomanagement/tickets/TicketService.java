@@ -20,7 +20,7 @@ public class TicketService implements ITicketService {
     @Override
     public List<TicketDTO> get() {
         List<Ticket> tickets = ticketsRepository.findAll();
-        List<TicketDTO> ticketDTOs = TicketDTO.fromTicketList(tickets, true);
+        List<TicketDTO> ticketDTOs = TicketDTO.fromTicketList(tickets, false);
         return ticketDTOs;
     }
 
@@ -41,8 +41,8 @@ public class TicketService implements ITicketService {
     @Override
     public TicketDTO update(Integer id, UpdateTicketDTO dto) throws BadRequestException {
         Ticket ticket = ticketsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Ticket not found")));
-        Ticket updateTicket = dto.toTicket(ticket);
-        TicketDTO ticketDTO = TicketDTO.fromTicket(ticketsRepository.save(updateTicket), true);
+        ticket = dto.toTicket(ticket);
+        TicketDTO ticketDTO = TicketDTO.fromTicket(ticketsRepository.save(ticket), true);
         return ticketDTO;
     }
 

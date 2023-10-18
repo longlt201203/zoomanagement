@@ -2,6 +2,7 @@ package com.nhom3.zoomanagement.accounts;
 
 import com.nhom3.zoomanagement.errors.BadRequestException;
 import com.nhom3.zoomanagement.errors.ErrorReport;
+import com.nhom3.zoomanagement.utils.Enums;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class AccountsService implements IAccountsService {
     public AccountDTO create(CreateAccountDTO dto) throws BadRequestException {
         Account existAccountByEmail = accountsRepository.findByEmail(dto.getEmail());
         if (existAccountByEmail != null) throw new BadRequestException(new ErrorReport("Email existed"));
+        if(dto.parseRole() == Enums.RoleEnum.ADMIN) throw new BadRequestException(new ErrorReport("Can not create account role Admin"));
         Account account = dto.toAccount();
         AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(account), false, false);
         return accountDTO;
@@ -45,11 +47,20 @@ public class AccountsService implements IAccountsService {
 
     @Override
     public AccountDTO delete(String id) throws BadRequestException {
-        if (accountsRepository.existsById(id)) {
-            accountsRepository.deleteById(id);
-        } else {
-            throw new BadRequestException(new ErrorReport("Account not found"));
-        }
         return null;
+    }
+
+    public AccountDTO updateOwnAccount(Account currrentAccount, UpdateAccountDTO dto) {
+        currrentAccount = dto.toAccount(currrentAccount);
+        AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(currrentAccount), false, false);
+        return accountDTO;
+    }
+
+    public AccountDTO toggleStatus(String id) throws BadRequestException {
+        Account account = accountsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("Account not found")));
+        Enums.AccountStatusEnum updateStatus = account.getStatus() == Enums.AccountStatusEnum.ACTIVE ? Enums.AccountStatusEnum.INACTIVE : Enums.AccountStatusEnum.ACTIVE;
+        account.setStatus(updateStatus);
+        AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(account), false, false);
+        return accountDTO;
     }
 }

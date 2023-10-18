@@ -42,8 +42,8 @@ public class NewsService implements INewsService {
     @Override
     public NewsDTO update(Integer id, UpdateNewsDTO dto) throws BadRequestException {
         News news = newsRepository.findById(id).orElseThrow(() -> new BadRequestException(new ErrorReport("News not found")));
-        News updateNews = dto.toNews(news);
-        NewsDTO newsDTO = NewsDTO.fromNews(newsRepository.save(updateNews), true);
+        news = dto.toNews(news);
+        NewsDTO newsDTO = NewsDTO.fromNews(newsRepository.save(news), true);
         return newsDTO;
     }
 
