@@ -31,7 +31,6 @@ public class AccountsController implements IAccountsController{
     @Override
     @GetMapping("{id}")
     public AccountDTO get(@PathVariable("id") String id) throws BadRequestException {
-        System.out.println('a');
         return accountsService.get(id);
     }
 
