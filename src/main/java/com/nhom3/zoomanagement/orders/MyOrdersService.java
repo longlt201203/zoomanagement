@@ -140,6 +140,7 @@ public class MyOrdersService implements IMyOrdersService {
             LocalDate currentDate = startDate.plusDays(i);
             map.put(currentDate.toString(), new RevenueStatisticsDTO(currentDate, null, 0, 0, 0));
         }
+        
         listDetails.forEach(listDetail -> {
             listDetail.forEach(detail -> {
                 LocalDate currentDate = ((LocalDateTime) detail[0]).toLocalDate();
