@@ -7,6 +7,7 @@ import com.nhom3.zoomanagement.utils.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -42,7 +43,20 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/test-login-google").permitAll()
                                 .requestMatchers("accounts/login/**").permitAll()
-                                .requestMatchers("**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "news/get-all").permitAll()
+                                .requestMatchers(HttpMethod.GET, "news/get-by-Id/**").permitAll()
+                                
+                                .requestMatchers(HttpMethod.GET, "orders/get-all").permitAll()
+                                .requestMatchers(HttpMethod.GET, "orders/get-by-Id/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "orders/create").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "orders/update/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "orders/update-status/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "orders/delete/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "orders/send-email-order-info/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "orders/get-revenue").permitAll()
+                                
+                                .requestMatchers(HttpMethod.GET, "tickets/get-all").permitAll()
+                                .requestMatchers(HttpMethod.GET, "tickets/get-by-Id/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
