@@ -14,31 +14,26 @@ public class OrderDetailsController implements IOrderDetailsController {
     OrderDetailsService orderDetailService;
     
     @Override
-    @GetMapping("get-all")
     public List<OrderDetailDTO> get() {
         return orderDetailService.get();
     }
 
     @Override
-    @GetMapping("get-by-Id/{id}")
     public OrderDetailDTO get(@PathVariable("id") Integer id) throws BadRequestException {
         return orderDetailService.get(id);
     }
 
     @Override
-    @PostMapping("create")
     public OrderDetailDTO create(@RequestBody @Valid CreateOrderDetailDTO dto) throws BadRequestException {
         return orderDetailService.create(dto);
     }
 
     @Override
-    @PutMapping("update/{id}")
     public OrderDetailDTO update(@PathVariable("id") Integer id, @RequestBody @Valid UpdateOrderDetailDTO dto) throws BadRequestException {
         return orderDetailService.update(id, dto);
     }
 
     @Override
-    @DeleteMapping("delete/{id}")
     public OrderDetailDTO delete(@PathVariable("id") Integer id) throws BadRequestException {
         return orderDetailService.delete(id);
     }

@@ -15,12 +15,10 @@ public class NewsController implements INewsController {
     NewsService newsService;
     
     @Override
-    @GetMapping("get-all")
     public List<NewsDTO> get() {
         return newsService.get();
     }
     
-    @GetMapping("get-by-Id/{id}")
     @Override
     public NewsDTO get(Integer id) throws BadRequestException {
         return newsService.get(id);
@@ -28,21 +26,18 @@ public class NewsController implements INewsController {
 
     @Override
     @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
-    @PostMapping("create")
     public NewsDTO create(@RequestBody @Valid CreateNewsDTO dto) throws BadRequestException {
         return newsService.create(dto);
     }
 
     @Override
     @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
-    @PutMapping("update/{id}")
     public NewsDTO update(@PathVariable("id") Integer id, UpdateNewsDTO dto) throws BadRequestException {
         return newsService.update(id, dto);
     }
 
     @Override
     @PreAuthorize("hasAnyAuthority({'STAFF', 'ADMIN'})")
-    @DeleteMapping("delete/{id}")
     public NewsDTO delete(@PathVariable("id") Integer id) throws BadRequestException {
         return newsService.delete(id);
     }
