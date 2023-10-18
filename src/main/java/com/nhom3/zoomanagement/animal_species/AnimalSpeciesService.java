@@ -34,7 +34,7 @@ public class AnimalSpeciesService implements IAnimalSpeciesService {
     @Override
     public AnimalSpeciesDTO get(Integer id) throws AppServiceException {
         AnimalSpecies animalSpecies = animalSpeciesRepository.findById(id).orElseThrow(() -> new AppServiceException(new ErrorReport("Animal Species not found")));
-        return  AnimalSpeciesDTO.fromAnimalSpecies(animalSpecies, false, false, true);
+        return  AnimalSpeciesDTO.fromAnimalSpecies(animalSpecies, true, true, true);
     }
 
     @Override
