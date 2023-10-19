@@ -34,7 +34,7 @@ public class AppControllerAdvisor {
     
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorReport> handleDeserializationError(HttpMessageNotReadableException e, HttpServletRequest req) {
-        return handleBadRequest(new BadRequestException(new ErrorReport("Error while Deserializing")), req);
+        return handleBadRequest(new BadRequestException(new ErrorReport("Wrong form format")), req);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)

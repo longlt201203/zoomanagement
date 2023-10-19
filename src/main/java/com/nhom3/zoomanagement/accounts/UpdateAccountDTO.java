@@ -34,8 +34,8 @@ public class UpdateAccountDTO {
     }
 
     public Account toAccount(Account presentAccount) {
-        presentAccount.setFname(this.getFname());
-        presentAccount.setLname(this.getLname());
+        presentAccount.setFName(this.getFname());
+        presentAccount.setLName(this.getLname());
         presentAccount.setGender(this.parseGender());
         presentAccount.setPhone(this.getPhone());
         presentAccount.setAvt(this.getAvt());

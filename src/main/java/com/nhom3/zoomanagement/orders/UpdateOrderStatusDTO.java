@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class UpdateOrderStatusDTO {
     @NotBlank(message = "Status can not be blank")
-    @ValueOfEnum(message = "Invalid status", enumClass = Enums.OrderStatus.class)
+    @ValueOfEnum(message = "Invalid status", enumClass = Enums.OrderStatusEnum.class)
     private String status;
 
-    public Enums.OrderStatus parseStatus() {
-        return Enums.OrderStatus.valueOf(status);
+    public Enums.OrderStatusEnum parseStatus() {
+        return Enums.OrderStatusEnum.valueOf(status);
     }
 }

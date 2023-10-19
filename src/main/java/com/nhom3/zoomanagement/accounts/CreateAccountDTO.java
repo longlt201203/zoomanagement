@@ -50,8 +50,8 @@ public class CreateAccountDTO {
     
     public Account toAccount() {
         Account account = new Account();
-        account.setFname(this.getFName());
-        account.setLname(this.getLName());
+        account.setFName(this.getFName());
+        account.setLName(this.getLName());
         account.setRole(this.parseRole());
         account.setGender(this.parseGender());
         account.setEmail(this.getEmail());

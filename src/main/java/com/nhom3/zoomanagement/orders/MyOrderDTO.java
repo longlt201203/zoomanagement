@@ -22,7 +22,7 @@ public class MyOrderDTO {
     private Integer total;
     private LocalDate visitDate;
     private LocalDateTime createdAt;
-    private Enums.OrderStatus status;
+    private Enums.OrderStatusEnum status;
     private List<OrderDetailDTO> details;
 
     public static MyOrderDTO fromMyOrder(MyOrder myOrder, boolean hasDetails) {

@@ -47,7 +47,7 @@ public class MyOrder {
     
     @Column
     @Enumerated(EnumType.STRING)
-    private Enums.OrderStatus orderStatus = Enums.OrderStatus.PENDING;
+    private Enums.OrderStatusEnum orderStatus = Enums.OrderStatusEnum.PENDING;
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> details;

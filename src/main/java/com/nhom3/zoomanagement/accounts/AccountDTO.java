@@ -17,8 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 public class AccountDTO {
     private String id;
-    private String fname;
-    private String lname;
+    private String fName;
+    private String lName;
     private Enums.RoleEnum role;
     private Enums.AccountGenderEnum gender;
     private Enums.AccountStatusEnum status;
@@ -36,8 +36,8 @@ public class AccountDTO {
 
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setId(account.getId());
-        accountDTO.setFname(account.getFname());
-        accountDTO.setLname(account.getLname());
+        accountDTO.setFName(account.getFName());
+        accountDTO.setLName(account.getLName());
         accountDTO.setRole(account.getRole());
         accountDTO.setGender(account.getGender());
         accountDTO.setStatus(account.getStatus());

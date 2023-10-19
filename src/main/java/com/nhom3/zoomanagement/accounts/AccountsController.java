@@ -1,18 +1,16 @@
 package com.nhom3.zoomanagement.accounts;
 
 import com.nhom3.zoomanagement.errors.BadRequestException;
-import com.nhom3.zoomanagement.errors.ErrorReport;
 import com.nhom3.zoomanagement.utils.jwt.JwtProvider;
+import com.nhom3.zoomanagement.utils.search_filter.SearchRequestDTO;
+import com.nhom3.zoomanagement.utils.search_filter.SearchResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -64,6 +62,14 @@ public class AccountsController implements IAccountsController{
     @Override
     public AccountDTO delete(@PathVariable("id") String id) throws BadRequestException {
         return null;
+    }
+
+    @PreAuthorize("hasAnyAuthority({'ADMIN'})")
+    @PostMapping("search")
+    public SearchResponseDTO<AccountDTO> search(@RequestParam(name = "pageNums", defaultValue = "0") int pageNum,
+                                    @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                    @RequestBody SearchRequestDTO searchDTO) {
+        return accountsService.search(pageNum, pageSize, searchDTO);
     }
     
 }

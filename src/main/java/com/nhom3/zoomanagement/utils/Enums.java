@@ -12,7 +12,7 @@ public class Enums {
         FEMALE,
         OTHER
     }
-    
+
     public enum AccountStatusEnum {
         ACTIVE,
         INACTIVE
@@ -48,10 +48,29 @@ public class Enums {
         FED,
         NOT_FED_YET
     }
-    
-    public enum OrderStatus {
+
+    public enum OrderStatusEnum {
         DONE,
         PENDING,
         CANCELLED
+    }
+
+    public enum SearchOperationEnum {
+
+        CONTAINS, EQUAL, GREATER_THAN, GREATER_THAN_EQUAL, LESS_THAN, LESS_THAN_EQUAL;
+        public static final String[] SIMPLE_OPERATION_SET = {"cn", "eq", "gt", "ge", "lt", "le"};
+
+        public static SearchOperationEnum getSimpleOperation(
+                final String input) {
+            return switch (input) {
+                case "cn" -> CONTAINS;
+                case "eq" -> EQUAL;
+                case "gt" -> GREATER_THAN;
+                case "ge" -> GREATER_THAN_EQUAL;
+                case "lt" -> LESS_THAN;
+                case "le" -> LESS_THAN_EQUAL;
+                default -> null;
+            };
+        }
     }
 }

@@ -3,9 +3,17 @@ package com.nhom3.zoomanagement.accounts;
 import com.nhom3.zoomanagement.errors.BadRequestException;
 import com.nhom3.zoomanagement.errors.ErrorReport;
 import com.nhom3.zoomanagement.utils.Enums;
+import com.nhom3.zoomanagement.utils.search_filter.SearchCriteria;
+import com.nhom3.zoomanagement.utils.search_filter.SearchRequestDTO;
+import com.nhom3.zoomanagement.utils.search_filter.SearchResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -62,5 +70,25 @@ public class AccountsService implements IAccountsService {
         account.setStatus(updateStatus);
         AccountDTO accountDTO = AccountDTO.fromAccount(accountsRepository.save(account), false, false);
         return accountDTO;
+    }
+
+    public SearchResponseDTO<AccountDTO> search(int pageNum, int pageSize, SearchRequestDTO dto) {
+        List<SearchCriteria> searchCriteriaList = dto.getSearchCriteriaList();
+        Pageable page = PageRequest.of(pageNum, pageSize, Sort.by("createdAt").descending());
+        AccountSpecificationBuilder builder = new AccountSpecificationBuilder();
+        
+        if(searchCriteriaList != null) {
+            searchCriteriaList.forEach(criteria -> {
+                builder.with(criteria);
+            });
+        }
+        
+        Page<Account> accountPage = accountsRepository.findAll(builder.build(), page);
+        
+        List<AccountDTO> accountDTOS = AccountDTO.fromAccountList(accountPage.getContent(), false , false);
+        Integer totalPages = accountPage.getTotalPages();
+        Integer totalElements = Math.toIntExact(accountPage.getTotalElements());
+        
+        return new SearchResponseDTO<AccountDTO> (accountDTOS, totalPages, totalElements, pageNum);
     }
 }

@@ -1,5 +1,6 @@
 package com.nhom3.zoomanagement.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nhom3.zoomanagement.animal_species.AnimalSpecies;
 import com.nhom3.zoomanagement.animals.Animal;
 import com.nhom3.zoomanagement.areas.Area;
@@ -34,10 +35,10 @@ public class Account implements UserDetails {
     private String id;
 
     @Column(nullable = false)
-    private String fname;
+    private String fName;
 
     @Column(nullable = false)
-    private String lname;
+    private String lName;
 
     @Column
     @Enumerated(EnumType.STRING)
