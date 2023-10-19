@@ -2,14 +2,24 @@ package com.nhom3.zoomanagement.orders;
 
 import com.nhom3.zoomanagement.errors.BadRequestException;
 import com.nhom3.zoomanagement.errors.ErrorReport;
+import com.nhom3.zoomanagement.news.News;
+import com.nhom3.zoomanagement.news.NewsDTO;
+import com.nhom3.zoomanagement.news.NewsSpecificationBuilder;
 import com.nhom3.zoomanagement.order_details.CreateOrderDetailDTO;
 import com.nhom3.zoomanagement.order_details.OrderDetail;
 import com.nhom3.zoomanagement.tickets.Ticket;
 import com.nhom3.zoomanagement.tickets.TicketsRepository;
 import com.nhom3.zoomanagement.utils.mail.DataMailDTO;
 import com.nhom3.zoomanagement.utils.mail.MailService;
+import com.nhom3.zoomanagement.utils.search_filter.SearchCriteria;
+import com.nhom3.zoomanagement.utils.search_filter.SearchRequestDTO;
+import com.nhom3.zoomanagement.utils.search_filter.SearchResponseDTO;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -183,5 +193,24 @@ public class MyOrdersService implements IMyOrdersService {
         return response;
     }
 
-    
+
+    public SearchResponseDTO<MyOrderDTO> search(int pageNum, int pageSize, SearchRequestDTO dto) {
+        List<SearchCriteria> searchCriteriaList = dto.getSearchCriteriaList();
+        Pageable page = PageRequest.of(pageNum, pageSize, Sort.by("createdAt").descending());
+        MyOrderSpecificationBuilder builder = new MyOrderSpecificationBuilder();
+
+        if(searchCriteriaList != null) {
+            searchCriteriaList.forEach(criteria -> {
+                builder.with(criteria);
+            });
+        }
+
+        Page<MyOrder> myOrderPage = myOrdersRepository.findAll(builder.build(), page);
+
+        List<MyOrderDTO> myOrderDTOS = MyOrderDTO.fromMyOrderList(myOrderPage.getContent(), true);
+        Integer totalPages = myOrderPage.getTotalPages();
+        Integer totalElements = Math.toIntExact(myOrderPage.getTotalElements());
+
+        return new SearchResponseDTO<MyOrderDTO> (myOrderDTOS, totalPages, totalElements, pageNum);
+    }
 }

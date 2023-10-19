@@ -1,6 +1,9 @@
 package com.nhom3.zoomanagement.orders;
 
 import com.nhom3.zoomanagement.errors.BadRequestException;
+import com.nhom3.zoomanagement.news.NewsDTO;
+import com.nhom3.zoomanagement.utils.search_filter.SearchRequestDTO;
+import com.nhom3.zoomanagement.utils.search_filter.SearchResponseDTO;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +62,13 @@ public class MyOrdersController implements IMyOrdersController {
     @PostMapping("get-revenue")
     public Map<String, Object> getRevenueIn7Days(@RequestBody @Valid ReceiveDateDTO dto) throws BadRequestException {
         return myOrderService.getRevenueIn7Days(dto.parseStartDate());
+    }
+
+    @PostMapping("search")
+    public SearchResponseDTO<MyOrderDTO> search(@RequestParam(name = "pageNums", defaultValue = "0") int pageNum,
+                                             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                             @RequestBody SearchRequestDTO searchDTO) {
+        return myOrderService.search(pageNum, pageSize, searchDTO);
     }
 
 }
