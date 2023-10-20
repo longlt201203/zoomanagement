@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Google</title>
+</head>
+<body>
+    <div>
+        <label for="credential">Credential</label>
+        <textarea id="credential" readonly></textarea>
+    </div>
+
+    <!-- Change data-client_id to function -->
+    <div id="g_id_onload"
+         data-client_id=""
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="testGoogleLogin"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin"
+         data-type="standard"
+         data-shape="rectangular"
+         data-theme="filled_blue"
+         data-text="signin_with"
+         data-size="large"
+         data-logo_alignment="left">
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script>
+        function testGoogleLogin(data) {
+            console.log(data);
+            document.getElementById("credential").value = data.credential;
+        }
+    </script>
+</body>
+</html>

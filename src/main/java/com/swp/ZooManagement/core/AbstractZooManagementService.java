@@ -4,9 +4,10 @@
  */
 package com.swp.ZooManagement.core;
 
-import com.swp.ZooManagement.errors.EntityNotFoundException;
-import com.swp.ZooManagement.errors.ZooManagementServiceException;
 import java.util.Optional;
+
+import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
+import com.swp.ZooManagement.errors.ZooManagementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -20,8 +21,8 @@ public abstract class AbstractZooManagementService<EntityType, IdType, CreateDto
     @Autowired
     protected JpaRepository<EntityType, IdType> repository;
     
-    protected abstract void berforeCreate(EntityType entity) throws ZooManagementServiceException;
-    protected abstract void berforeUpdate(EntityType oldEntity, EntityType newEntity) throws ZooManagementServiceException;
+    protected abstract void berforeCreate(EntityType entity) throws ZooManagementException;
+    protected abstract void berforeUpdate(EntityType oldEntity, EntityType newEntity) throws ZooManagementException;
     
     @Override
     public Page<EntityType> findAll(FilterDto dto) {
@@ -35,16 +36,16 @@ public abstract class AbstractZooManagementService<EntityType, IdType, CreateDto
     }
 
     @Override
-    public EntityType findById(IdType id) throws ZooManagementServiceException {
+    public EntityType findById(IdType id) throws ZooManagementException {
         Optional<EntityType> findResult = repository.findById(id);
         if (findResult.isPresent()) {
             return findResult.get();
         }
-        throw new EntityNotFoundException();
+        throw new ZooManagementException(new EntityNotFoundErrorReport("id", id.toString()));
     }
 
     @Override
-    public EntityType create(CreateDto dto) throws ZooManagementServiceException {
+    public EntityType create(CreateDto dto) throws ZooManagementException {
         EntityType entity = dto.toEntity();
         berforeCreate(entity);
         entity = repository.save(entity);
@@ -52,7 +53,7 @@ public abstract class AbstractZooManagementService<EntityType, IdType, CreateDto
     }
 
     @Override
-    public EntityType update(IdType id, UpdateDto dto) throws ZooManagementServiceException {
+    public EntityType update(IdType id, UpdateDto dto) throws ZooManagementException {
         EntityType oldEntity = findById(id);
         EntityType newEntity = dto.toEntity();
         berforeUpdate(oldEntity, newEntity);

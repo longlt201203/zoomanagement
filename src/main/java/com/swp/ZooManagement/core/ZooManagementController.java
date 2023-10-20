@@ -25,7 +25,7 @@ public interface ZooManagementController<EntityType, IdType, CreateDto extends D
      * @return
      */
     @GetMapping("/")
-    GetManyResponse<EntityType> doGetMany(@RequestParam FilterDto filter) throws ZooManagementException;
+    GetManyResponse<EntityType> doGetMany(@Valid FilterDto filter) throws ZooManagementException;
     
     @GetMapping("/{id}")
     EntityType doGet(@PathVariable("id") IdType id) throws ZooManagementException;

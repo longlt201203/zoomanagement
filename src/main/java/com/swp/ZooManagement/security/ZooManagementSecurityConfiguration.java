@@ -4,12 +4,15 @@
  */
 package com.swp.ZooManagement.security;
 
-import java.util.Arrays;
+import java.util.List;
+
+import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -22,19 +25,33 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class ZooManagementSecurityConfiguration {
     @Bean
+    public JwtProvider jwtProvider() {
+        return new JwtProviderImpl();
+    }
+
+    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("*"));
+        config.setAllowedOrigins(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
+    }
+
+    @Bean
+    ZooManagementSecurityFilter zooManagementSecurityFilter() {
+        return new ZooManagementSecurityFilter();
     }
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(requests -> requests.anyRequest().authenticated());
+                .addFilterBefore(zooManagementSecurityFilter(), AuthorizationFilter.class)
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/accounts/**")
+                                                        .hasAnyAuthority(AccountRoleEnum.ADMIN.getValue())
+                                                        .anyRequest().permitAll());
         return http.build();
     }
 }

@@ -20,8 +20,8 @@ public abstract class AbstractZooManagementController<EntityType, IdType, Create
     public GetManyResponse<EntityType> doGetMany(FilterDto filter) throws ZooManagementException {
         Page<EntityType> entityPage = service.findAll(filter);
         GetManyResponse<EntityType> response = new GetManyResponse<>();
-        response.setPage(entityPage.getNumber());
-        response.setPerPage(entityPage.getNumberOfElements());
+        response.setPage(entityPage.getNumber()+1);
+        response.setPerPage(entityPage.getSize());
         response.setTotalPage(entityPage.getTotalPages());
         response.setTotalRecord(entityPage.getTotalElements());
         response.setData(entityPage.toList());

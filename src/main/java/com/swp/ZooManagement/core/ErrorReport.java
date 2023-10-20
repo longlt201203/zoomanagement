@@ -4,6 +4,7 @@
  */
 package com.swp.ZooManagement.core;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,9 +12,9 @@ import lombok.NoArgsConstructor;
  *
  * @author Le Thanh Long
  */
-@NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class ErrorReport {
-    private String trace;
+public class ErrorReport<T> {
     private String message;
+    private T data;
 }
