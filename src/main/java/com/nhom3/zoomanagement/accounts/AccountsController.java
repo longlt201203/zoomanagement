@@ -73,6 +73,7 @@ public class AccountsController implements IAccountsController{
     }
 
     @PreAuthorize("hasAnyAuthority({'ADMIN', 'STAFF', 'TRAINER'})")
+    @GetMapping("get-self")
     public AccountDTO getCurrentAccount(Authentication authentication) throws BadRequestException {
         Account currrentAccount = (Account) authentication.getPrincipal();
         return AccountDTO.fromAccount(currrentAccount, false, false);
