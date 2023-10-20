@@ -36,5 +36,4 @@ public class GcpConfig implements Serializable {
     @Value("${nhom3.zoomanagement.gcp.client-secret}")
     private String clientSecret;
 
-
 }

@@ -48,6 +48,7 @@ public class GoogleController {
         System.out.println("credential: "+ params.get("credential"));
         GoogleUserInfo info = googleService.fromCredential(params.get("credential"));
         Account account = accountsRepository.findByEmail(info.getEmail());
+        System.out.println("email " + info.getEmail());
         String jwt = jwtProvider.generateJwtToken(account.getEmail(), account.getRole().toString());
         System.out.println("new Jwt "+ jwt);
 

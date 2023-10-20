@@ -71,5 +71,11 @@ public class AccountsController implements IAccountsController{
                                     @RequestBody SearchRequestDTO searchDTO) {
         return accountsService.search(pageNum, pageSize, searchDTO);
     }
+
+    @PreAuthorize("hasAnyAuthority({'ADMIN', 'STAFF', 'TRAINER'})")
+    public AccountDTO getCurrentAccount(Authentication authentication) throws BadRequestException {
+        Account currrentAccount = (Account) authentication.getPrincipal();
+        return AccountDTO.fromAccount(currrentAccount, false, false);
+    }
     
 }
