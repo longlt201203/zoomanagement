@@ -49,8 +49,8 @@ public class ZooManagementSecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .addFilterBefore(zooManagementSecurityFilter(), AuthorizationFilter.class)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/accounts/**")
-                                                        .hasAnyAuthority(AccountRoleEnum.ADMIN.getValue())
+//                        .requestMatchers("/accounts/**")
+//                                                        .hasAnyAuthority(AccountRoleEnum.ADMIN.getValue())
                                                         .anyRequest().permitAll());
         return http.build();
     }

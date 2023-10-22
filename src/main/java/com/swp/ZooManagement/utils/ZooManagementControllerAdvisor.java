@@ -4,6 +4,7 @@
  */
 package com.swp.ZooManagement.utils;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.swp.ZooManagement.core.ErrorReport;
 import com.swp.ZooManagement.errors.ValidationError;
 import com.swp.ZooManagement.errors.ValidationErrorReport;
@@ -35,7 +36,6 @@ public class ZooManagementControllerAdvisor {
 
     @ExceptionHandler(ZooManagementException.class)
     protected ResponseEntity<ErrorReport<?>> handleZooManagementException(ZooManagementException e, HttpServletRequest request) {
-        e.printStackTrace();
         return new ResponseEntity<>(e.getReport(), HttpStatus.BAD_REQUEST);
     }
 

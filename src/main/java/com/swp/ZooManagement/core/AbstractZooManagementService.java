@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;

@@ -1,8 +1,7 @@
-package com.swp.ZooManagement.auth;
+package com.swp.ZooManagement.apis.auth;
 
 import com.swp.ZooManagement.errors.ZooManagementException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;

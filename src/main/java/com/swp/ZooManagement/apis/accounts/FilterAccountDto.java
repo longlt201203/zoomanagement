@@ -1,4 +1,4 @@
-package com.swp.ZooManagement.accounts;
+package com.swp.ZooManagement.apis.accounts;
 
 import com.swp.ZooManagement.core.FilterDtoBase;
 import org.springframework.data.domain.PageRequest;

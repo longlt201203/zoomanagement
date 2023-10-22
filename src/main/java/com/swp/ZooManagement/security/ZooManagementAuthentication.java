@@ -1,12 +1,8 @@
 package com.swp.ZooManagement.security;
 
-import com.swp.ZooManagement.accounts.Account;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
+import com.swp.ZooManagement.apis.accounts.Account;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;

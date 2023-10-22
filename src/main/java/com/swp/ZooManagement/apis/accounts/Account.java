@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.swp.ZooManagement.accounts;
+package com.swp.ZooManagement.apis.accounts;
 
+import com.swp.ZooManagement.core.ResponsableEntity;
 import com.swp.ZooManagement.utils.enums.AccountGenderEnum;
 import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import com.swp.ZooManagement.utils.enums.AccountStatusEnum;
@@ -22,7 +23,7 @@ import java.time.Instant;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public class Account {
+public class Account implements ResponsableEntity<AccountResponseDto> {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -45,7 +46,7 @@ public class Account {
     @Column(nullable = false, unique = true, length = 20)
     private String phone;
 
-    @Column(nullable = false)
+    @Column
     private String avt;
 
     @Column(nullable = false, updatable = false)
@@ -56,6 +57,36 @@ public class Account {
     private AccountStatusEnum status = AccountStatusEnum.ACTIVE;
 
     @CreatedBy
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Account createdBy;
+
+    @Override
+    public AccountResponseDto toResponseDto() {
+        AccountResponseDto responseDto = new AccountResponseDto();
+        responseDto.setId(id);
+        responseDto.setEmail(email);
+        responseDto.setRole(role);
+        responseDto.setGender(gender);
+        responseDto.setFname(fname);
+        responseDto.setLname(lname);
+        responseDto.setPhone(phone);
+        responseDto.setAvt(avt);
+        responseDto.setCreatedAt(createdAt);
+        responseDto.setStatus(status);
+        if (createdBy != null) {
+            responseDto.setCreatedBy(createdBy.toCreatorDto());
+        }
+
+        return responseDto;
+    }
+
+    public AccountCreatorDto toCreatorDto() {
+        AccountCreatorDto creatorDto = new AccountCreatorDto();
+        creatorDto.setId(id);
+        creatorDto.setEmail(email);
+        creatorDto.setFname(fname);
+        creatorDto.setLname(lname);
+        creatorDto.setPhone(phone);
+        return creatorDto;
+    }
 }

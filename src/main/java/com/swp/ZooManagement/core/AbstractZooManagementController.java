@@ -8,48 +8,55 @@ import com.swp.ZooManagement.errors.ZooManagementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Le Thanh Long
  */
-public abstract class AbstractZooManagementController<EntityType, IdType, CreateDto extends DtoBase<EntityType>, UpdateDto extends DtoBase<EntityType>, FilterDto extends FilterDtoBase<EntityType>> implements ZooManagementController<EntityType, IdType, CreateDto, UpdateDto, FilterDto> {
+public abstract class AbstractZooManagementController<EntityType extends ResponsableEntity<ResponseType>, IdType, CreateDto extends DtoBase<EntityType>, UpdateDto extends DtoBase<EntityType>, FilterDto extends FilterDtoBase<EntityType>, ResponseType> implements ZooManagementController<EntityType, IdType, CreateDto, UpdateDto, FilterDto, ResponseType> {
     @Autowired
     protected ZooManagementService<EntityType, IdType, CreateDto, UpdateDto, FilterDto> service;
     
     @Override
-    public GetManyResponse<EntityType> doGetMany(FilterDto filter) throws ZooManagementException {
+    public GetManyResponse<ResponseType> doGetMany(FilterDto filter) throws ZooManagementException {
         Page<EntityType> entityPage = service.findAll(filter);
-        GetManyResponse<EntityType> response = new GetManyResponse<>();
+        GetManyResponse<ResponseType> response = new GetManyResponse<>();
         response.setPage(entityPage.getNumber()+1);
         response.setPerPage(entityPage.getSize());
         response.setTotalPage(entityPage.getTotalPages());
         response.setTotalRecord(entityPage.getTotalElements());
-        response.setData(entityPage.toList());
+        List<ResponseType> objs = new ArrayList<>();
+        for (EntityType entityType : entityPage.toList()) {
+            objs.add(entityType.toResponseDto());
+        }
+        response.setData(objs);
         return response;
     }
 
     @Override
-    public EntityType doGet(IdType id) throws ZooManagementException {
+    public ResponseType doGet(IdType id) throws ZooManagementException {
         EntityType entity = service.findById(id);
-        return entity;
+        return entity.toResponseDto();
     }
 
     @Override
-    public EntityType doPost(CreateDto dto) throws ZooManagementException {
+    public ResponseType doPost(CreateDto dto) throws ZooManagementException {
         EntityType entity = service.create(dto);
-        return entity;
+        return entity.toResponseDto();
     }
 
     @Override
-    public EntityType doPut(IdType id, UpdateDto dto) throws ZooManagementException {
+    public ResponseType doPut(IdType id, UpdateDto dto) throws ZooManagementException {
         EntityType entity = service.update(id, dto);
-        return entity;
+        return entity.toResponseDto();
     }
 
     @Override
-    public EntityType doDelete(IdType id) throws ZooManagementException {
+    public ResponseType doDelete(IdType id) throws ZooManagementException {
         EntityType entity = service.delete(id);
-        return entity;
+        return entity.toResponseDto();
     }
     
 }

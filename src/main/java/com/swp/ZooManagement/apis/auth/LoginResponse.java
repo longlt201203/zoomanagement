@@ -1,4 +1,4 @@
-package com.swp.ZooManagement.auth;
+package com.swp.ZooManagement.apis.auth;
 
 import lombok.Data;
 

@@ -1,22 +1,18 @@
-package com.swp.ZooManagement.accounts;
+package com.swp.ZooManagement.apis.accounts;
 
 import com.swp.ZooManagement.core.DtoBase;
+import com.swp.ZooManagement.utils.IsEnum;
 import com.swp.ZooManagement.utils.enums.AccountGenderEnum;
-import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
-import jakarta.validation.constraints.*;
+import com.swp.ZooManagement.utils.enums.AccountStatusEnum;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CreateAccountDto implements DtoBase<Account> {
-    @NotBlank(message = "Email must be not blank")
-    @Email(message = "Invalid email")
-    private String email;
-
-    @NotBlank(message = "Role must be not blank")
-    private AccountRoleEnum role;
-
-    @NotBlank(message = "Gender must be not blank")
-    private AccountGenderEnum gender;
+public class UpdateAccountDto implements DtoBase<Account> {
+    @IsEnum(enumClass = AccountGenderEnum.class)
+    private String gender;
 
     @NotBlank(message = "First name must be not blank")
     @Size(max = 30, message = "Length of first name must not exceed 30")
@@ -30,19 +26,20 @@ public class CreateAccountDto implements DtoBase<Account> {
     @Pattern(regexp = "(84|0[35789])+([0-9]{8})\\b", message = "Invalid phone number")
     private String phone;
 
-    @Null
     private String avt;
+
+    @IsEnum(enumClass = AccountStatusEnum.class)
+    private String status;
 
     @Override
     public Account toEntity() {
         Account account = new Account();
-        account.setEmail(email);
-        account.setRole(role);
-        account.setGender(gender);
+        account.setGender(AccountGenderEnum.valueOf(gender));
         account.setFname(fname);
         account.setLname(lname);
         account.setPhone(phone);
         account.setAvt(avt);
+        account.setStatus(AccountStatusEnum.valueOf(status));
         return account;
     }
 }

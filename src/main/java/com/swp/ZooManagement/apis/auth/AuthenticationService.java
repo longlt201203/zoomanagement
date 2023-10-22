@@ -1,13 +1,11 @@
-package com.swp.ZooManagement.auth;
+package com.swp.ZooManagement.apis.auth;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
-import com.swp.ZooManagement.accounts.Account;
-import com.swp.ZooManagement.accounts.AccountsRepository;
-import com.swp.ZooManagement.accounts.AccountsService;
+import com.swp.ZooManagement.apis.accounts.Account;
+import com.swp.ZooManagement.apis.accounts.AccountsService;
 import com.swp.ZooManagement.errors.LoginGoogleErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
 import com.swp.ZooManagement.security.JwtProvider;
@@ -15,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.HashMap;
 

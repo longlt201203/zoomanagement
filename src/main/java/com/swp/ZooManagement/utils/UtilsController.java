@@ -25,7 +25,7 @@ public class UtilsController {
         for (String enumName : enumNames) {
             String className = "com.swp.ZooManagement.utils.enums." + enumName;
             try {
-                Class enumClass = Class.forName(className);
+                Class<?> enumClass = Class.forName(className);
                 map.put(enumName, List.of(enumClass.getEnumConstants()));
             } catch (ClassNotFoundException e) {
                 System.out.println(className);
