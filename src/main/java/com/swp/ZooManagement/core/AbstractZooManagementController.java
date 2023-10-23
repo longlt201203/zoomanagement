@@ -20,19 +20,23 @@ public abstract class AbstractZooManagementController<EntityType extends Respons
     protected ZooManagementService<EntityType, IdType, CreateDto, UpdateDto, FilterDto> service;
     
     @Override
-    public GetManyResponse<ResponseType> doGetMany(FilterDto filter) throws ZooManagementException {
-        Page<EntityType> entityPage = service.findAll(filter);
-        GetManyResponse<ResponseType> response = new GetManyResponse<>();
-        response.setPage(entityPage.getNumber()+1);
-        response.setPerPage(entityPage.getSize());
-        response.setTotalPage(entityPage.getTotalPages());
-        response.setTotalRecord(entityPage.getTotalElements());
+    public List<ResponseType> doGetMany(FilterDto filter) throws ZooManagementException {
+//        Page<EntityType> entityPage = service.findAll(filter);
+//        GetManyResponse<ResponseType> response = new GetManyResponse<>();
+//        response.setPage(entityPage.getNumber()+1);
+//        response.setPerPage(entityPage.getSize());
+//        response.setTotalPage(entityPage.getTotalPages());
+//        response.setTotalRecord(entityPage.getTotalElements());
         List<ResponseType> objs = new ArrayList<>();
-        for (EntityType entityType : entityPage.toList()) {
+//        for (EntityType entityType : entityPage.toList()) {
+//            objs.add(entityType.toResponseDto());
+//        }
+//        response.setData(objs);
+        List<EntityType> list = service.findAll(filter);
+        for (EntityType entityType : list) {
             objs.add(entityType.toResponseDto());
         }
-        response.setData(objs);
-        return response;
+        return objs;
     }
 
     @Override

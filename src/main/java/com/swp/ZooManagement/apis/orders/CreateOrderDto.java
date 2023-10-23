@@ -1,6 +1,7 @@
 package com.swp.ZooManagement.apis.orders;
 
 import com.swp.ZooManagement.core.DtoBase;
+import com.swp.ZooManagement.utils.DateValidate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -23,8 +24,8 @@ public class CreateOrderDto implements DtoBase<MyOrder> {
     @Size(max = 30, message = "Length of name must not exceed 30")
     private String name;
 
-    @NotNull(message = "Visit date not null")
-    private Instant visitDate;
+    @DateValidate
+    private String visitDate;
 
     @NotNull(message = "Order details cannot be null")
     @Valid
@@ -36,7 +37,7 @@ public class CreateOrderDto implements DtoBase<MyOrder> {
         order.setEmail(email);
         order.setPhone(phone);
         order.setName(name);
-        order.setVisitDate(visitDate);
+        order.setVisitDate(Instant.parse(visitDate));
         List<OrderDetail> orderDetails = new ArrayList<>();
         for (CreateOrderDetailDto createOrderDetailDto : details) {
             orderDetails.add(createOrderDetailDto.toEntity());

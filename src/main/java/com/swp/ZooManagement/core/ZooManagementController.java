@@ -8,6 +8,8 @@ import com.swp.ZooManagement.errors.ZooManagementException;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  *
  * @author Le Thanh Long
@@ -19,7 +21,7 @@ public interface ZooManagementController<EntityType extends ResponsableEntity<Re
      * @return
      */
     @GetMapping("/")
-    GetManyResponse<ResponseType> doGetMany(@Valid FilterDto filter) throws ZooManagementException;
+    List<ResponseType> doGetMany(@Valid FilterDto filter) throws ZooManagementException;
     
     @GetMapping("/{id}")
     ResponseType doGet(@PathVariable("id") IdType id) throws ZooManagementException;

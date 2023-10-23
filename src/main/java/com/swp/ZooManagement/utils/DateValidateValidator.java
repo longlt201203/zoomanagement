@@ -4,9 +4,8 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import java.time.Instant;
-import java.time.temporal.Temporal;
 
-public class DateValidateValidator implements ConstraintValidator<DateValidate, Instant> {
+public class DateValidateValidator implements ConstraintValidator<DateValidate, String> {
     private boolean allowPast;
     private int minYear;
     private int maxYear;
@@ -20,11 +19,15 @@ public class DateValidateValidator implements ConstraintValidator<DateValidate, 
     }
 
     @Override
-    public boolean isValid(Instant instant, ConstraintValidatorContext constraintValidatorContext) {
-        if (!allowPast && instant.isBefore(Instant.now())) {
+    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+        try {
+            Instant instant = Instant.parse(s);
+            if (!allowPast && instant.isBefore(Instant.now())) {
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
-
-        return false;
+        return true;
     }
 }

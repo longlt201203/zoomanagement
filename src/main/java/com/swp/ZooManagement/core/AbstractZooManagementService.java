@@ -4,6 +4,7 @@
  */
 package com.swp.ZooManagement.core;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
@@ -26,14 +27,14 @@ public abstract class AbstractZooManagementService<EntityType, IdType, CreateDto
     protected abstract void berforeUpdate(EntityType oldEntity, EntityType newEntity) throws ZooManagementException;
     
     @Override
-    public Page<EntityType> findAll(FilterDto dto) {
-        Page<EntityType> entityPage;
-        if (dto.toEntity() != null) {
-            entityPage = repository.findAll(Example.of(dto.toEntity()), dto.getPageRequest());
-        } else {
-            entityPage = repository.findAll(dto.getPageRequest());
-        }
-        return entityPage;
+    public List<EntityType> findAll(FilterDto dto) {
+//        Page<EntityType> entityPage;
+//        if (dto.toEntity() != null) {
+//            entityPage = repository.findAll(Example.of(dto.toEntity()), dto.getPageRequest());
+//        } else {
+//            entityPage = repository.findAll(dto.getPageRequest());
+//        }
+        return repository.findAll();
     }
 
     @Override

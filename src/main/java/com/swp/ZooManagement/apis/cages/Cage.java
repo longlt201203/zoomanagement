@@ -1,6 +1,6 @@
 package com.swp.ZooManagement.apis.cages;
 
-import com.swp.ZooManagement.animals.Animal;
+import com.swp.ZooManagement.apis.animals.Animal;
 import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpecies;
 import com.swp.ZooManagement.apis.areas.Area;

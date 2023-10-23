@@ -32,7 +32,7 @@ public class ZooManagementSecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("*"));
+        config.setAllowedOrigins(List.of("htt"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
@@ -47,6 +47,7 @@ public class ZooManagementSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .addFilterBefore(zooManagementSecurityFilter(), AuthorizationFilter.class)
                 .authorizeHttpRequests(requests -> requests
 //                        .requestMatchers("/accounts/**")
