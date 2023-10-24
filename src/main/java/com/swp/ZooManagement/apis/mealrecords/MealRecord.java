@@ -1,6 +1,8 @@
-package com.swp.ZooManagement.apis.meals;
+package com.swp.ZooManagement.apis.mealrecords;
 
 import com.swp.ZooManagement.apis.accounts.Account;
+import com.swp.ZooManagement.apis.cagemeals.CageMeal;
+import com.swp.ZooManagement.core.ResponsableEntity;
 import com.swp.ZooManagement.utils.enums.MealStatusEnum;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,7 +16,7 @@ import java.time.Instant;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public class Meal {
+public class MealRecord implements ResponsableEntity<MealRecordResponseDto> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,8 +32,20 @@ public class Meal {
     private Instant updatedAt;
 
     @LastModifiedBy
+    @ManyToOne
     private Account updatedBy;
 
     @ManyToOne(optional = false)
     private CageMeal cageMeal;
+
+    @Override
+    public MealRecordResponseDto toResponseDto() {
+        MealRecordResponseDto responseDto = new MealRecordResponseDto();
+        responseDto.setId(id);
+        responseDto.setStatus(status);
+        responseDto.setCreatedAt(createdAt);
+        responseDto.setUpdatedAt(updatedAt);
+        responseDto.setUpdatedBy(updatedBy.toCreatorDto());
+        return responseDto;
+    }
 }

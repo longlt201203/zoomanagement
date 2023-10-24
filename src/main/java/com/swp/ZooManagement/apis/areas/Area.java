@@ -1,7 +1,6 @@
 package com.swp.ZooManagement.apis.areas;
 
 import com.swp.ZooManagement.apis.accounts.Account;
-import com.swp.ZooManagement.apis.accounts.AccountCreatorDto;
 import com.swp.ZooManagement.apis.cages.Cage;
 import com.swp.ZooManagement.core.ResponsableEntity;
 import jakarta.persistence.*;

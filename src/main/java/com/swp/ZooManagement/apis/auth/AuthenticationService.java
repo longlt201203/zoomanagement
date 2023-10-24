@@ -9,12 +9,17 @@ import com.swp.ZooManagement.apis.accounts.AccountsService;
 import com.swp.ZooManagement.errors.LoginGoogleErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
 import com.swp.ZooManagement.security.JwtProvider;
+import com.swp.ZooManagement.security.ZooManagementAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class AuthenticationService {
@@ -44,5 +49,17 @@ public class AuthenticationService {
                 put("errorMessage", e.getMessage());
             }}));
         }
+    }
+
+    public Account getCurrentUser() {
+        Account account = null;
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication auth = context.getAuthentication();
+        try {
+            account = (Account) auth.getPrincipal();
+        } catch (Exception e) {
+
+        }
+        return account;
     }
 }
