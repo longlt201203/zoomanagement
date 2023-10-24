@@ -1,13 +1,17 @@
 package com.swp.ZooManagement.apis.areas;
 
 import com.swp.ZooManagement.apis.accounts.Account;
+import com.swp.ZooManagement.apis.animals.Animal;
+import com.swp.ZooManagement.apis.animals.AnimalResponseDto;
 import com.swp.ZooManagement.apis.cages.Cage;
+import com.swp.ZooManagement.apis.cages.CageResponseDto;
 import com.swp.ZooManagement.core.ResponsableEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,6 +48,27 @@ public class Area implements ResponsableEntity<AreaResponseDto> {
         if (createdBy != null) {
             responseDto.setCreatedBy(createdBy.toCreatorDto());
         }
+        List<CageResponseDto> cageResponseDtoList = new ArrayList<>();
+        if (cages != null) {
+            for (Cage cage : cages) {
+                CageResponseDto cageResponseDto = new CageResponseDto();
+                cageResponseDto.setId(cage.getId());
+                cageResponseDto.setCode(cage.getCode());
+                cageResponseDto.setDescription(cage.getDescription());
+                List<AnimalResponseDto> animalResponseDtoList = new ArrayList<>();
+                if (cage.getAnimals() != null) {
+                    for (Animal animal : cage.getAnimals()) {
+                        AnimalResponseDto animalResponseDto = new AnimalResponseDto();
+                        animalResponseDto.setId(animal.getId());
+                        animalResponseDtoList.add(animalResponseDto);
+                    }
+
+                }
+                cageResponseDto.setAnimals(animalResponseDtoList);
+                cageResponseDtoList.add(cageResponseDto);
+            }
+        }
+        responseDto.setCages(cageResponseDtoList);
         return responseDto;
     }
 }

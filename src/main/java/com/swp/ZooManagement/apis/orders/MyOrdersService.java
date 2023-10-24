@@ -32,11 +32,13 @@ public class MyOrdersService extends AbstractZooManagementService<MyOrder, Strin
 
     @Override
     protected void berforeUpdate(MyOrder oldEntity, MyOrder newEntity) throws ZooManagementException {
-
+        oldEntity.setStatus(newEntity.getStatus());
     }
 
     @Override
     public MyOrder delete(String id) throws ZooManagementException {
-        return null;
+        MyOrder order = findById(id);
+        repository.delete(order);
+        return order;
     }
 }

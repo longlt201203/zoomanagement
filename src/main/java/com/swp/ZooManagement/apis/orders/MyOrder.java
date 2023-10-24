@@ -41,7 +41,7 @@ public class MyOrder implements ResponsableEntity<MyOrderResponseDto> {
     @Column(nullable = false)
     private OrderStatusEnum status = OrderStatusEnum.PENDING;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetail> details;
 
     @Override

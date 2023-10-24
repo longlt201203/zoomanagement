@@ -12,6 +12,15 @@ import java.util.Optional;
 
 @Service
 public class AreasService extends AbstractZooManagementService<Area, Integer, CreateAreaDto, UpdateAreaDto, FilterAreaDto> {
+
+    public List<GetAreasWithStatisticsResult> findAllWithStatistics() {
+        AreasRepository repository = (AreasRepository) this.repository;
+        for (GetAreasWithStatisticsResult result : repository.findAllWithStatistics()) {
+            System.out.println("Hello result: Animal count: " + result.getAnimalCount() + "; Cage count: " + result.getCageCount());
+        }
+        return repository.findAllWithStatistics();
+    }
+
     @Override
     protected void berforeCreate(Area entity) throws ZooManagementException {
         AreasRepository repository = (AreasRepository) this.repository;
@@ -54,6 +63,7 @@ public class AreasService extends AbstractZooManagementService<Area, Integer, Cr
 
     @Override
     public Area delete(Integer id) throws ZooManagementException {
+
         return null;
     }
 }

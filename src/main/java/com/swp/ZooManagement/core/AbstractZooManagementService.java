@@ -34,7 +34,13 @@ public abstract class AbstractZooManagementService<EntityType, IdType, CreateDto
 //        } else {
 //            entityPage = repository.findAll(dto.getPageRequest());
 //        }
-        return repository.findAll();
+        List<EntityType> entities;
+        if (dto.toEntity() != null) {
+            entities = repository.findAll(Example.of(dto.toEntity()));
+        } else {
+            entities = repository.findAll();
+        }
+        return entities;
     }
 
     @Override

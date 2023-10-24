@@ -1,6 +1,8 @@
 package com.swp.ZooManagement.apis.cages;
 
 import com.swp.ZooManagement.apis.accounts.Account;
+import com.swp.ZooManagement.apis.animals.Animal;
+import com.swp.ZooManagement.apis.animals.AnimalResponseDto;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpecies;
 import com.swp.ZooManagement.apis.areas.Area;
 import com.swp.ZooManagement.apis.cagemeals.CageMeal;
@@ -44,6 +46,9 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
     @OneToMany(mappedBy = "cage")
     private List<CageMeal> cageMeals;
 
+    @OneToMany(mappedBy = "cage")
+    private List<Animal> animals;
+
     @Override
     public CageResponseDto toResponseDto() {
         CageResponseDto responseDto = new CageResponseDto();
@@ -58,6 +63,25 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
         if (createdBy != null) {
             responseDto.setCreatedBy(createdBy.toCreatorDto());
         }
+        List<AnimalResponseDto> animalResponseDtoList = new ArrayList<>();
+        if (animals != null) {
+            for (Animal animal : animals) {
+                AnimalResponseDto animalResponseDto = new AnimalResponseDto();
+                animalResponseDto.setId(animal.getId());
+                animalResponseDto.setName(animal.getName());
+                animalResponseDto.setNation(animal.getNation());
+                animalResponseDto.setDob(animal.getDob());
+                animalResponseDto.setGender(animal.getGender());
+                animalResponseDto.setStatus(animal.getStatus());
+                animalResponseDto.setDescription(animal.getDescription());
+                animalResponseDto.setNote(animal.getNote());
+                animalResponseDto.setImageList(animal.getImageList().isEmpty() ? List.of() : List.of(animal.getImageList().split(";")));
+                animalResponseDto.setCreatedAt(animal.getCreatedAt());
+                animalResponseDto.setUpdatedAt(animal.getUpdatedAt());
+                animalResponseDtoList.add(animalResponseDto);
+            }
+        }
+        responseDto.setAnimals(animalResponseDtoList);
         List<CageMealResponseDto> cageMealResponseDtoList = new ArrayList<>();
         if (cageMeals != null) {
             for (CageMeal cageMeal : cageMeals) {
