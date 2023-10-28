@@ -27,7 +27,7 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @Column
+    @Column(columnDefinition = "NVARCHAR(1000)")
     private String description;
 
     @ManyToOne

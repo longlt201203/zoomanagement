@@ -20,13 +20,13 @@ public class AnimalSpecies implements ResponsableEntity<AnimalSpeciesResponseDto
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, columnDefinition = "NVARCHAR(60)")
     private String name;
 
-    @Column
+    @Column(columnDefinition = "NVARCHAR(1000)")
     private String description;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String image;
 
     @ManyToOne

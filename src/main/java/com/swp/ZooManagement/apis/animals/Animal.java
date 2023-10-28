@@ -25,10 +25,10 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(columnDefinition = "NVARCHAR(100)")
     private String name;
 
-    @Column
+    @Column(columnDefinition = "NVARCHAR(100)")
     private String nation;
 
     @Column
@@ -40,13 +40,13 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
     @Column
     private AnimalStatusEnum status;
 
-    @Column
+    @Column(columnDefinition = "NVARCHAR(1000)")
     private String description;
 
-    @Column
+    @Column(columnDefinition = "NVARCHAR(1000)")
     private String note;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String imageList;
 
     @ManyToOne(optional = false)

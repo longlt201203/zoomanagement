@@ -23,7 +23,7 @@ public class News implements ResponsableEntity<NewsResponseDto> {
     @Column(nullable = false, columnDefinition = "NTEXT")
     private String content;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
     private String title;
 
     @Column(nullable = false, updatable = false)

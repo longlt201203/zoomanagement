@@ -26,10 +26,10 @@ public class Area implements ResponsableEntity<AreaResponseDto> {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @Column
+    @Column(columnDefinition = "NVARCHAR(60)")
     private String name;
 
-    @Column
+    @Column(columnDefinition = "NVARCHAR(100)")
     private String location;
 
     @ManyToOne

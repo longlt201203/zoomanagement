@@ -37,16 +37,16 @@ public class Account implements ResponsableEntity<AccountResponseDto> {
     @Column(nullable = false)
     private AccountGenderEnum gender;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(30)")
     private String fname;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(30)")
     private String lname;
 
     @Column(nullable = false, unique = true, length = 20)
     private String phone;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String avt;
 
     @Column(nullable = false, updatable = false)

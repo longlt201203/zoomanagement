@@ -25,7 +25,7 @@ public class CageMeal implements ResponsableEntity<CageMealResponseDto> {
     @Column(nullable = false)
     private Instant time;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(100)")
     private String food;
 
     @ManyToOne

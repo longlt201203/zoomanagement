@@ -25,7 +25,7 @@ public class MyOrder implements ResponsableEntity<MyOrderResponseDto> {
     @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(100)")
     private String name;
 
     @Column(nullable = false)
