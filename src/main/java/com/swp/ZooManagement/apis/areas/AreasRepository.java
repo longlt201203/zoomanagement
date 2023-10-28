@@ -18,14 +18,15 @@ public interface AreasRepository extends JpaRepository<Area, Integer> {
             ") t1\n" +
             "ON area.id = t1_cage_area_id\n" +
             "LEFT JOIN (\n" +
-            "\tSELECT cage.area_id as t2_cage_area_id, animalCount\n" +
+            "\tSELECT cage.area_id as t2_cage_area_id, SUM(subAnimalCount) as animalCount\n" +
             "\tFROM cage\n" +
             "\tLEFT JOIN (\n" +
-            "\t\tSELECT animal.cage_id AS u1_animal_cage_id, COUNT(animal.cage_id) as animalCount \n" +
+            "\t\tSELECT animal.cage_id AS u1_animal_cage_id, COUNT(animal.cage_id) as subAnimalCount \n" +
             "\t\tFROM animal \n" +
             "\t\tGROUP BY animal.cage_id  \n" +
             "\t) u1\n" +
             "\tON cage.id = u1_animal_cage_id\n" +
+            "\tGROUP BY cage.area_id\n" +
             ") t2\n" +
             "ON area.id = t2_cage_area_id;")
     List<GetAreasWithStatisticsResult> findAllWithStatistics();

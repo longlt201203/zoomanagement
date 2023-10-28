@@ -20,7 +20,7 @@ public class News implements ResponsableEntity<NewsResponseDto> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "NTEXT")
     private String content;
 
     @Column(nullable = false)

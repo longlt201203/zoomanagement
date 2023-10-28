@@ -3,6 +3,7 @@ package com.swp.ZooManagement.apis.areas;
 import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.animals.Animal;
 import com.swp.ZooManagement.apis.animals.AnimalResponseDto;
+import com.swp.ZooManagement.apis.animalspecies.AnimalSpeciesResponseDto;
 import com.swp.ZooManagement.apis.cages.Cage;
 import com.swp.ZooManagement.apis.cages.CageResponseDto;
 import com.swp.ZooManagement.core.ResponsableEntity;
@@ -55,6 +56,10 @@ public class Area implements ResponsableEntity<AreaResponseDto> {
                 cageResponseDto.setId(cage.getId());
                 cageResponseDto.setCode(cage.getCode());
                 cageResponseDto.setDescription(cage.getDescription());
+                AnimalSpeciesResponseDto animalSpeciesResponseDto = new AnimalSpeciesResponseDto();
+                animalSpeciesResponseDto.setId(cage.getAnimalSpecies().getId());
+                animalSpeciesResponseDto.setName(cage.getAnimalSpecies().getName());
+                cageResponseDto.setAnimalSpecies(animalSpeciesResponseDto);
                 List<AnimalResponseDto> animalResponseDtoList = new ArrayList<>();
                 if (cage.getAnimals() != null) {
                     for (Animal animal : cage.getAnimals()) {
@@ -66,6 +71,9 @@ public class Area implements ResponsableEntity<AreaResponseDto> {
                 }
                 cageResponseDto.setAnimals(animalResponseDtoList);
                 cageResponseDtoList.add(cageResponseDto);
+                if (cage.getManagedBy() != null) {
+                    cageResponseDto.setManagedBy(cage.getManagedBy().toCreatorDto());
+                }
             }
         }
         responseDto.setCages(cageResponseDtoList);

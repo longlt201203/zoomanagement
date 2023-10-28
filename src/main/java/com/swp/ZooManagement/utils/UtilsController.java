@@ -1,11 +1,20 @@
 package com.swp.ZooManagement.utils;
 
 import com.swp.ZooManagement.errors.ZooManagementException;
+import org.apache.http.HttpHeaders;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,5 +41,46 @@ public class UtilsController {
             }
         }
         return map;
+    }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    private String uploadFile(@RequestParam("file") MultipartFile multipartFile, @RequestHeader(HttpHeaders.HOST) String host) throws IOException {
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+
+        String uploadFolder = "uploads";
+        File dir = new File(uploadFolder);
+        if (!(dir.exists() && dir.isDirectory())) {
+            dir.mkdir();
+        }
+        String fileName = multipartFile.getOriginalFilename();
+        String localFilePath = uploadFolder + "/" + fileName;
+        File f = new File(localFilePath);
+        if (!f.exists()) {
+            f.createNewFile();
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(multipartFile.getInputStream());
+            FileOutputStream fos = new FileOutputStream(f);
+            bufferedInputStream.transferTo(fos);
+            fos.close();
+            bufferedInputStream.close();
+        }
+        return baseUrl + "/files?fileName=" + fileName;
+    }
+
+    @GetMapping("/files")
+    @ResponseBody
+    private ResponseEntity<Resource> getFile(@RequestParam("fileName") String fileName) throws IOException {
+        String uploadFolder = "uploads";
+        String localFilePath = uploadFolder + "/" + fileName;
+        File f = new File(localFilePath);
+        Resource resource = new FileSystemResource(localFilePath);
+        if (f.exists()) {
+            String contentType = Files.probeContentType(Path.of(localFilePath));
+            MediaType mediaType = MediaType.parseMediaType(contentType);
+            return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders -> {
+                httpHeaders.setContentType(mediaType);
+            }).body(resource);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
