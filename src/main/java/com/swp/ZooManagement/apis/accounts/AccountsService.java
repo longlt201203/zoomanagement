@@ -5,6 +5,8 @@ import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
 import com.swp.ZooManagement.errors.ValidationError;
 import com.swp.ZooManagement.errors.ValidationErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
+import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
+import com.swp.ZooManagement.utils.enums.AccountStatusEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -72,5 +74,13 @@ public class AccountsService extends AbstractZooManagementService<Account, Strin
             return findResult.get();
         }
         throw new ZooManagementException(new EntityNotFoundErrorReport("email", email));
+    }
+
+    public Account updateStatus(String id, UpdateStatusDto dto) throws ZooManagementException{
+        AccountsRepository repository = (AccountsRepository) this.repository;
+        Account account = findById(id);
+        account.setStatus(dto.toEntity().getStatus());
+        account= repository.save(account);
+        return account;
     }
 }

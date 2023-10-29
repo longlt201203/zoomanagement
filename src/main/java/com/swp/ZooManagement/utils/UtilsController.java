@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,34 @@ public class UtilsController {
             bufferedInputStream.close();
         }
         return baseUrl + "/files?fileName=" + fileName;
+    }
+
+    @PostMapping("/upload-many")
+    @ResponseBody
+    private List<String> uploadMultipleFile(@RequestParam("files") MultipartFile[] multipartFiles, @RequestHeader(HttpHeaders.HOST) String host) throws IOException {
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        List<String> listPath = new ArrayList<>();
+        String uploadFolder = "uploads";
+        File dir = new File(uploadFolder);
+        if (!(dir.exists() && dir.isDirectory())) {
+            dir.mkdir();
+        }
+        for (MultipartFile file: multipartFiles){
+            String fileName = file.getOriginalFilename();
+            String localFilePath = uploadFolder + "/" + fileName;
+            File f = new File(localFilePath);
+            if (!f.exists()) {
+                f.createNewFile();
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(file.getInputStream());
+                FileOutputStream fos = new FileOutputStream(f);
+                bufferedInputStream.transferTo(fos);
+                fos.close();
+                bufferedInputStream.close();
+            }
+            String path = baseUrl + "/files?fileName=" + fileName;
+            listPath.add(path);
+        }
+        return listPath;
     }
 
     @GetMapping("/files")
