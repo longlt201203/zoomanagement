@@ -1,17 +1,25 @@
 package com.swp.ZooManagement.apis.accounts;
 
 import com.swp.ZooManagement.core.FilterDtoBase;
+import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.beans.ConstructorProperties;
+
 public class FilterAccountDto extends FilterDtoBase<Account> {
-    public FilterAccountDto(Integer page, Integer perPage) {
+    protected AccountRoleEnum role;
+    @ConstructorProperties({ "page", "perPage", "role" })
+    public FilterAccountDto(Integer page, Integer perPage, AccountRoleEnum role) {
         super(page, perPage);
+        this.role = role;
     }
 
     @Override
     public Account toEntity() {
-        return null;
+        Account account = new Account();
+        account.setRole(role);
+        return account;
     }
 
     @Override
