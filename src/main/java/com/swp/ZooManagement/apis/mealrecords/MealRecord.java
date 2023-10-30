@@ -36,6 +36,7 @@ public class MealRecord implements ResponsableEntity<MealRecordResponseDto> {
     private Account updatedBy;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "cage_meal_id")
     private CageMeal cageMeal;
 
     @Override
@@ -45,7 +46,9 @@ public class MealRecord implements ResponsableEntity<MealRecordResponseDto> {
         responseDto.setStatus(status);
         responseDto.setCreatedAt(createdAt);
         responseDto.setUpdatedAt(updatedAt);
-        responseDto.setUpdatedBy(updatedBy.toCreatorDto());
+        if (updatedBy != null) {
+            responseDto.setUpdatedBy(updatedBy.toCreatorDto());
+        }
         return responseDto;
     }
 }

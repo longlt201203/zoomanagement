@@ -19,7 +19,7 @@ public class CageMealsService extends AbstractZooManagementService<CageMeal, Int
     private CagesRepository cagesRepository;
 
     @Override
-    protected void berforeCreate(CageMeal entity) throws ZooManagementException {
+    protected void beforeCreate(CageMeal entity) throws ZooManagementException {
         CageMealsRepository repository = (CageMealsRepository) this.repository;
         List<ValidationError> errors = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class CageMealsService extends AbstractZooManagementService<CageMeal, Int
     }
 
     @Override
-    protected void berforeUpdate(CageMeal oldEntity, CageMeal newEntity) throws ZooManagementException {
+    protected void beforeUpdate(CageMeal oldEntity, CageMeal newEntity) throws ZooManagementException {
         CageMealsRepository repository = (CageMealsRepository) this.repository;
         List<ValidationError> errors = new ArrayList<>();
 

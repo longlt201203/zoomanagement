@@ -18,7 +18,7 @@ public class MyOrdersService extends AbstractZooManagementService<MyOrder, Strin
     protected TicketsService ticketsService;
 
     @Override
-    protected void berforeCreate(MyOrder entity) throws ZooManagementException {
+    protected void beforeCreate(MyOrder entity) throws ZooManagementException {
         double sum = 0;
         for (OrderDetail detail : entity.getDetails()) {
             Ticket ticket = ticketsService.findById(detail.getTicket().getId());
@@ -31,7 +31,7 @@ public class MyOrdersService extends AbstractZooManagementService<MyOrder, Strin
     }
 
     @Override
-    protected void berforeUpdate(MyOrder oldEntity, MyOrder newEntity) throws ZooManagementException {
+    protected void beforeUpdate(MyOrder oldEntity, MyOrder newEntity) throws ZooManagementException {
         oldEntity.setStatus(newEntity.getStatus());
     }
 

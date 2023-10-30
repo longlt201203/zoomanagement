@@ -9,25 +9,15 @@ import java.util.Optional;
 public interface AreasRepository extends JpaRepository<Area, Integer> {
     Optional<Area> findByCode(String code);
 
-    @Query(nativeQuery = true, value = "SELECT area.id as id, area.code as code, area.name as name, area.location as location, cageCount, animalCount\n" +
-            "FROM area\n" +
-            "LEFT JOIN (\n" +
-            "\tSELECT cage.area_id AS t1_cage_area_id, COUNT(cage.area_id) as cageCount \n" +
-            "\tFROM cage \n" +
-            "\tGROUP BY cage.area_id\n" +
-            ") t1\n" +
-            "ON area.id = t1_cage_area_id\n" +
-            "LEFT JOIN (\n" +
-            "\tSELECT cage.area_id as t2_cage_area_id, SUM(subAnimalCount) as animalCount\n" +
-            "\tFROM cage\n" +
-            "\tLEFT JOIN (\n" +
-            "\t\tSELECT animal.cage_id AS u1_animal_cage_id, COUNT(animal.cage_id) as subAnimalCount \n" +
-            "\t\tFROM animal \n" +
-            "\t\tGROUP BY animal.cage_id  \n" +
-            "\t) u1\n" +
-            "\tON cage.id = u1_animal_cage_id\n" +
-            "\tGROUP BY cage.area_id\n" +
-            ") t2\n" +
-            "ON area.id = t2_cage_area_id;")
+    @Query("SELECT a.id AS id, a.code AS code, a.name AS name, a.location AS location, " +
+            "COUNT(c) AS cageCount, COALESCE(SUM(ac.subAnimalCount), 0) AS animalCount " +
+            "FROM Area a " +
+            "LEFT JOIN a.cages c " +
+            "LEFT JOIN (SELECT ca.id AS cageId, COUNT(an.id) AS subAnimalCount " +
+            "           FROM Cage ca " +
+            "           LEFT JOIN ca.animals an " +
+            "           GROUP BY ca.id) ac " +
+            "ON c.id = ac.cageId " +
+            "GROUP BY a.id, a.code, a.name, a.location")
     List<GetAreasWithStatisticsResult> findAllWithStatistics();
 }

@@ -24,7 +24,7 @@ public class AnimalsService extends AbstractZooManagementService<Animal, Integer
     private CagesRepository cagesRepository;
 
     @Override
-    protected void berforeCreate(Animal entity) throws ZooManagementException {
+    protected void beforeCreate(Animal entity) throws ZooManagementException {
         List<ValidationError> errors = new ArrayList<>();
 
         Optional<AnimalSpecies> findAnimalSpeciesResult = animalSpeciesRepository.findById(entity.getSpecies().getId());
@@ -47,7 +47,7 @@ public class AnimalsService extends AbstractZooManagementService<Animal, Integer
     }
 
     @Override
-    protected void berforeUpdate(Animal oldEntity, Animal newEntity) throws ZooManagementException {
+    protected void beforeUpdate(Animal oldEntity, Animal newEntity) throws ZooManagementException {
         List<ValidationError> errors = new ArrayList<>();
 
         Optional<AnimalSpecies> findAnimalSpeciesResult = animalSpeciesRepository.findById(newEntity.getSpecies().getId());

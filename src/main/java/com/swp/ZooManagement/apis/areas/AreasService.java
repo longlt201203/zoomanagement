@@ -22,7 +22,7 @@ public class AreasService extends AbstractZooManagementService<Area, Integer, Cr
     }
 
     @Override
-    protected void berforeCreate(Area entity) throws ZooManagementException {
+    protected void beforeCreate(Area entity) throws ZooManagementException {
         AreasRepository repository = (AreasRepository) this.repository;
 
         List<ValidationError> errors = new ArrayList<>();
@@ -40,7 +40,7 @@ public class AreasService extends AbstractZooManagementService<Area, Integer, Cr
     }
 
     @Override
-    protected void berforeUpdate(Area oldEntity, Area newEntity) throws ZooManagementException {
+    protected void beforeUpdate(Area oldEntity, Area newEntity) throws ZooManagementException {
         AreasRepository repository = (AreasRepository) this.repository;
 
         List<ValidationError> errors = new ArrayList<>();

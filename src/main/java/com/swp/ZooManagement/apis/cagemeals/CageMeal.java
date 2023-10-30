@@ -32,7 +32,8 @@ public class CageMeal implements ResponsableEntity<CageMealResponseDto> {
     @CreatedBy
     private Account createdBy;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cage_id")
     private Cage cage;
 
     @OneToMany(mappedBy = "cageMeal")

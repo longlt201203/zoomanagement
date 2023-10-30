@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class AccountsService extends AbstractZooManagementService<Account, String, CreateAccountDto, UpdateAccountDto, FilterAccountDto> {
     @Override
-    protected void berforeCreate(Account entity) throws ZooManagementException {
+    protected void beforeCreate(Account entity) throws ZooManagementException {
         AccountsRepository repository = (AccountsRepository) this.repository;
         List<ValidationError> errors = new ArrayList<>();
         Optional<Account> findResult;
@@ -39,7 +39,7 @@ public class AccountsService extends AbstractZooManagementService<Account, Strin
     }
 
     @Override
-    protected void berforeUpdate(Account oldEntity, Account newEntity) throws ZooManagementException {
+    protected void beforeUpdate(Account oldEntity, Account newEntity) throws ZooManagementException {
         AccountsRepository repository = (AccountsRepository) this.repository;
         List<ValidationError> errors = new ArrayList<>();
         Optional<Account> findResult;

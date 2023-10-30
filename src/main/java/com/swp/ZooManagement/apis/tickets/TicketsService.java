@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class TicketsService extends AbstractZooManagementService<Ticket, Integer, CreateTicketDto, UpdateTicketDto, FilterTicketDto> {
     @Override
-    protected void berforeCreate(Ticket entity) throws ZooManagementException {
+    protected void beforeCreate(Ticket entity) throws ZooManagementException {
         TicketsRepository repository = (TicketsRepository) this.repository;
         List<ValidationError> errors = new ArrayList<>();
         Optional<Ticket> findResult;
@@ -30,7 +30,7 @@ public class TicketsService extends AbstractZooManagementService<Ticket, Integer
     }
 
     @Override
-    protected void berforeUpdate(Ticket oldEntity, Ticket newEntity) throws ZooManagementException {
+    protected void beforeUpdate(Ticket oldEntity, Ticket newEntity) throws ZooManagementException {
         TicketsRepository repository = (TicketsRepository) this.repository;
         List<ValidationError> errors = new ArrayList<>();
         Optional<Ticket> findResult;

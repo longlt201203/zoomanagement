@@ -9,10 +9,8 @@ import java.util.Optional;
 
 import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -23,8 +21,8 @@ public abstract class AbstractZooManagementService<EntityType, IdType, CreateDto
     @Autowired
     protected JpaRepository<EntityType, IdType> repository;
     
-    protected abstract void berforeCreate(EntityType entity) throws ZooManagementException;
-    protected abstract void berforeUpdate(EntityType oldEntity, EntityType newEntity) throws ZooManagementException;
+    protected abstract void beforeCreate(EntityType entity) throws ZooManagementException;
+    protected abstract void beforeUpdate(EntityType oldEntity, EntityType newEntity) throws ZooManagementException;
     
     @Override
     public List<EntityType> findAll(FilterDto dto) {
@@ -55,7 +53,7 @@ public abstract class AbstractZooManagementService<EntityType, IdType, CreateDto
     @Override
     public EntityType create(CreateDto dto) throws ZooManagementException {
         EntityType entity = dto.toEntity();
-        berforeCreate(entity);
+        beforeCreate(entity);
         entity = repository.save(entity);
         return entity;
     }
@@ -64,7 +62,7 @@ public abstract class AbstractZooManagementService<EntityType, IdType, CreateDto
     public EntityType update(IdType id, UpdateDto dto) throws ZooManagementException {
         EntityType oldEntity = findById(id);
         EntityType newEntity = dto.toEntity();
-        berforeUpdate(oldEntity, newEntity);
+        beforeUpdate(oldEntity, newEntity);
         oldEntity = repository.save(oldEntity);
         return oldEntity;
     }

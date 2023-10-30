@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class AnimalSpeciesService extends AbstractZooManagementService<AnimalSpecies, Integer, CreateAnimalSpeciesDto, UpdateAnimalSpeciesDto, FilterAnimalSpeciesDto> {
     @Override
-    protected void berforeCreate(AnimalSpecies entity) throws ZooManagementException {
+    protected void beforeCreate(AnimalSpecies entity) throws ZooManagementException {
         AnimalSpeciesRepository repository = (AnimalSpeciesRepository) this.repository;
         List<ValidationError> errors = new ArrayList<>();
         Optional<AnimalSpecies> findResult;
@@ -30,7 +30,7 @@ public class AnimalSpeciesService extends AbstractZooManagementService<AnimalSpe
     }
 
     @Override
-    protected void berforeUpdate(AnimalSpecies oldEntity, AnimalSpecies newEntity) throws ZooManagementException {
+    protected void beforeUpdate(AnimalSpecies oldEntity, AnimalSpecies newEntity) throws ZooManagementException {
         AnimalSpeciesRepository repository = (AnimalSpeciesRepository) this.repository;
         List<ValidationError> errors = new ArrayList<>();
         Optional<AnimalSpecies> findResult;
