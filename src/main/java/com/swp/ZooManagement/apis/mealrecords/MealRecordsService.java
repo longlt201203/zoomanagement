@@ -34,7 +34,7 @@ public class MealRecordsService extends AbstractZooManagementService<MealRecord,
 
     @Override
     protected void beforeUpdate(MealRecord oldEntity, MealRecord newEntity) throws ZooManagementException {
-
+        oldEntity.setStatus(newEntity.getStatus());
     }
 
     @Override

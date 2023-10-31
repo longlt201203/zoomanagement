@@ -36,7 +36,7 @@ public class CageMeal implements ResponsableEntity<CageMealResponseDto> {
     @JoinColumn(name = "cage_id")
     private Cage cage;
 
-    @OneToMany(mappedBy = "cageMeal")
+    @OneToMany(mappedBy = "cageMeal", cascade = CascadeType.ALL)
     private List<MealRecord> meals;
 
     @Override
