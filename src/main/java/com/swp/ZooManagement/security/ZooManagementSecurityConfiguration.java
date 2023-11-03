@@ -9,6 +9,7 @@ import java.util.List;
 import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -51,10 +52,21 @@ public class ZooManagementSecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .addFilterBefore(zooManagementSecurityFilter(), AuthorizationFilter.class)
-                .authorizeHttpRequests(requests -> requests
-//                        .requestMatchers("/accounts/**")
-//                                                        .hasAnyAuthority(AccountRoleEnum.ADMIN.getValue())
-                                                        .anyRequest().permitAll());
+                .authorizeHttpRequests(
+                        requests -> requests
+                                .requestMatchers(HttpMethod.GET, "/**")
+                                .permitAll()
+                                .requestMatchers("/utils/**", "/auth/**")
+                                .permitAll()
+                                .requestMatchers(HttpMethod.POST, "/orders/**")
+                                .permitAll()
+                                .requestMatchers("/news/**", "/cages/**", "/animals/**")
+                                .hasAuthority(AccountRoleEnum.STAFF.getValue())
+                                .requestMatchers("/cage-meals/**", "/meal-records/**")
+                                .hasAnyAuthority(AccountRoleEnum.STAFF.getValue(), AccountRoleEnum.TRAINER.getValue())
+                                .anyRequest()
+                                .hasAuthority(AccountRoleEnum.ADMIN.getValue())
+                );
         return http.build();
     }
 }

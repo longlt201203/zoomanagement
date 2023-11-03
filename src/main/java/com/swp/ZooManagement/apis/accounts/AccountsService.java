@@ -1,12 +1,15 @@
 package com.swp.ZooManagement.apis.accounts;
 
+import com.swp.ZooManagement.apis.auth.AuthenticationService;
 import com.swp.ZooManagement.core.AbstractZooManagementService;
+import com.swp.ZooManagement.core.ErrorReport;
 import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
 import com.swp.ZooManagement.errors.ValidationError;
 import com.swp.ZooManagement.errors.ValidationErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
 import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import com.swp.ZooManagement.utils.enums.AccountStatusEnum;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +18,18 @@ import java.util.Optional;
 
 @Service
 public class AccountsService extends AbstractZooManagementService<Account, String, CreateAccountDto, UpdateAccountDto, FilterAccountDto> {
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @Override
+    public List<Account> findAll(FilterAccountDto filterAccountDto) {
+        Account currentUser = authenticationService.getCurrentUser();
+        if (currentUser.getRole() == AccountRoleEnum.STAFF) {
+            filterAccountDto.setCreatedById(currentUser.getId());
+        }
+        return super.findAll(filterAccountDto);
+    }
+
     @Override
     protected void beforeCreate(Account entity) throws ZooManagementException {
         AccountsRepository repository = (AccountsRepository) this.repository;
@@ -77,8 +92,12 @@ public class AccountsService extends AbstractZooManagementService<Account, Strin
     }
 
     public Account updateStatus(String id, UpdateStatusDto dto) throws ZooManagementException{
+        Account currentUser = authenticationService.getCurrentUser();
         AccountsRepository repository = (AccountsRepository) this.repository;
         Account account = findById(id);
+        if (account.getId().equals(currentUser.getId())) {
+            throw new ZooManagementException(new ErrorReport<>("Cannot update status of your own account!", account.getId()));
+        }
         account.setStatus(dto.toEntity().getStatus());
         account= repository.save(account);
         return account;

@@ -6,10 +6,12 @@ import com.swp.ZooManagement.apis.animalspecies.AnimalSpecies;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpeciesRepository;
 import com.swp.ZooManagement.apis.areas.Area;
 import com.swp.ZooManagement.apis.areas.AreasRepository;
+import com.swp.ZooManagement.apis.auth.AuthenticationService;
 import com.swp.ZooManagement.core.AbstractZooManagementService;
 import com.swp.ZooManagement.errors.ValidationError;
 import com.swp.ZooManagement.errors.ValidationErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
+import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,17 @@ public class CagesService extends AbstractZooManagementService<Cage, Integer, Cr
     private AnimalSpeciesRepository animalSpeciesRepository;
     @Autowired
     private AccountsRepository accountsRepository;
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @Override
+    public List<Cage> findAll(FilterCageDto filterCageDto) {
+        Account currentUser = authenticationService.getCurrentUser();
+        if (currentUser.getRole() == AccountRoleEnum.TRAINER) {
+            filterCageDto.setAccountId(currentUser.getId());
+        }
+        return super.findAll(filterCageDto);
+    }
 
     @Override
     protected void beforeCreate(Cage entity) throws ZooManagementException {

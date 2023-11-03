@@ -9,6 +9,12 @@ import java.beans.ConstructorProperties;
 
 public class FilterAccountDto extends FilterDtoBase<Account> {
     protected AccountRoleEnum role;
+    protected String createdById;
+
+    public void setCreatedById(String createdById) {
+        this.createdById = createdById;
+    }
+
     @ConstructorProperties({ "page", "perPage", "role" })
     public FilterAccountDto(Integer page, Integer perPage, AccountRoleEnum role) {
         super(page, perPage);
@@ -19,6 +25,9 @@ public class FilterAccountDto extends FilterDtoBase<Account> {
     public Account toEntity() {
         Account account = new Account();
         account.setRole(role);
+        Account createdBy = new Account();
+        createdBy.setId(createdById);
+        account.setCreatedBy(createdBy);
         return account;
     }
 

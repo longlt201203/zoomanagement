@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.swp.ZooManagement.apis.accounts.Account;
+import com.swp.ZooManagement.apis.accounts.AccountsRepository;
 import com.swp.ZooManagement.apis.accounts.AccountsService;
+import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
 import com.swp.ZooManagement.errors.JwtErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class JwtProviderImpl implements JwtProvider {
     @Value("${jwt.secret}")
@@ -27,7 +30,7 @@ public class JwtProviderImpl implements JwtProvider {
     private String jwtTimezone;
 
     @Autowired
-    private AccountsService accountsService;
+    private AccountsRepository accountsRepository;
 
     @Override
     public String signToken(Account account) throws ZooManagementException {
@@ -55,7 +58,13 @@ public class JwtProviderImpl implements JwtProvider {
                     .build()
                     .verify(token);
             String accountId = payload.getSubject();
-            return accountsService.findById(accountId);
+            Optional<Account> findAccountResult = accountsRepository.findById(accountId);
+            if (findAccountResult.isEmpty()) {
+                throw new ZooManagementException(new EntityNotFoundErrorReport("id", accountId));
+            }
+            return findAccountResult.get();
+        } catch (ZooManagementException e) {
+            throw e;
         } catch (Exception e) {
             throw new ZooManagementException(new JwtErrorReport("Verify token error", new HashMap<>() {{
                 put("token", token);

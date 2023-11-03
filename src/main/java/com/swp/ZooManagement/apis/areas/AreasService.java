@@ -15,9 +15,6 @@ public class AreasService extends AbstractZooManagementService<Area, Integer, Cr
 
     public List<GetAreasWithStatisticsResult> findAllWithStatistics() {
         AreasRepository repository = (AreasRepository) this.repository;
-        for (GetAreasWithStatisticsResult result : repository.findAllWithStatistics()) {
-            System.out.println("Hello result: Animal count: " + result.getAnimalCount() + "; Cage count: " + result.getCageCount());
-        }
         return repository.findAllWithStatistics();
     }
 

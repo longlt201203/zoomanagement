@@ -5,7 +5,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.swp.ZooManagement.apis.accounts.Account;
+import com.swp.ZooManagement.apis.accounts.AccountsRepository;
 import com.swp.ZooManagement.apis.accounts.AccountsService;
+import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
 import com.swp.ZooManagement.errors.LoginGoogleErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
 import com.swp.ZooManagement.security.JwtProvider;
@@ -27,7 +29,7 @@ public class AuthenticationService {
     private String clientId;
 
     @Autowired
-    private AccountsService accountsService;
+    private AccountsRepository accountsRepository;
 
     @Autowired
     private JwtProvider jwtProvider;
@@ -41,8 +43,13 @@ public class AuthenticationService {
             GoogleIdToken idToken = verifier.verify(credential);
             GoogleIdToken.Payload payload = idToken.getPayload();
             String email = payload.getEmail();
-            Account account = accountsService.findByEmail(email);
-            return jwtProvider.signToken(account);
+            Optional<Account> findAccountResult = accountsRepository.findByEmail(email);
+            if (findAccountResult.isEmpty()) {
+                throw new ZooManagementException(new EntityNotFoundErrorReport("email", email));
+            }
+            return jwtProvider.signToken(findAccountResult.get());
+        } catch (ZooManagementException e) {
+            throw e;
         } catch (Exception e) {
             throw new ZooManagementException(new LoginGoogleErrorReport(new HashMap<>() {{
                 put("credential", credential);
