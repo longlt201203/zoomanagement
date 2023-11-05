@@ -3,6 +3,7 @@ package com.swp.ZooManagement.apis.news;
 import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.accounts.AccountCreatorDto;
 import com.swp.ZooManagement.core.ResponsableEntity;
+import com.swp.ZooManagement.utils.enums.NewsStatusEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.checkerframework.checker.units.qual.A;
@@ -26,6 +27,9 @@ public class News implements ResponsableEntity<NewsResponseDto> {
     @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
     private String title;
 
+    @Column(nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
+    private NewsStatusEnum status;
+
     @Column(nullable = false, updatable = false)
     @CreatedDate
     private Instant postedAt;
@@ -41,6 +45,7 @@ public class News implements ResponsableEntity<NewsResponseDto> {
         responseDto.setContent(content);
         responseDto.setTitle(title);
         responseDto.setPostedAt(postedAt);
+        responseDto.setStatus(status);
         if (author != null) {
             responseDto.setAuthor(author.toCreatorDto());
         }

@@ -55,16 +55,18 @@ public class ZooManagementSecurityConfiguration {
                 .authorizeHttpRequests(
 //                        requests -> requests.anyRequest().permitAll()
                         requests -> requests
+                                .requestMatchers("/accounts/**")
+                                .authenticated()
+                                .requestMatchers("/news/**", "/cages/**", "/animals/**")
+                                .hasAuthority(AccountRoleEnum.STAFF.getValue())
+                                .requestMatchers("/cage-meals/**", "/meal-records/**")
+                                .hasAnyAuthority(AccountRoleEnum.STAFF.getValue(), AccountRoleEnum.TRAINER.getValue())
                                 .requestMatchers(HttpMethod.GET, "/**")
                                 .permitAll()
                                 .requestMatchers("/utils/**", "/auth/**", "/payment/**")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/orders/**")
                                 .permitAll()
-                                .requestMatchers("/news/**", "/cages/**", "/animals/**")
-                                .hasAuthority(AccountRoleEnum.STAFF.getValue())
-                                .requestMatchers("/cage-meals/**", "/meal-records/**")
-                                .hasAnyAuthority(AccountRoleEnum.STAFF.getValue(), AccountRoleEnum.TRAINER.getValue())
                                 .anyRequest()
                                 .hasAuthority(AccountRoleEnum.ADMIN.getValue())
                 );

@@ -28,9 +28,6 @@ public class UpdateAccountDto implements DtoBase<Account> {
 
     private String avt;
 
-    @IsEnum(enumClass = AccountStatusEnum.class)
-    private String status;
-
     @Override
     public Account toEntity() {
         Account account = new Account();
@@ -39,7 +36,6 @@ public class UpdateAccountDto implements DtoBase<Account> {
         account.setLname(lname);
         account.setPhone(phone);
         account.setAvt(avt);
-        account.setStatus(AccountStatusEnum.valueOf(status));
         return account;
     }
 }

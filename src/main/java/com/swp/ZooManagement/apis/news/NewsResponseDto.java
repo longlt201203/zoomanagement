@@ -1,6 +1,7 @@
 package com.swp.ZooManagement.apis.news;
 
 import com.swp.ZooManagement.apis.accounts.AccountCreatorDto;
+import com.swp.ZooManagement.utils.enums.NewsStatusEnum;
 import lombok.Data;
 
 import java.time.Instant;
@@ -12,4 +13,5 @@ public class NewsResponseDto {
     private String title;
     private Instant postedAt;
     private AccountCreatorDto author;
+    private NewsStatusEnum status;
 }

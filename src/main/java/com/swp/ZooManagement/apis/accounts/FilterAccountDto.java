@@ -1,6 +1,7 @@
 package com.swp.ZooManagement.apis.accounts;
 
 import com.swp.ZooManagement.core.FilterDtoBase;
+import com.swp.ZooManagement.utils.IsEnum;
 import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,9 +26,11 @@ public class FilterAccountDto extends FilterDtoBase<Account> {
     public Account toEntity() {
         Account account = new Account();
         account.setRole(role);
-        Account createdBy = new Account();
-        createdBy.setId(createdById);
-        account.setCreatedBy(createdBy);
+        if (createdById != null) {
+            Account createdBy = new Account();
+            createdBy.setId(createdById);
+            account.setCreatedBy(createdBy);
+        }
         return account;
     }
 

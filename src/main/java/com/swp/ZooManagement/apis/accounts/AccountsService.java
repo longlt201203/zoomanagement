@@ -74,7 +74,6 @@ public class AccountsService extends AbstractZooManagementService<Account, Strin
         oldEntity.setLname(newEntity.getLname());
         oldEntity.setPhone(newEntity.getPhone());
         oldEntity.setAvt(newEntity.getAvt());
-        oldEntity.setStatus(newEntity.getStatus());
     }
 
     @Override

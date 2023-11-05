@@ -18,7 +18,7 @@ public class Ticket implements ResponsableEntity<TicketResponseDto> {
     @Column(nullable = false)
     private String name;
 
-    @Column()
+    @Column(columnDefinition = "NVARCHAR(1000)")
     private String description;
 
     @Column(nullable = false)

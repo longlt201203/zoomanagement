@@ -53,8 +53,8 @@ public class Account implements ResponsableEntity<AccountResponseDto> {
     @CreatedDate
     private Instant createdAt;
 
-    @Column(nullable = false)
-    private AccountStatusEnum status = AccountStatusEnum.ACTIVE;
+    @Column(nullable = false, columnDefinition = "DEFAULT 0")
+    private AccountStatusEnum status;
 
     @CreatedBy
     @ManyToOne
