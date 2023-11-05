@@ -1,6 +1,7 @@
 package com.swp.ZooManagement.apis.payment;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,12 +11,13 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
-@RestController("payment")
+@RestController()
+@RequestMapping("payment")
 public class PaymentController {
     @Autowired
     PaymentConfig paymentConfig;
     
-    @GetMapping("create-payment-url")
+    @GetMapping("/")
     public String createPaymentUrl(@RequestParam("orderId") String orderId, @RequestParam("total") Integer total) throws UnsupportedEncodingException {
         Map<String, String> vnp_Params = new HashMap<>();
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
