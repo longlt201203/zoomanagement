@@ -34,7 +34,7 @@ public class PaymentController {
         vnp_Params.put("vnp_OrderType", "other");
         vnp_Params.put("vnp_IpAddr", "127.0.0.1");
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_OrderInfo", "Order " + orderId);
+        vnp_Params.put("vnp_OrderInfo", orderId);
         vnp_Params.put("vnp_ReturnUrl", paymentConfig.getVnpReturnUrl());
         vnp_Params.put("vnp_TxnRef", orderId);
 
