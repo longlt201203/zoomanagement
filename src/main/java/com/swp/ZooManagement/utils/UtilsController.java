@@ -21,10 +21,11 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/utils")
 public class UtilsController {
-    @RequestMapping("/login-page")
-    private String loginPage() {
-        return "google.html";
+    @GetMapping("/login-page")
+    public String loginPage() {
+        return "/google.html";
     }
 
     @GetMapping("/enums")

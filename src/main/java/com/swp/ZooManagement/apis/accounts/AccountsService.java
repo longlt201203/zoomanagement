@@ -82,15 +82,6 @@ public class AccountsService extends AbstractZooManagementService<Account, Strin
         return null;
     }
 
-    public Account findByEmail(String email) throws ZooManagementException {
-        AccountsRepository repository = (AccountsRepository) this.repository;
-        Optional<Account> findResult = repository.findByEmail(email);
-        if (findResult.isPresent()) {
-            return findResult.get();
-        }
-        throw new ZooManagementException(new EntityNotFoundErrorReport("email", email));
-    }
-
     public Account updateStatus(String id, UpdateStatusDto dto) throws ZooManagementException{
         Account currentUser = authenticationService.getCurrentUser();
         AccountsRepository repository = (AccountsRepository) this.repository;

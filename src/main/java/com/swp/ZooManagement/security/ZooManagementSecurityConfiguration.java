@@ -53,10 +53,11 @@ public class ZooManagementSecurityConfiguration {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .addFilterBefore(zooManagementSecurityFilter(), AuthorizationFilter.class)
                 .authorizeHttpRequests(
+//                        requests -> requests.anyRequest().permitAll()
                         requests -> requests
                                 .requestMatchers(HttpMethod.GET, "/**")
                                 .permitAll()
-                                .requestMatchers("/utils/**", "/auth/**")
+                                .requestMatchers("/utils/**", "/auth/**", "/payment/**")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/orders/**")
                                 .permitAll()
