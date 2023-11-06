@@ -53,7 +53,7 @@ public class Account implements ResponsableEntity<AccountResponseDto> {
     @CreatedDate
     private Instant createdAt;
 
-    @Column(nullable = false, columnDefinition = "DEFAULT 0")
+    @Column(nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
     private AccountStatusEnum status;
 
     @CreatedBy

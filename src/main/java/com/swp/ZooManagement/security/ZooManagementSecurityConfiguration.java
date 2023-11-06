@@ -53,22 +53,18 @@ public class ZooManagementSecurityConfiguration {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .addFilterBefore(zooManagementSecurityFilter(), AuthorizationFilter.class)
                 .authorizeHttpRequests(
-//                        requests -> requests.anyRequest().permitAll()
-                        requests -> requests
-                                .requestMatchers("/accounts/**")
+                        requests -> requests.requestMatchers("/utils/**", "/orders/**", "/payment/**", "/auth/**")
+                                .permitAll()
+                                .requestMatchers(HttpMethod.GET, "/accounts/**")
                                 .authenticated()
-                                .requestMatchers("/news/**", "/cages/**", "/animals/**")
-                                .hasAuthority(AccountRoleEnum.STAFF.getValue())
-                                .requestMatchers("/cage-meals/**", "/meal-records/**")
-                                .hasAnyAuthority(AccountRoleEnum.STAFF.getValue(), AccountRoleEnum.TRAINER.getValue())
                                 .requestMatchers(HttpMethod.GET, "/**")
                                 .permitAll()
-                                .requestMatchers("/utils/**", "/auth/**", "/payment/**")
-                                .permitAll()
-                                .requestMatchers(HttpMethod.POST, "/orders/**")
-                                .permitAll()
-                                .anyRequest()
+                                .requestMatchers("/tickets/**", "/areas/**", "/animal-species/**")
                                 .hasAuthority(AccountRoleEnum.ADMIN.getValue())
+                                .requestMatchers("/news/**", "/cages/**", "/animal/**", "/cage-meals/**")
+                                .hasAnyAuthority(AccountRoleEnum.ADMIN.getValue(), AccountRoleEnum.STAFF.getValue())
+                                .requestMatchers("/meal-records/**")
+                                .authenticated()
                 );
         return http.build();
     }

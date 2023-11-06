@@ -15,7 +15,7 @@ public class Ticket implements ResponsableEntity<TicketResponseDto> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
     private String name;
 
     @Column(columnDefinition = "NVARCHAR(1000)")
