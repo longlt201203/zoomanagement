@@ -55,7 +55,7 @@ public class ZooManagementSecurityConfiguration {
                 .authorizeHttpRequests(
                         requests -> requests.requestMatchers("/utils/**", "/orders/**", "/payment/**", "/auth/**")
                                 .permitAll()
-                                .requestMatchers(HttpMethod.GET, "/accounts/**")
+                                .requestMatchers(HttpMethod.GET, "/accounts/**", "/cages/**", "/animals/**")
                                 .authenticated()
                                 .requestMatchers(HttpMethod.GET, "/**")
                                 .permitAll()
