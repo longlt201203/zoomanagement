@@ -49,11 +49,11 @@ public class CageMeal implements ResponsableEntity<CageMealResponseDto> {
             responseDto.setCreatedBy(createdBy.toCreatorDto());
         }
         List<MealRecordResponseDto> mealRecordResponseDtoList = new ArrayList<>();
-        if (meals != null) {
-            for (MealRecord meal : meals) {
-                mealRecordResponseDtoList.add(meal.toResponseDto());
-            }
-        }
+//        if (meals != null) {
+//            for (MealRecord meal : meals) {
+//                mealRecordResponseDtoList.add(meal.toResponseDto());
+//            }
+//        }
         responseDto.setMeals(mealRecordResponseDtoList);
         return responseDto;
     }

@@ -1,7 +1,13 @@
 package com.swp.ZooManagement.apis.dashboard;
 
+import java.time.Instant;
+
 public interface GetSaleReportResult {
-    String getOrderId();
-    long getNoTicket();
-    long getNoMoney();
+    Instant getDate();
+    Instant getStartDate();
+    Instant getEndDate();
+    Integer getWeek();
+    Integer getMonth();
+    Long getTotalMoney();
+    Long getTotalTicket();
 }

@@ -49,6 +49,9 @@ public class MealRecord implements ResponsableEntity<MealRecordResponseDto> {
         if (updatedBy != null) {
             responseDto.setUpdatedBy(updatedBy.toCreatorDto());
         }
+        if (cageMeal != null) {
+            responseDto.setCageMeal(cageMeal.toResponseDto());
+        }
         return responseDto;
     }
 }

@@ -37,8 +37,21 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public SaleReportResult getSaleReport(GetSaleReportQueryParams params) {
         SaleReportResult result = new SaleReportResult();
-        result.setOverallStatistics(dashboardRepository.getSalesReport(params.getStartDate(), params.getEndDate()));
         result.setTicketDistribution(ticketsRepository.getTicketDistribution(params.getStartDate(), params.getEndDate()));
+        switch (params.getType()) {
+            case WEEK: {
+                result.setOverallStatistics(dashboardRepository.getSalesReportByWeek(params.getStartDate(), params.getEndDate()));
+                break;
+            }
+            case MONTH: {
+                result.setOverallStatistics(dashboardRepository.getSalesReportByMonth(params.getYear(), params.getMonth()));
+                break;
+            }
+            case YEAR: {
+                result.setOverallStatistics(dashboardRepository.getSalesReportByYear(params.getYear()));
+                break;
+            }
+        }
         return result;
     }
 }
