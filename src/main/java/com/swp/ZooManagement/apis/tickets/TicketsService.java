@@ -51,6 +51,7 @@ public class TicketsService extends AbstractZooManagementService<Ticket, Integer
         oldEntity.setName(newEntity.getName());
         oldEntity.setDescription(newEntity.getDescription());
         oldEntity.setPrice(newEntity.getPrice());
+        oldEntity.setStatus(newEntity.getStatus());
     }
 
     @Override

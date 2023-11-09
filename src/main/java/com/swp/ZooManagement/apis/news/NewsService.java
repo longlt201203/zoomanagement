@@ -26,13 +26,14 @@ public class NewsService extends AbstractZooManagementService<News, Integer, Cre
 
     @Override
     protected void beforeCreate(News entity) throws ZooManagementException {
-
+        entity.setStatus(NewsStatusEnum.HIDDEN);
     }
 
     @Override
     protected void beforeUpdate(News oldEntity, News newEntity) throws ZooManagementException {
         oldEntity.setTitle(newEntity.getTitle());
         oldEntity.setContent(newEntity.getContent());
+        oldEntity.setStatus(newEntity.getStatus());
     }
 
     @Override
