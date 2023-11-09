@@ -61,7 +61,7 @@ public class ZooManagementSecurityConfiguration {
                                 .permitAll()
                                 .requestMatchers("/tickets/**", "/areas/**", "/animal-species/**")
                                 .hasAuthority(AccountRoleEnum.ADMIN.getValue())
-                                .requestMatchers("/news/**", "/cages/**", "/animal/**", "/cage-meals/**")
+                                .requestMatchers("/news/**", "/cages/**", "/animals/**", "/cage-meals/**", "/accounts/**")
                                 .hasAnyAuthority(AccountRoleEnum.ADMIN.getValue(), AccountRoleEnum.STAFF.getValue())
                                 .requestMatchers("/meal-records/**")
                                 .authenticated()

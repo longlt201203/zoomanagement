@@ -33,7 +33,7 @@ public class CagesService extends AbstractZooManagementService<Cage, Integer, Cr
     @Override
     public List<Cage> findAll(FilterCageDto filterCageDto) {
         Account currentUser = authenticationService.getCurrentUser();
-        if (currentUser.getRole() == AccountRoleEnum.TRAINER) {
+        if (currentUser != null && currentUser.getRole() == AccountRoleEnum.TRAINER) {
             filterCageDto.setAccountId(currentUser.getId());
         }
         return super.findAll(filterCageDto);

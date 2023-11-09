@@ -4,10 +4,8 @@ import java.time.Instant;
 
 public interface GetSaleReportResult {
     Instant getDate();
-    Instant getStartDate();
-    Instant getEndDate();
-    Integer getWeek();
     Integer getMonth();
+    Integer getYear();
     Long getTotalMoney();
     Long getTotalTicket();
 }

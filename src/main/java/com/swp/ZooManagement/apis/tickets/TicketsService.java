@@ -4,6 +4,7 @@ import com.swp.ZooManagement.core.AbstractZooManagementService;
 import com.swp.ZooManagement.errors.ValidationError;
 import com.swp.ZooManagement.errors.ValidationErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
+import com.swp.ZooManagement.utils.enums.TicketStatusEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class TicketsService extends AbstractZooManagementService<Ticket, Integer
         if (!errors.isEmpty()) {
             throw new ZooManagementException(new ValidationErrorReport(errors));
         }
+
+        entity.setStatus(TicketStatusEnum.INACTIVE);
     }
 
     @Override

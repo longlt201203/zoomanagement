@@ -1,13 +1,16 @@
 package com.swp.ZooManagement.apis.animals;
 
+import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpecies;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpeciesRepository;
+import com.swp.ZooManagement.apis.auth.AuthenticationService;
 import com.swp.ZooManagement.apis.cages.Cage;
 import com.swp.ZooManagement.apis.cages.CagesRepository;
 import com.swp.ZooManagement.core.AbstractZooManagementService;
 import com.swp.ZooManagement.errors.ValidationError;
 import com.swp.ZooManagement.errors.ValidationErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
+import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,18 @@ public class AnimalsService extends AbstractZooManagementService<Animal, Integer
 
     @Autowired
     private CagesRepository cagesRepository;
+
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @Override
+    public List<Animal> findAll(FilterAnimalDto filterAnimalDto) {
+        Account currentUser = authenticationService.getCurrentUser();
+        if (currentUser != null && currentUser.getRole() == AccountRoleEnum.TRAINER) {
+            filterAnimalDto.setManagerId(currentUser.getId());
+        }
+        return super.findAll(filterAnimalDto);
+    }
 
     @Override
     protected void beforeCreate(Animal entity) throws ZooManagementException {

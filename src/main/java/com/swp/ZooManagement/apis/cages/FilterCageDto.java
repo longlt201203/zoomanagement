@@ -27,9 +27,11 @@ public class FilterCageDto extends FilterDtoBase<Cage> {
         AnimalSpecies animalSpecies = new AnimalSpecies();
         animalSpecies.setId(speciesId);
         cage.setAnimalSpecies(animalSpecies);
-        Account manager = new Account();
-        manager.setId(accountId);
-        cage.setManagedBy(manager);
+        if (accountId != null) {
+            Account manager = new Account();
+            manager.setId(accountId);
+            cage.setManagedBy(manager);
+        }
         return cage;
     }
 }

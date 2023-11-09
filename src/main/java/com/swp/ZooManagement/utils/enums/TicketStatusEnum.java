@@ -1,9 +1,8 @@
 package com.swp.ZooManagement.utils.enums;
 
-public enum SaleReportTypeEnum {
-    DAY("day"),
-    MONTH("month"),
-    YEAR("year");
+public enum TicketStatusEnum {
+    INACTIVE("inactive"),
+    ACTIVE("active");
 
     private final String value;
 
@@ -11,7 +10,7 @@ public enum SaleReportTypeEnum {
         return value;
     }
 
-    SaleReportTypeEnum(String value) {
+    TicketStatusEnum(String value) {
         this.value = value;
     }
 }

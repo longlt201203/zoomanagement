@@ -3,6 +3,7 @@ package com.swp.ZooManagement.apis.tickets;
 import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.accounts.AccountCreatorDto;
 import com.swp.ZooManagement.core.ResponsableEntity;
+import com.swp.ZooManagement.utils.enums.TicketStatusEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
@@ -24,6 +25,9 @@ public class Ticket implements ResponsableEntity<TicketResponseDto> {
     @Column(nullable = false)
     private Double price;
 
+    @Column(columnDefinition = "SMALLINT DEFAULT(0)")
+    private TicketStatusEnum status;
+
     @Override
     public TicketResponseDto toResponseDto() {
         TicketResponseDto responseDto = new TicketResponseDto();
@@ -31,6 +35,7 @@ public class Ticket implements ResponsableEntity<TicketResponseDto> {
         responseDto.setName(name);
         responseDto.setDescription(description);
         responseDto.setPrice(price);
+        responseDto.setStatus(status);
         return responseDto;
     }
 }

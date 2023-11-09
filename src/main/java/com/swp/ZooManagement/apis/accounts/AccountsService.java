@@ -51,6 +51,8 @@ public class AccountsService extends AbstractZooManagementService<Account, Strin
         if (!errors.isEmpty()) {
             throw new ZooManagementException(new ValidationErrorReport(errors));
         }
+
+        entity.setStatus(AccountStatusEnum.ACTIVE);
     }
 
     @Override

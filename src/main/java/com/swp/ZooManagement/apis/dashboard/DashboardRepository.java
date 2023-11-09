@@ -22,67 +22,39 @@ public interface DashboardRepository extends JpaRepository<MyOrder, Integer> {
             nativeQuery = true)
     GetZooStatisticsResult getZooStatistics();
 
-    @Query(value = "SELECT " +
-            "CAST(CAST(created_at AS DATE) AS DATETIME) AS date, " +
-            ":startDate AS startDate, " +
-            ":endDate AS endDate, " +
-            "NULL AS month, " +
-            "NULL AS year, " +
-            "SUM(total) AS totalMoney, " +
-            "SUM(quantity) AS totalTicket " +
-            "FROM " +
-            "my_order " +
-            "JOIN " +
-            "order_detail ON my_order.id = order_detail.order_id " +
-            "WHERE " +
-            "CAST(created_at AS DATE) >= CAST(:startDate AS DATE) AND " +
-            "CAST(created_at AS DATE) <= CAST(:endDate AS DATE) AND status = 1" +
-            "GROUP BY " +
-            "CAST(created_at AS DATE) " +
-            "ORDER BY " +
-            "date", nativeQuery = true)
-    List<GetSaleReportResult> getSalesReportByWeek(@Param("startDate") Instant startDate, @Param("endDate") Instant endDate);
+    @Query(value = "SELECT CAST(orderDate AS DATETIME) AS date, NULL AS month, NULL AS year, SUM(orderTotal) AS totalMoney, SUM(orderTicket) AS totalTicket \n" +
+            "FROM (\n" +
+            "\tSELECT a.id AS orderId, CAST(a.created_at AS DATE) AS orderDate, MIN(a.total) AS orderTotal, SUM(b.quantity) AS orderTicket\n" +
+            "\tFROM my_order a\n" +
+            "\tJOIN order_detail b\n" +
+            "\tON a.id = b.order_id\n" +
+            "\tWHERE CAST(a.created_at AS DATE) >= CAST(:startDate AS DATE) AND CAST(a.created_at AS DATE) <= CAST(:endDate AS DATE) AND a.status = 1\n" +
+            "\tGROUP BY a.id, CAST(a.created_at AS DATE)\n" +
+            ") c\n" +
+            "GROUP BY orderDate", nativeQuery = true)
+    List<GetSaleReportResult> getSalesReportByDay(@Param("startDate") Instant startDate, @Param("endDate") Instant endDate);
 
-    @Query(value = "SET DATEFIRST 1;" +
-            "SELECT " +
-            "NULL AS date, " +
-            "CAST(MIN(created_at) AS DATETIME) AS startDate, " +
-            "CAST(DATEADD(DAY, 6, MIN(created_at)) AS DATETIME) AS endDate, " +
-            "DATEPART(WEEK, created_at) - DATEPART(WEEK, DATEADD(DAY, 1-DAY(created_at), created_at)) + 1 AS week, " +
-            "DATEPART(MONTH, created_at) AS month, " +
-            "SUM(total) AS totalMoney, " +
-            "SUM(quantity) AS totalTicket " +
-            "FROM " +
-            "my_order " +
-            "JOIN " +
-            "order_detail ON order_detail.order_id = my_order.id " +
-            "WHERE " +
-            "YEAR(created_at) = :year AND " +
-            "DATEPART(MONTH, created_at) = :month AND status = 1" +
-            "GROUP BY " +
-            "DATEPART(MONTH, created_at), " +
-            "DATEPART(WEEK, created_at) - DATEPART(WEEK, DATEADD(DAY, 1-DAY(created_at), created_at)) + 1 " +
-            "ORDER BY " +
-            "week;", nativeQuery = true)
-    List<GetSaleReportResult> getSalesReportByMonth(@Param("year") int year, @Param("month") int month);
+    @Query(value = "SELECT NULL AS date, month, :year AS year , SUM(orderTotal) AS totalMoney, SUM(orderTicket) AS totalTicket\n" +
+            "FROM (\n" +
+            "\tSELECT a.id AS orderId, MONTH(a.created_at) AS month, MIN(a.total) AS orderTotal, SUM(b.quantity) AS orderTicket\n" +
+            "\tFROM my_order a\n" +
+            "\tJOIN order_detail b\n" +
+            "\tON a.id = b.order_id\n" +
+            "\tWHERE a.status = 1 AND YEAR(a.created_at) = :year\n" +
+            "\tGROUP BY a.id, MONTH(a.created_at)\n" +
+            ") c\n" +
+            "GROUP BY month", nativeQuery = true)
+    List<GetSaleReportResult> getSalesReportByMonth(@Param("year") int year);
 
-    @Query(value = "SELECT " +
-            "NULL AS date, " +
-            "NULL AS startDate, " +
-            "NULL AS endDate, " +
-            "NULL AS week, " +
-            "DATEPART(MONTH, created_at) AS month, " +
-            "SUM(total) AS totalMoney, " +
-            "SUM(quantity) AS totalTicket " +
-            "FROM " +
-            "my_order " +
-            "JOIN order_detail " +
-            "ON order_detail.order_id = my_order.id " +
-            "WHERE " +
-            "YEAR(created_at) = 2023 AND status = 1" +
-            "GROUP BY " +
-            "DATEPART(MONTH, created_at) " +
-            "ORDER BY " +
-            "month", nativeQuery = true)
-    List<GetSaleReportResult> getSalesReportByYear(@Param("year") int year);
+    @Query(value = "SELECT NULL AS date, NULL AS month, year, SUM(orderTotal) AS totalMoney, SUM(orderTicket) AS totalTicket \n" +
+            "FROM (\n" +
+            "\tSELECT a.id AS orderId, YEAR(a.created_at) AS year, MIN(a.total) AS orderTotal, SUM(b.quantity) AS orderTicket\n" +
+            "\tFROM my_order a\n" +
+            "\tJOIN order_detail b\n" +
+            "\tON a.id = b.order_id\n" +
+            "\tWHERE YEAR(a.created_at) >= :startYear AND YEAR(a.created_at) <= :endYear AND a.status = 1\n" +
+            "\tGROUP BY a.id, YEAR(a.created_at)\n" +
+            ") c\n" +
+            "GROUP BY year", nativeQuery = true)
+    List<GetSaleReportResult> getSalesReportByYear(@Param("startYear") int startYear, @Param("endYear") int endYear);
 }

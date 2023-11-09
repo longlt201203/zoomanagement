@@ -14,7 +14,8 @@ import lombok.Data;
 public class CreateCageDto implements DtoBase<Cage> {
     @NotBlank(message = "code field cannot be blank")
     @Size(max = 5, message = "code cannot be more than 5 characters!")
-    @Pattern(regexp = "^[A-Za-z][0-9]{4}$", message = "Cage code must have format: Area Code + 4-digits number. Example: A0001, B0012")
+    @Pattern(regexp = "^[A-Za-z][0-9]{4}$", message = "Cage code must have format: " +
+            "Area Code + 4-digits number. Example: A0001, B0012")
     private String code;
 
     private String description;

@@ -9,16 +9,19 @@ import java.time.Instant;
 @Data
 public class GetSaleReportQueryParams {
     private SaleReportTypeEnum type;
-    private Integer month;
     private Integer year;
     private Instant startDate;
     private Instant endDate;
+    private Integer startYear;
+    private Integer endYear;
 
-    @ConstructorProperties({"type", "month", "year", "startDate", "endDate"})
-    public GetSaleReportQueryParams(SaleReportTypeEnum type, Integer month, Integer year, Instant startDate, Instant endDate) {
+    @ConstructorProperties({"type", "year", "startDate", "endDate", "startYear", "endYear"})
+    public GetSaleReportQueryParams(SaleReportTypeEnum type, Integer year, Instant startDate, Instant endDate, Integer startYear, Integer endYear) {
         this.type = type;
         this.year = year;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.startYear = startYear;
+        this.endYear = endYear;
     }
 }
