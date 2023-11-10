@@ -62,12 +62,11 @@ public class EmailService {
 //        create image part
         MimeBodyPart imagePart = new MimeBodyPart();
         
-        String cid = UUID.randomUUID().toString();
         byte[] image = QRCodeGenerator.getQRCodeImage(orderId, 250, 250);
         ByteArrayDataSource imageDataSource = new ByteArrayDataSource(image,"image/png");
         
         imagePart.setDataHandler(new DataHandler(imageDataSource));
-        imagePart.setContentID("<" + cid + ">");
+        imagePart.setHeader("Content-ID", "<image_cid>");
         imagePart.setDisposition(MimeBodyPart.INLINE);
         imagePart.setFileName("qr_code.png");
 
