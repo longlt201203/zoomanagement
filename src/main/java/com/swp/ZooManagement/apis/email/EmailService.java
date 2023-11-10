@@ -43,6 +43,7 @@ public class EmailService {
         props.put("order", order);
         
         emailDTO.setProps(props);
+        emailDTO.setTo(order.getEmail());
         
         MimeMessage message = mailSender.createMimeMessage();
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailDTO.getTo()));

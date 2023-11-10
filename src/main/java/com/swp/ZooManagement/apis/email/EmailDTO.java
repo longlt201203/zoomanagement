@@ -10,7 +10,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailDTO {
-    private String to = "thotvse171261@fpt.edu.vn";
+    private String to;
 
     private String subject = "ZOO MANAGEMENT TICKET ORDER";
 
