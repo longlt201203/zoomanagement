@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div
+        style="height: 75px; display: flex; align-items: center; justify-content: center; background-color: #30AF21; color: #fff; font-size: 30px;">
+    Animal Conservation
+</div>
+<div style="max-width: 80%; margin: 0 auto;">
+    <p style="font-size: 16px; font-weight: bold; margin-top: 2rem;">Thank you for buying tickets</p>
+    <p>Here is your order information</p>
+    <p style="margin-bottom: 1rem; margin-top: 2rem; font-size: 16px; color: #30AF21;" th:text="${'INFORMATION OF ORDER ' + order.id}">
+    </p>
+    <hr
+            style="width: 100%; margin: 0 auto; margin-bottom: 1rem; height: 3px; border-radius: 9999px; background-color: #e2e8f0;">
+    <p style="font-weight: bold;">Billing Information</p>
+    <p><span style="font-weight: bold;">Name: </span> <span th:text="${order.name}"></span></p>
+    <p><span style="font-weight: bold;">Email: </span> <span th:text="${order.email}"></span></p>
+    <p><span style="font-weight: bold;">Visit date: </span> <span th:text="${#strings.arraySplit(order.visitDate, 'T')[0]}"></span></p>
+<!--    <p><span style="font-weight: bold;">Time order: </span> <span th:text="${order.createdAt}"></span></p>-->
+    <p><span style="font-weight: bold;">Payment method: </span>VN PAY</p>
+
+    <p style="margin-bottom: 1rem; font-size: 16px; margin-top: 2rem; color: #30AF21;">TICKET INFORMATION</p>
+    <hr
+            style="width: 100%; margin: 0 auto; margin-bottom: 2rem; height: 1px; border-radius: 9999px; background-color: #e2e8f0;">
+
+    <div style="position: relative; overflow-x: auto;">
+        <table style="width: 100%; text-align: left; font-size: 0.9rem; color: #718096;">
+            <thead style="background-color: #30AF21; font-size: 0.75rem; text-transform: uppercase; color: #fff;">
+            <tr>
+                <th style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">
+                    Type
+                </th>
+
+                <th style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">
+                    Single Price
+                </th>
+
+                <th style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">
+                    Quantity
+                </th>
+
+                <th style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">
+                    Total
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="detail: ${order.details}" style="background-color: #fff; color: #000;">
+                <th th:text="${detail.ticket.name}" scope="row"
+                    style="white-space: nowrap; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem; font-weight: 500;">
+                    
+                </th>
+                <td th:text="${detail.ticketPrice}" style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem;">Silver
+                </td>
+                <td th:text="${detail.quantity}" style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem;">Laptop
+                </td>
+                <td th:text="${detail.quantity * detail.ticketPrice}" style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem;">
+                    
+                </td>
+            </tr>
+            <tr style="background-color: #f3f4f6; color: #000;">
+                <th scope="row"
+                    style="white-space: nowrap; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem; font-weight: 500;">
+                </th>
+                <td style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem;">
+                </td>
+                <td style="padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem;">
+                </td>
+                <td th:text="${order.total} + '$'" style=" font-weight: bold; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem;">
+                    
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p style="margin-top: 2rem; margin-bottom: 2rem;">Once again The Zoo thanks you</p>
+    <p style="font-weight: bold; margin-top: 2rem; margin-bottom: 2rem;">The Zoo</p>
+    <p><span style="font-weight: bold;"> PS: </span>Below is the QR code of this order</p>
+
+</div>
+
+<div
+        style="margin-top: 2rem; height: 75px; display: flex; align-items: center; justify-content: center;
+    background-color: #30AF21; color: #fff; font-size: 30px;">
+</div>
+
+</body>
+</html>
