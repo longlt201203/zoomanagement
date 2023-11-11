@@ -5,6 +5,8 @@ import com.swp.ZooManagement.core.FilterDtoBase;
 import com.swp.ZooManagement.utils.IsEnum;
 import com.swp.ZooManagement.utils.enums.NewsStatusEnum;
 
+import java.beans.ConstructorProperties;
+
 public class FilterNewsDto extends FilterDtoBase<News> {
     protected String email;
     private NewsStatusEnum status;
@@ -13,9 +15,10 @@ public class FilterNewsDto extends FilterDtoBase<News> {
         this.status = status;
     }
 
-    public FilterNewsDto(Integer page, Integer perPage, String email) {
+    public FilterNewsDto(Integer page, Integer perPage, String email, NewsStatusEnum status) {
         super(page, perPage);
         this.email = email;
+        this.status = status;
     }
 
     @Override

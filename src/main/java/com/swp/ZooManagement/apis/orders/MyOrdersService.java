@@ -5,6 +5,7 @@ import com.swp.ZooManagement.apis.tickets.TicketsRepository;
 import com.swp.ZooManagement.apis.tickets.TicketsService;
 import com.swp.ZooManagement.core.AbstractZooManagementService;
 import com.swp.ZooManagement.errors.ZooManagementException;
+import com.swp.ZooManagement.utils.enums.OrderStatusEnum;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +28,15 @@ public class MyOrdersService extends AbstractZooManagementService<MyOrder, Strin
             detail.setOrder(entity);
             sum += ticket.getPrice() * detail.getQuantity();
         }
+        entity.setUsed(false);
         entity.setTotal(sum);
+        entity.setStatus(OrderStatusEnum.PENDING);
     }
 
     @Override
     protected void beforeUpdate(MyOrder oldEntity, MyOrder newEntity) throws ZooManagementException {
         oldEntity.setStatus(newEntity.getStatus());
+        oldEntity.setUsed(newEntity.isUsed());
     }
 
     @Override

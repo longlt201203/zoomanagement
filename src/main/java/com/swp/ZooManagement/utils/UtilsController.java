@@ -66,7 +66,7 @@ public class UtilsController {
             fos.close();
             bufferedInputStream.close();
         }
-        return baseUrl + "/files?fileName=" + fileName;
+        return baseUrl + "/utils/files?fileName=" + fileName;
     }
 
     @PostMapping("/upload-many")
@@ -91,7 +91,7 @@ public class UtilsController {
                 fos.close();
                 bufferedInputStream.close();
             }
-            String path = baseUrl + "/files?fileName=" + fileName;
+            String path = baseUrl + "/utils/files?fileName=" + fileName;
             listPath.add(path);
         }
         return listPath;

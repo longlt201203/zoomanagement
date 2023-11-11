@@ -7,11 +7,13 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.accounts.AccountsRepository;
 import com.swp.ZooManagement.apis.accounts.AccountsService;
+import com.swp.ZooManagement.core.ErrorReport;
 import com.swp.ZooManagement.errors.EntityNotFoundErrorReport;
 import com.swp.ZooManagement.errors.LoginGoogleErrorReport;
 import com.swp.ZooManagement.errors.ZooManagementException;
 import com.swp.ZooManagement.security.JwtProvider;
 import com.swp.ZooManagement.security.ZooManagementAuthentication;
+import com.swp.ZooManagement.utils.enums.AccountStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -45,9 +47,13 @@ public class AuthenticationService {
             String email = payload.getEmail();
             Optional<Account> findAccountResult = accountsRepository.findByEmail(email);
             if (findAccountResult.isEmpty()) {
-                throw new ZooManagementException(new EntityNotFoundErrorReport("email", email));
+                throw new ZooManagementException(new ErrorReport<>("Your account does not have permission to access the system.", null));
             }
-            return jwtProvider.signToken(findAccountResult.get());
+            Account account = findAccountResult.get();
+            if (account.getStatus() == AccountStatusEnum.INACTIVE) {
+                throw new ZooManagementException(new ErrorReport<>("Your account is banned.", null));
+            }
+            return jwtProvider.signToken(account);
         } catch (ZooManagementException e) {
             throw e;
         } catch (Exception e) {

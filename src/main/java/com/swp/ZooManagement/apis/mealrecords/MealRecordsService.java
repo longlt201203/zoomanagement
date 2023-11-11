@@ -5,6 +5,7 @@ import com.swp.ZooManagement.apis.cagemeals.CageMeal;
 import com.swp.ZooManagement.apis.cages.Cage;
 import com.swp.ZooManagement.core.AbstractZooManagementService;
 import com.swp.ZooManagement.errors.ZooManagementException;
+import com.swp.ZooManagement.utils.enums.MealStatusEnum;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class MealRecordsService extends AbstractZooManagementService<MealRecord,
 
     @Override
     protected void beforeCreate(MealRecord entity) throws ZooManagementException {
-
+        entity.setStatus(MealStatusEnum.NOT_FEED);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class Ticket implements ResponsableEntity<TicketResponseDto> {
     @Column(nullable = false)
     private Double price;
 
-    @Column(columnDefinition = "SMALLINT DEFAULT(0)")
+    @Column(columnDefinition = "SMALLINT DEFAULT 0")
     private TicketStatusEnum status;
 
     @Override

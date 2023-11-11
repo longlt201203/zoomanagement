@@ -10,10 +10,15 @@ public class UpdateOrderDto implements DtoBase<MyOrder> {
     @IsEnum(enumClass = OrderStatusEnum.class)
     private String status;
 
+    private Boolean isUsed;
+
     @Override
     public MyOrder toEntity() {
         MyOrder order = new MyOrder();
         order.setStatus(OrderStatusEnum.valueOf(status));
+        if (isUsed != null) {
+            order.setUsed(isUsed);
+        }
         return order;
     }
 }

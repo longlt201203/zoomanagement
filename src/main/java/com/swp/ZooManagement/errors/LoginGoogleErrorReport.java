@@ -6,6 +6,6 @@ import java.util.HashMap;
 
 public class LoginGoogleErrorReport extends ErrorReport<HashMap<String, Object>> {
     public LoginGoogleErrorReport(HashMap<String, Object> data) {
-        super("Login Google Error", data);
+        super("There is an error occurred when login with Google.", data);
     }
 }

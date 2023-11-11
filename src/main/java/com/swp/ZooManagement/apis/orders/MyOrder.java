@@ -38,8 +38,11 @@ public class MyOrder implements ResponsableEntity<MyOrderResponseDto> {
     @CreatedDate
     private Instant createdAt;
 
-    @Column(nullable = false)
-    private OrderStatusEnum status = OrderStatusEnum.PENDING;
+    @Column(nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
+    private OrderStatusEnum status;
+
+    @Column(nullable = false, columnDefinition = "BIT DEFAULT 0")
+    private boolean isUsed;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetail> details;
@@ -53,7 +56,9 @@ public class MyOrder implements ResponsableEntity<MyOrderResponseDto> {
         responseDto.setName(name);
         responseDto.setTotal(total);
         responseDto.setVisitDate(visitDate);
+        responseDto.setCreatedAt(createdAt);
         responseDto.setStatus(status);
+        responseDto.setUsed(isUsed);
 
         List<OrderDetailResponseDto> orderDetailDtoList = new ArrayList<>();
         for (OrderDetail detail : details) {

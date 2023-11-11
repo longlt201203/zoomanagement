@@ -21,8 +21,8 @@ public class MealRecord implements ResponsableEntity<MealRecordResponseDto> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private MealStatusEnum status = MealStatusEnum.NOT_FEED;
+    @Column(nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
+    private MealStatusEnum status;
 
     @CreatedDate
     @Column(updatable = false)
