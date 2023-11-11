@@ -38,7 +38,7 @@ public class PaymentService {
         vnp_Params.put("vnp_TmnCode", paymentConfig.getVnpTmnCode());
         vnp_Params.put("vnp_Amount", String.valueOf(new BigDecimal(myOrder.getTotal() * 100)));
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-        vnp_Params.put("vnp_CurrCode", "USD");
+        vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_OrderType", "other");
         vnp_Params.put("vnp_IpAddr", "127.0.0.1");
         vnp_Params.put("vnp_Locale", "vn");
