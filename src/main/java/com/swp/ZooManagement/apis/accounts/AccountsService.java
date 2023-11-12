@@ -23,10 +23,10 @@ public class AccountsService extends AbstractZooManagementService<Account, Strin
 
     @Override
     public List<Account> findAll(FilterAccountDto filterAccountDto) {
-        Account currentUser = authenticationService.getCurrentUser();
-        if (currentUser.getRole() == AccountRoleEnum.STAFF) {
-            filterAccountDto.setCreatedById(currentUser.getId());
-        }
+//        Account currentUser = authenticationService.getCurrentUser();
+//        if (currentUser.getRole() == AccountRoleEnum.STAFF) {
+//            filterAccountDto.setCreatedById(currentUser.getId());
+//        }
         return super.findAll(filterAccountDto);
     }
 

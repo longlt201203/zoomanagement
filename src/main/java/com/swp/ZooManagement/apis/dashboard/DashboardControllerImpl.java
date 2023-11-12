@@ -17,4 +17,9 @@ public class DashboardControllerImpl implements DashboardController {
     public SaleReportResult getSaleReport(GetSaleReportQueryParams params) {
         return dashboardService.getSaleReport(params);
     }
+
+    @Override
+    public TrainerStatisticsResult getTrainerStatistics() {
+        return dashboardService.getTrainerStatistics();
+    }
 }

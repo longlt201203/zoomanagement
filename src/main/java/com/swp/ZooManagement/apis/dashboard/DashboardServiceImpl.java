@@ -1,7 +1,10 @@
 package com.swp.ZooManagement.apis.dashboard;
 
+import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpeciesRepository;
+import com.swp.ZooManagement.apis.auth.AuthenticationService;
 import com.swp.ZooManagement.apis.tickets.TicketsRepository;
+import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Autowired
     private AnimalSpeciesRepository animalSpeciesRepository;
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @Autowired
     private TicketsRepository ticketsRepository;
@@ -64,6 +69,17 @@ public class DashboardServiceImpl implements DashboardService {
             }
         }
         result.setTicketDistribution(ticketsRepository.getTicketDistribution(params.getStartDate(), params.getEndDate()));
+        return result;
+    }
+
+    @Override
+    public TrainerStatisticsResult getTrainerStatistics() {
+        Account currentUser = authenticationService.getCurrentUser();
+        TrainerStatisticsResult result = new TrainerStatisticsResult();
+        if (currentUser != null && currentUser.getRole() == AccountRoleEnum.TRAINER) {
+            result.setSpeciesStatistics(dashboardRepository.getTrainerSpeciesStatistics(currentUser.getId()));
+            result.setOverallStatistics(dashboardRepository.getTrainerOverallStatistics(currentUser.getId()));
+        }
         return result;
     }
 }

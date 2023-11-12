@@ -25,7 +25,7 @@ import java.util.Map;
 public class UtilsController {
     @GetMapping("/login-page")
     public String loginPage() {
-        return "/google.html";
+        return "google.html";
     }
 
     @GetMapping("/enums")

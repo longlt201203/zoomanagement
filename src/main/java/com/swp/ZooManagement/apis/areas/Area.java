@@ -29,7 +29,7 @@ public class Area implements ResponsableEntity<AreaResponseDto> {
     @Column(columnDefinition = "NVARCHAR(60)")
     private String name;
 
-    @Column(columnDefinition = "NVARCHAR(100)")
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String location;
 
     @ManyToOne

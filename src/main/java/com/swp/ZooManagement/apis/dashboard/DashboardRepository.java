@@ -57,4 +57,28 @@ public interface DashboardRepository extends JpaRepository<MyOrder, Integer> {
             ") c\n" +
             "GROUP BY year", nativeQuery = true)
     List<GetSaleReportResult> getSalesReportByYear(@Param("startYear") int startYear, @Param("endYear") int endYear);
+
+    @Query(value = "SELECT speciesId, __a.name AS speciesName, noAnimal\n" +
+            "FROM animal_species __a\n" +
+            "JOIN (\n" +
+            "SELECT _a.species_id AS speciesId, COUNT(*) AS noAnimal\n" +
+            "FROM animal _a\n" +
+            "JOIN (\n" +
+            "SELECT id AS cageId\n" +
+            "FROM cage a\n" +
+            "WHERE a.managed_by_id = :trainerId AND _a.status <> 3\n" +
+            ") _b\n" +
+            "ON _a.cage_id = cageId\n" +
+            "GROUP BY _a.species_id\n" +
+            ") __b\n" +
+            "ON __a.id = speciesId", nativeQuery = true)
+    List<GetTrainerSpeciesStatisticsResult> getTrainerSpeciesStatistics(@Param("trainerId") String trainerId);
+
+    @Query(value = "SELECT\n" +
+            "(SELECT COUNT(*) FROM animal JOIN cage ON animal.cage_id = cage.id WHERE animal.status = 0 AND cage.managed_by_id = :trainerId) AS totalAnimalHealthy,\n" +
+            "(SELECT COUNT(*) FROM animal JOIN cage ON animal.cage_id = cage.id WHERE animal.status = 1 AND cage.managed_by_id = :trainerId) AS totalAnimalSick,\n" +
+            "(SELECT COUNT(*) FROM animal JOIN cage ON animal.cage_id = cage.id WHERE animal.status = 2 AND cage.managed_by_id = :trainerId) AS totalAnimalInDanger,\n" +
+            "(SELECT COUNT(*) FROM animal JOIN cage ON animal.cage_id = cage.id WHERE animal.status <> 3 AND cage.managed_by_id = :trainerId) AS totalAnimal,\n" +
+            "(SELECT COUNT(*) FROM cage WHERE cage.managed_by_id = :trainerId) AS totalCage", nativeQuery = true)
+    GetTrainerOverallStatisticsResult getTrainerOverallStatistics(@Param("trainerId") String trainerId);
 }

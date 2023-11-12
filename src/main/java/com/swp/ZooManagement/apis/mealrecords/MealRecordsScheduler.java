@@ -22,7 +22,7 @@ public class MealRecordsScheduler {
     @Autowired
     private CagesRepository cagesRepository;
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void createDailyMeal() {
         List<CageMeal> cageMeals = cageMealsRepository.findAll();
         List<MealRecord> mealRecords = new ArrayList<>();
@@ -32,5 +32,6 @@ public class MealRecordsScheduler {
             mealRecords.add(mealRecord);
         }
         mealRecordsRepository.saveAll(mealRecords);
+        System.out.println("Hello from Scheduling!");
     }
 }

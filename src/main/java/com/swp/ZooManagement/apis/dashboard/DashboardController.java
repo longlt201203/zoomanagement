@@ -10,4 +10,7 @@ public interface DashboardController {
 
     @GetMapping("/sale-report")
     SaleReportResult getSaleReport(GetSaleReportQueryParams params);
+
+    @GetMapping("/trainer-statistics")
+    TrainerStatisticsResult getTrainerStatistics();
 }
