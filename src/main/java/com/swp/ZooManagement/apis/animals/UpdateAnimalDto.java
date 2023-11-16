@@ -7,9 +7,7 @@ import com.swp.ZooManagement.utils.DateValidate;
 import com.swp.ZooManagement.utils.IsEnum;
 import com.swp.ZooManagement.utils.enums.AnimalGenderEnum;
 import com.swp.ZooManagement.utils.enums.AnimalStatusEnum;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.Instant;
@@ -34,7 +32,9 @@ public class UpdateAnimalDto implements DtoBase<Animal> {
     @IsEnum(enumClass = AnimalStatusEnum.class)
     private String status;
 
-    @Size(max = 255, message = "Description cannot be more than 255 characters!")
+    @NotNull(message = "Description cannot be blank")
+    @NotBlank(message = "Description cannot be blank")
+    @Size(max = 1000, message = "Description cannot be more than 1000 characters!")
     private String description;
 
     @Size(max = 255, message = "Note cannot be more than 255 characters!")
@@ -43,11 +43,25 @@ public class UpdateAnimalDto implements DtoBase<Animal> {
     @NotNull(message= "Animal Species field can not be null")
     private Integer speciesId;
 
-    @NotNull(message = "cage field cannot be null")
     private Integer cageId;
 
     @NotNull(message = "Image list cannot be null")
     private List<String> imageList;
+
+    @NotNull(message = "Weight cannot be null")
+    @DecimalMin(value = "0.0", message = "Weight must be between 0 and 10000")
+    @DecimalMax(value = "10000.0", message = "Weight must be between 0 and 10000")
+    private Double weight;
+
+    @NotNull(message = "Height cannot be null")
+    @DecimalMin(value = "0.0", message = "Height must be between 0 and 10")
+    @DecimalMax(value = "10.0", message = "Height must be between 0 and 10")
+    private Double height;
+
+    @NotNull(message = "Length cannot be null")
+    @DecimalMin(value = "0.0", message = "Length must be between 0 and 50")
+    @DecimalMax(value = "50.0", message = "Length must be between 0 and 50")
+    private Double length;
 
     @Override
     public Animal toEntity() {
@@ -64,11 +78,16 @@ public class UpdateAnimalDto implements DtoBase<Animal> {
         animalSpecies.setId(speciesId);
         animal.setSpecies(animalSpecies);
 
-        Cage cage = new Cage();
-        cage.setId(cageId);
-        animal.setCage(cage);
+        if (cageId != null) {
+            Cage cage = new Cage();
+            cage.setId(cageId);
+            animal.setCage(cage);
+        }
 
         animal.setImageList(String.join(";", imageList));
+        animal.setWeight(weight);
+        animal.setHeight(height);
+        animal.setLength(length);
 
         return animal;
     }

@@ -8,25 +8,19 @@ import com.swp.ZooManagement.utils.enums.AccountRoleEnum;
 import java.beans.ConstructorProperties;
 
 public class FilterCageDto extends FilterDtoBase<Cage> {
-    protected Integer speciesId;
     protected String accountId;
 
     public void setAccountId(String id) {
         accountId = id;
     }
 
-    @ConstructorProperties({ "page", "perPage", "speciesId" })
-    public FilterCageDto(Integer page, Integer perPage, Integer speciesId) {
+    public FilterCageDto(Integer page, Integer perPage) {
         super(page, perPage);
-        this.speciesId = speciesId;
     }
 
     @Override
     public Cage toEntity() {
         Cage cage = new Cage();
-        AnimalSpecies animalSpecies = new AnimalSpecies();
-        animalSpecies.setId(speciesId);
-        cage.setAnimalSpecies(animalSpecies);
         if (accountId != null) {
             Account manager = new Account();
             manager.setId(accountId);

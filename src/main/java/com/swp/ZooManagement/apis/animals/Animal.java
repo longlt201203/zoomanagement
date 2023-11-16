@@ -40,7 +40,7 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
     @Column
     private AnimalStatusEnum status;
 
-    @Column(columnDefinition = "NVARCHAR(1000)")
+    @Column(nullable = false, columnDefinition = "NVARCHAR(1000)")
     private String description;
 
     @Column(columnDefinition = "NVARCHAR(1000)")
@@ -52,7 +52,19 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
     @ManyToOne(optional = false)
     private AnimalSpecies species;
 
-    @ManyToOne(optional = false)
+    @Column(nullable = false)
+    private Double weight;
+
+    @Column(nullable = false)
+    private Double height;
+
+    @Column(nullable = false)
+    private Double length;
+
+    @Column(columnDefinition = "NVARCHAR(1000)")
+    private String feedingGuide;
+
+    @ManyToOne
     private Cage cage;
 
     @ManyToOne
@@ -84,7 +96,9 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
         responseDto.setNote(note);
         responseDto.setImageList(imageList.isEmpty() ? List.of() : List.of(imageList.split(";")));
         responseDto.setSpecies(species.toResponseDto());
-        responseDto.setCage(cage.toResponseDto());
+        if (cage != null) {
+            responseDto.setCage(cage.toResponseDto());
+        }
         responseDto.setCreatedAt(createdAt);
         responseDto.setUpdatedAt(updatedAt);
         if (createdBy != null) {
