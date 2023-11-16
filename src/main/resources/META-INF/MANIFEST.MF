@@ -1,0 +1,46 @@
+Manifest-Version: 1.0
+Main-Class: com.swp.ZooManagement.ZooManagementApplication
+Class-Path: spring-boot-starter-mail-3.1.4.jar listenablefuture-9999.0-e
+ mpty-to-avoid-conflict-with-guava.jar spring-boot-starter-thymeleaf-3.1
+ .4.jar guava-31.1-jre.jar java-jwt-4.4.0.jar grpc-context-1.27.2.jar ja
+ karta.activation-api-2.1.2.jar jboss-logging-3.5.3.Final.jar spring-boo
+ t-starter-data-jpa-3.1.4.jar tomcat-embed-websocket-10.1.13.jar thymele
+ af-spring6-3.1.2.RELEASE.jar spring-aspects-6.0.12.jar jaxb-runtime-4.0
+ .3.jar spring-data-jpa-3.1.4.jar istack-commons-runtime-4.1.2.jar attop
+ arser-2.0.7.RELEASE.jar opencensus-contrib-http-util-0.31.1.jar unbesca
+ pe-1.1.6.RELEASE.jar spring-security-core-6.1.4.jar log4j-api-2.20.0.ja
+ r spring-orm-6.0.12.jar checker-qual-3.12.0.jar jul-to-slf4j-2.0.9.jar 
+ core-3.4.0.jar tomcat-embed-core-10.1.13.jar opencensus-api-0.31.1.jar 
+ slf4j-api-2.0.9.jar spring-security-web-6.1.4.jar commons-logging-1.2.j
+ ar spring-boot-starter-json-3.1.4.jar httpclient-4.5.14.jar spring-boot
+ -starter-jdbc-3.1.4.jar hibernate-commons-annotations-6.0.6.Final.jar j
+ akarta.mail-1.1.0.jar j2objc-annotations-1.3.jar jakarta.persistence-ap
+ i-3.1.0.jar spring-security-crypto-6.1.4.jar jcommander-1.72.jar google
+ -http-client-apache-v2-1.42.3.jar jackson-annotations-2.15.2.jar byte-b
+ uddy-1.14.8.jar lombok-1.18.30.jar mssql-jdbc-11.2.3.jre17.jar spring-b
+ oot-starter-web-3.1.4.jar HikariCP-5.0.1.jar spring-jcl-6.0.12.jar jaka
+ rta.validation-api-3.0.2.jar logback-classic-1.4.11.jar spring-boot-sta
+ rter-security-3.1.4.jar spring-boot-starter-logging-3.1.4.jar jai-image
+ io-core-1.4.0.jar spring-jdbc-6.0.12.jar micrometer-observation-1.11.4.
+ jar jackson-datatype-jsr310-2.15.2.jar aspectjweaver-1.9.20.jar logback
+ -core-1.4.11.jar spring-boot-starter-aop-3.1.4.jar commons-codec-1.15.j
+ ar google-oauth-client-1.34.1.jar jakarta.annotation-api-2.1.1.jar jack
+ son-module-parameter-names-2.15.2.jar hibernate-validator-8.0.1.Final.j
+ ar jakarta.inject-api-2.0.1.jar hibernate-core-6.2.9.Final.jar spring-b
+ oot-starter-tomcat-3.1.4.jar jsr305-3.0.2.jar spring-web-6.0.12.jar jan
+ dex-3.0.5.jar spring-boot-3.1.4.jar spring-expression-6.0.12.jar thymel
+ eaf-3.1.2.RELEASE.jar antlr4-runtime-4.10.1.jar failureaccess-1.0.1.jar
+  spring-context-support-6.0.12.jar jackson-core-2.15.2.jar jackson-data
+ type-jdk8-2.15.2.jar gson-2.10.1.jar javase-3.4.0.jar txw2-4.0.3.jar go
+ ogle-api-client-2.2.0.jar snakeyaml-1.33.jar spring-context-6.0.12.jar 
+ jakarta.xml.bind-api-4.0.1.jar google-http-client-1.42.3.jar spring-web
+ mvc-6.0.12.jar spring-aop-6.0.12.jar spring-tx-6.0.12.jar log4j-to-slf4
+ j-2.20.0.jar spring-data-commons-3.1.4.jar spring-boot-autoconfigure-3.
+ 1.4.jar spring-core-6.0.12.jar error_prone_annotations-2.11.0.jar googl
+ e-http-client-gson-1.42.3.jar httpcore-4.4.16.jar spring-boot-starter-v
+ alidation-3.1.4.jar jackson-databind-2.15.2.jar spring-security-config-
+ 6.1.4.jar jaxb-core-4.0.3.jar classmate-1.5.1.jar tomcat-embed-el-10.1.
+ 13.jar angus-activation-2.0.1.jar jakarta.transaction-api-2.0.1.jar mic
+ rometer-commons-1.11.4.jar spring-boot-starter-3.1.4.jar spring-beans-6
+ .0.12.jar
+
