@@ -3,11 +3,8 @@ package com.swp.ZooManagement.apis.cages;
 import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.animals.Animal;
 import com.swp.ZooManagement.apis.animals.AnimalResponseDto;
-import com.swp.ZooManagement.apis.animalspecies.AnimalSpecies;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpeciesResponseDto;
 import com.swp.ZooManagement.apis.areas.Area;
-import com.swp.ZooManagement.apis.cagemeals.CageMeal;
-import com.swp.ZooManagement.apis.cagemeals.CageMealResponseDto;
 import com.swp.ZooManagement.core.ResponsableEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -48,9 +45,6 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
     private Account createdBy;
 
     @OneToMany(mappedBy = "cage")
-    private List<CageMeal> cageMeals;
-
-    @OneToMany(mappedBy = "cage")
     private List<Animal> animals;
 
     @Override
@@ -88,13 +82,6 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
             }
         }
         responseDto.setAnimals(animalResponseDtoList);
-        List<CageMealResponseDto> cageMealResponseDtoList = new ArrayList<>();
-        if (cageMeals != null) {
-            for (CageMeal cageMeal : cageMeals) {
-                cageMealResponseDtoList.add(cageMeal.toResponseDto());
-            }
-        }
-        responseDto.setCageMeals(cageMealResponseDtoList);
         responseDto.setName(name);
         responseDto.setCapacity(capacity);
         return responseDto;
