@@ -85,7 +85,7 @@ public class AnimalsService extends AbstractZooManagementService<Animal, Integer
                 errors.add(new ValidationError("cageId", newEntity.getCage().getId(), "Cage not found"));
             } else {
                 Cage cage = findCageResult.get();
-                if (!oldEntity.getCage().getId().equals(cage.getId()) && cage.getAnimals().size()+1 > cage.getCapacity()) {
+                if (oldEntity.getCage().getId() != null && !oldEntity.getCage().getId().equals(cage.getId()) && cage.getAnimals().size()+1 > cage.getCapacity()) {
                     errors.add(new ValidationError("cageId", newEntity.getCage().getId(), "Cage's max capacity is " + cage.getCapacity()));
                 } else {
                     newEntity.setCage(findCageResult.get());
@@ -107,6 +107,10 @@ public class AnimalsService extends AbstractZooManagementService<Animal, Integer
         oldEntity.setImageList(newEntity.getImageList());
         oldEntity.setSpecies(newEntity.getSpecies());
         oldEntity.setCage(newEntity.getCage());
+        oldEntity.setWeight(newEntity.getWeight());
+        oldEntity.setHeight(newEntity.getHeight());
+        oldEntity.setLength(newEntity.getLength());
+        oldEntity.setFeedingGuide(newEntity.getFeedingGuide());
     }
 
     @Override
