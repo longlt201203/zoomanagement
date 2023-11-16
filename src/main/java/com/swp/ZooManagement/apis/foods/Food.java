@@ -21,7 +21,7 @@ public class Food implements ResponsableEntity<FoodResponseDto> {
     @Column(nullable = false, columnDefinition = "NVARCHAR(30)")
     private String unit;
 
-    @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String description;
 
     @Override

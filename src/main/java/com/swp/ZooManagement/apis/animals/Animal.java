@@ -107,6 +107,10 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
         if (updatedBy != null) {
             responseDto.setUpdatedBy(updatedBy.toCreatorDto());
         }
+        responseDto.setWeight(weight);
+        responseDto.setHeight(height);
+        responseDto.setLength(length);
+        responseDto.setFeedingGuide(feedingGuide);
         return responseDto;
     }
 }

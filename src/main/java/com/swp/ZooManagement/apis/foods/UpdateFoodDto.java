@@ -23,9 +23,7 @@ public class UpdateFoodDto implements DtoBase<Food> {
     @Size(min = 1, max = 30, message = "Unit length must be between 1 and 30 characters")
     private String unit;
 
-    @NotNull(message = "Description cannot be blank")
-    @NotBlank(message = "Description cannot be blank")
-    @Size(min = 1, max = 255, message = "Unit length must be between 1 and 255 characters")
+    @Size(max = 255, message = "Unit length must be between 1 and 255 characters")
     private String description;
 
     @Override

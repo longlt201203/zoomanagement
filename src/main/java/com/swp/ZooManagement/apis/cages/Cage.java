@@ -4,6 +4,7 @@ import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.animals.Animal;
 import com.swp.ZooManagement.apis.animals.AnimalResponseDto;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpecies;
+import com.swp.ZooManagement.apis.animalspecies.AnimalSpeciesResponseDto;
 import com.swp.ZooManagement.apis.areas.Area;
 import com.swp.ZooManagement.apis.cagemeals.CageMeal;
 import com.swp.ZooManagement.apis.cagemeals.CageMealResponseDto;
@@ -80,6 +81,9 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
                 animalResponseDto.setImageList(animal.getImageList().isEmpty() ? List.of() : List.of(animal.getImageList().split(";")));
                 animalResponseDto.setCreatedAt(animal.getCreatedAt());
                 animalResponseDto.setUpdatedAt(animal.getUpdatedAt());
+                AnimalSpeciesResponseDto animalSpeciesResponseDto = new AnimalSpeciesResponseDto();
+                animalSpeciesResponseDto.setId(animal.getSpecies().getId());
+                animalResponseDto.setName(animal.getSpecies().getName());
                 animalResponseDtoList.add(animalResponseDto);
             }
         }
@@ -91,6 +95,8 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
             }
         }
         responseDto.setCageMeals(cageMealResponseDtoList);
+        responseDto.setName(name);
+        responseDto.setCapacity(capacity);
         return responseDto;
     }
 }
