@@ -11,7 +11,8 @@ public class MealDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn
     private Meal meal;
 
     @ManyToOne(optional = false)

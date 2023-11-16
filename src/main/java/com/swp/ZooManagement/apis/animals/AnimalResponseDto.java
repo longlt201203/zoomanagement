@@ -3,6 +3,7 @@ package com.swp.ZooManagement.apis.animals;
 import com.swp.ZooManagement.apis.accounts.AccountCreatorDto;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpeciesResponseDto;
 import com.swp.ZooManagement.apis.cages.CageResponseDto;
+import com.swp.ZooManagement.apis.meals.MealResponseDto;
 import com.swp.ZooManagement.utils.enums.AnimalGenderEnum;
 import com.swp.ZooManagement.utils.enums.AnimalStatusEnum;
 import lombok.Data;
@@ -31,4 +32,5 @@ public class AnimalResponseDto {
     private Double height;
     private Double length;
     private String feedingGuide;
+    private List<MealResponseDto> meals;
 }

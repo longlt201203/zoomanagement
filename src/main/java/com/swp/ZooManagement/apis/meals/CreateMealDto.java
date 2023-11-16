@@ -38,6 +38,7 @@ public class CreateMealDto implements DtoBase<Meal> {
             food.setId(createMealDto.getFoodId());
             detail.setFood(food);
             detail.setAmount(createMealDto.getAmount());
+            detail.setMeal(meal);
             mealDetails.add(detail);
         }
         meal.setDetails(mealDetails);

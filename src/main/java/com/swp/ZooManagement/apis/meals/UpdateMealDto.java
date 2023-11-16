@@ -13,9 +13,6 @@ import java.util.List;
 
 @Data
 public class UpdateMealDto implements DtoBase<Meal> {
-    @NotNull(message = "Animal is required")
-    private Integer animalId;
-
     @NotNull(message = "Time is  required")
     private Instant time;
 
@@ -26,9 +23,6 @@ public class UpdateMealDto implements DtoBase<Meal> {
     @Override
     public Meal toEntity() {
         Meal meal = new Meal();
-        Animal animal = new Animal();
-        animal.setId(animalId);
-        meal.setAnimal(animal);
         meal.setTime(time);
 
         List<MealDetail> mealDetails = new ArrayList<>();

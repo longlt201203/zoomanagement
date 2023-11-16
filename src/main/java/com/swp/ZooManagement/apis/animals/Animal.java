@@ -3,6 +3,8 @@ package com.swp.ZooManagement.apis.animals;
 import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpecies;
 import com.swp.ZooManagement.apis.cages.Cage;
+import com.swp.ZooManagement.apis.meals.Meal;
+import com.swp.ZooManagement.apis.meals.MealResponseDto;
 import com.swp.ZooManagement.core.ResponsableEntity;
 import com.swp.ZooManagement.utils.enums.AnimalGenderEnum;
 import com.swp.ZooManagement.utils.enums.AnimalStatusEnum;
@@ -15,6 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -83,6 +86,9 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
     @LastModifiedDate
     private Instant updatedAt;
 
+    @OneToMany(mappedBy = "animal")
+    private List<Meal> meals;
+
     @Override
     public AnimalResponseDto toResponseDto() {
         AnimalResponseDto responseDto = new AnimalResponseDto();
@@ -111,6 +117,12 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
         responseDto.setHeight(height);
         responseDto.setLength(length);
         responseDto.setFeedingGuide(feedingGuide);
+
+        List<MealResponseDto> mealResponseDtoList = new ArrayList<>();
+        for (Meal meal : meals) {
+            mealResponseDtoList.add(meal.toResponseDto());
+        }
+        responseDto.setMeals(mealResponseDtoList);
         return responseDto;
     }
 }
