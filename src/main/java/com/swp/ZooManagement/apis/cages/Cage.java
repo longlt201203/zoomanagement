@@ -27,14 +27,17 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
     @Column(nullable = false, unique = true)
     private String code;
 
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false, columnDefinition = "INT DEFAULT 10")
+    private Integer capacity;
+
     @Column(columnDefinition = "NVARCHAR(1000)")
     private String description;
 
     @ManyToOne
     private Area area;
-
-    @ManyToOne
-    private AnimalSpecies animalSpecies;
 
     @ManyToOne
     private Account managedBy;
@@ -56,7 +59,6 @@ public class Cage implements ResponsableEntity<CageResponseDto> {
         responseDto.setCode(code);
         responseDto.setDescription(description);
         responseDto.setArea(area.toResponseDto());
-        responseDto.setAnimalSpecies(animalSpecies.toResponseDto());
         if (managedBy != null) {
             responseDto.setManagedBy(managedBy.toCreatorDto());
         }

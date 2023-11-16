@@ -13,9 +13,10 @@ import java.util.List;
 public class CageResponseDto {
     private Integer id;
     private String code;
+    private String name;
+    private Integer capacity;
     private String description;
     private AreaResponseDto area;
-    private AnimalSpeciesResponseDto animalSpecies;
     private AccountCreatorDto managedBy;
     private AccountCreatorDto createdBy;
     private List<AnimalResponseDto> animals;

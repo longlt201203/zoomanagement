@@ -57,12 +57,6 @@ public class CagesService extends AbstractZooManagementService<Cage, Integer, Cr
             errors.add(new ValidationError("areaId", entity.getArea().getId(), "Area does not existed"));
         }
 
-        // Check animal species
-        Optional<AnimalSpecies> findAnimalSpeciesResult = animalSpeciesRepository.findById(entity.getAnimalSpecies().getId());
-        if (!findAnimalSpeciesResult.isPresent()) {
-            errors.add(new ValidationError("animalSpeciesId", entity.getAnimalSpecies().getId(), "Animal Species does not existed"));
-        }
-
         // Check manager
         if (entity.getManagedBy() != null) {
             Optional<Account> findAccountResult = accountsRepository.findById(entity.getManagedBy().getId());
@@ -78,7 +72,6 @@ public class CagesService extends AbstractZooManagementService<Cage, Integer, Cr
         }
 
         entity.setArea(findAreaResult.get());
-        entity.setAnimalSpecies(findAnimalSpeciesResult.get());
     }
 
     @Override
@@ -99,12 +92,6 @@ public class CagesService extends AbstractZooManagementService<Cage, Integer, Cr
             errors.add(new ValidationError("areaId", newEntity.getArea().getId(), "Area does not existed"));
         }
 
-        // Check animal species
-        Optional<AnimalSpecies> findAnimalSpeciesResult = animalSpeciesRepository.findById(newEntity.getAnimalSpecies().getId());
-        if (findAnimalSpeciesResult.isEmpty()) {
-            errors.add(new ValidationError("animalSpeciesId", newEntity.getAnimalSpecies().getId(), "Animal Species does not existed"));
-        }
-
         // Check manager
         if (newEntity.getManagedBy() != null) {
             Optional<Account> findAccountResult = accountsRepository.findById(newEntity.getManagedBy().getId());
@@ -123,8 +110,9 @@ public class CagesService extends AbstractZooManagementService<Cage, Integer, Cr
 
         oldEntity.setCode(newEntity.getCode());
         oldEntity.setArea(findAreaResult.get());
-        oldEntity.setAnimalSpecies(findAnimalSpeciesResult.get());
         oldEntity.setDescription(newEntity.getDescription());
+        oldEntity.setName(newEntity.getName());
+        oldEntity.setCapacity(newEntity.getCapacity());
     }
 
     @Override

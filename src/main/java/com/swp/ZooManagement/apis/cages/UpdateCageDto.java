@@ -17,13 +17,19 @@ public class UpdateCageDto implements DtoBase<Cage> {
     @Pattern(regexp = "^[A-Za-z][0-9]{4}$", message = "Cage code must have format: Area Code + 4-digits number. Example: A0001, B0012")
     private String code;
 
+    @NotNull(message = "Name cannot be blank")
+    @NotBlank(message = "Name cannot be blank")
+    @Size(min = 10, max = 255, message = "Name length must be between 5 and 255 characters")
+    private String name;
+
+    @Size(min = 1, max = 30, message = "Capacity of a cage must be between 1 and 30")
+    private Integer capacity;
+
     private String description;
 
     @NotNull(message= "Area field can not be empty")
     private Integer areaId;
 
-    @NotNull(message= "Animal Species field can not be empty")
-    private Integer animalSpeciesId;
     private String managedById;
 
     @Override
@@ -34,9 +40,6 @@ public class UpdateCageDto implements DtoBase<Cage> {
         Area area = new Area();
         area.setId(areaId);
         cage.setArea(area);
-        AnimalSpecies animalSpecies = new AnimalSpecies();
-        animalSpecies.setId(animalSpeciesId);
-        cage.setAnimalSpecies(animalSpecies);
         if (managedById != null) {
             Account account = new Account();
             account.setId(managedById);

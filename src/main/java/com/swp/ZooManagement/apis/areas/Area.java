@@ -56,10 +56,6 @@ public class Area implements ResponsableEntity<AreaResponseDto> {
                 cageResponseDto.setId(cage.getId());
                 cageResponseDto.setCode(cage.getCode());
                 cageResponseDto.setDescription(cage.getDescription());
-                AnimalSpeciesResponseDto animalSpeciesResponseDto = new AnimalSpeciesResponseDto();
-                animalSpeciesResponseDto.setId(cage.getAnimalSpecies().getId());
-                animalSpeciesResponseDto.setName(cage.getAnimalSpecies().getName());
-                cageResponseDto.setAnimalSpecies(animalSpeciesResponseDto);
                 List<AnimalResponseDto> animalResponseDtoList = new ArrayList<>();
                 if (cage.getAnimals() != null) {
                     for (Animal animal : cage.getAnimals()) {

@@ -49,11 +49,18 @@ public class AnimalsService extends AbstractZooManagementService<Animal, Integer
             entity.setSpecies(findAnimalSpeciesResult.get());
         }
 
-        Optional<Cage> findCageResult = cagesRepository.findById(entity.getCage().getId());
-        if (findCageResult.isEmpty()) {
-            errors.add(new ValidationError("cageId", entity.getCage().getId(), "Cage not found"));
-        } else {
-            entity.setCage(findCageResult.get());
+        if (entity.getCage() != null) {
+            Optional<Cage> findCageResult = cagesRepository.findById(entity.getCage().getId());
+            if (findCageResult.isEmpty()) {
+                errors.add(new ValidationError("cageId", entity.getCage().getId(), "Cage not found"));
+            } else {
+                Cage cage = findCageResult.get();
+                if (cage.getAnimals().size()+1 > cage.getCapacity()) {
+                    errors.add(new ValidationError("cageId", entity.getCage().getId(), "Cage's max capacity is " + cage.getCapacity()));
+                } else {
+                    entity.setCage(findCageResult.get());
+                }
+            }
         }
 
         if (!errors.isEmpty()) {
@@ -72,11 +79,18 @@ public class AnimalsService extends AbstractZooManagementService<Animal, Integer
             newEntity.setSpecies(findAnimalSpeciesResult.get());
         }
 
-        Optional<Cage> findCageResult = cagesRepository.findById(newEntity.getCage().getId());
-        if (findCageResult.isEmpty()) {
-            errors.add(new ValidationError("cageId", newEntity.getCage().getId(), "Cage not found"));
-        } else {
-            newEntity.setCage(findCageResult.get());
+        if (newEntity.getCage() != null) {
+            Optional<Cage> findCageResult = cagesRepository.findById(newEntity.getCage().getId());
+            if (findCageResult.isEmpty()) {
+                errors.add(new ValidationError("cageId", newEntity.getCage().getId(), "Cage not found"));
+            } else {
+                Cage cage = findCageResult.get();
+                if (!oldEntity.getCage().getId().equals(cage.getId()) && cage.getAnimals().size()+1 > cage.getCapacity()) {
+                    errors.add(new ValidationError("cageId", newEntity.getCage().getId(), "Cage's max capacity is " + cage.getCapacity()));
+                } else {
+                    newEntity.setCage(findCageResult.get());
+                }
+            }
         }
 
         if (!errors.isEmpty()) {
