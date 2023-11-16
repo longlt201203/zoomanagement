@@ -15,17 +15,17 @@ public class CreateFoodDto implements DtoBase<Food> {
 
     @NotNull(message = "Name cannot be blank")
     @NotBlank(message = "Name cannot be blank")
-    @Size(min = 3, max = 60, message = "Name length must be between 3 and 60 characters")
+    @Size(min = 1, max = 60, message = "Name length must be between 1 and 60 characters")
     private String name;
 
     @NotNull(message = "Unit cannot be blank")
     @NotBlank(message = "Unit cannot be blank")
-    @Size(min = 3, max = 30, message = "Unit length must be between 3 and 30 characters")
+    @Size(min = 1, max = 30, message = "Unit length must be between 1 and 30 characters")
     private String unit;
 
     @NotNull(message = "Description cannot be blank")
     @NotBlank(message = "Description cannot be blank")
-    @Size(min = 3, max = 255, message = "Unit length must be between 3 and 255 characters")
+    @Size(min = 1, max = 255, message = "Unit length must be between 1 and 255 characters")
     private String description;
 
     @Override
