@@ -63,6 +63,9 @@ public class UpdateAnimalDto implements DtoBase<Animal> {
     @DecimalMax(value = "50.0", message = "Length must be between 0 and 50")
     private Double length;
 
+    @Size(max = 255, message = "Feeding Guide max length is 1000 characters")
+    private String feedingGuide;
+
     @Override
     public Animal toEntity() {
         Animal animal = new Animal();

@@ -4,10 +4,7 @@ import com.swp.ZooManagement.apis.accounts.Account;
 import com.swp.ZooManagement.apis.animalspecies.AnimalSpecies;
 import com.swp.ZooManagement.apis.areas.Area;
 import com.swp.ZooManagement.core.DtoBase;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
@@ -22,7 +19,9 @@ public class UpdateCageDto implements DtoBase<Cage> {
     @Size(min = 10, max = 255, message = "Name length must be between 5 and 255 characters")
     private String name;
 
-    @Size(min = 1, max = 30, message = "Capacity of a cage must be between 1 and 30")
+    @NotNull(message = "Capacity cannot be null")
+    @Min(value = 1, message = "Capacity of a cage must be between 1 and 30")
+    @Max(value = 30, message = "Capacity of a cage must be between 1 and 30")
     private Integer capacity;
 
     private String description;
@@ -45,6 +44,8 @@ public class UpdateCageDto implements DtoBase<Cage> {
             account.setId(managedById);
             cage.setManagedBy(account);
         }
+        cage.setName(name);
+        cage.setCapacity(capacity);
         return cage;
     }
 }

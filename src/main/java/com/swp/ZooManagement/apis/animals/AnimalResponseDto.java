@@ -27,4 +27,8 @@ public class AnimalResponseDto {
     private Instant createdAt;
     private AccountCreatorDto updatedBy;
     private Instant updatedAt;
+    private Double weight;
+    private Double height;
+    private Double length;
+    private String feedingGuide;
 }
