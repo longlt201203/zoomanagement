@@ -2,6 +2,7 @@ package com.swp.ZooManagement.apis.meals;
 
 import com.swp.ZooManagement.apis.animals.Animal;
 import com.swp.ZooManagement.apis.foods.Food;
+import com.swp.ZooManagement.apis.mealrecords.MealRecord;
 import com.swp.ZooManagement.core.ResponsableEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,6 +26,9 @@ public class Meal implements ResponsableEntity<MealResponseDto> {
 
     @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<MealDetail> details;
+
+    @OneToMany(mappedBy = "meal")
+    private List<MealRecord> records;
 
     @Override
     public MealResponseDto toResponseDto() {
