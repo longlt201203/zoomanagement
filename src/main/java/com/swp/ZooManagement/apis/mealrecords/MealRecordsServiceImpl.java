@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +26,7 @@ public class MealRecordsServiceImpl implements MealRecordsService {
     private MealRecordsRepository mealRecordsRepository;
 
     @Override
-    @Scheduled(cron = "0 1 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void generateMealRecords() {
         List<Meal> meals = mealsRepository.findAll();
         List<MealRecord> mealRecords = new ArrayList<>();
@@ -30,6 +34,7 @@ public class MealRecordsServiceImpl implements MealRecordsService {
             MealRecord mealRecord = new MealRecord();
             mealRecord.setMeal(meal);
             mealRecord.setStatus(MealStatusEnum.NOT_FEED);
+            mealRecord.setCreatedAt(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
             mealRecords.add(mealRecord);
         }
         mealRecordsRepository.saveAll(mealRecords);

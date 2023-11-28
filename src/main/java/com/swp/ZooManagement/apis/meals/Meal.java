@@ -27,7 +27,7 @@ public class Meal implements ResponsableEntity<MealResponseDto> {
     @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<MealDetail> details;
 
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL)
     private List<MealRecord> records;
 
     @Override

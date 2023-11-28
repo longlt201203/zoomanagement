@@ -119,10 +119,13 @@ public class Animal implements ResponsableEntity<AnimalResponseDto> {
         responseDto.setFeedingGuide(feedingGuide);
 
         List<MealResponseDto> mealResponseDtoList = new ArrayList<>();
-        for (Meal meal : meals) {
-            mealResponseDtoList.add(meal.toResponseDto());
+        if (meals != null) {
+            for (Meal meal : meals) {
+                mealResponseDtoList.add(meal.toResponseDto());
+            }
         }
         responseDto.setMeals(mealResponseDtoList);
+
         return responseDto;
     }
 }
